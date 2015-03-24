@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Measuring Objective-C Test Coverage with XcodeCoverage, xctool, and Make
+title: Measuring Coverage with XcodeCoverage, xctool, & Make
 tags:
 - objective-c
 - xcode
@@ -12,27 +12,27 @@ tags:
 - testing
 ---
 
-# The Pieces
+## The Pieces
 
-## XcodeCoverage
+### XcodeCoverage
 
 The XodeCoverage [project](https://github.com/jonreid/XcodeCoverage) is a set of shell scripts bundled with `lcov` to measure lines of code coverage during execution of instrumented test builds.
 
 In this example, the scripts are used to generate an HTML coverage report (with a few modifications made in [my fork](https://github.com/jacebrowning/XcodeCoverage/releases/tag/blog-2015-03-23) to customize report location).
 
-## xctool
+### xctool
 
 [Facebook](https://github.com/facebook/xctool) created the `xctool` command-line program to provide an easier way to build and test Xcode projects.
 
 In this example, the tool is used to build and run Objective-C unit tests from the command line.
 
-## Make
+### Make
 
 [Make](https://www.gnu.org/software/make/) is usually my default entry point for creating builds, running tests, and generating reports. I like putting this sort of automation in a `Makefile` because, for basic tasks, the syntax is fairly minimal and `make` is ubiquitous on most platforms.
 
-# Putting Them Together
+## Putting Them Together
 
-## The Makefile
+### The Makefile
 
 First, we define few shared variables that can be common to all projects:
 
@@ -105,7 +105,7 @@ read-cov: $(COVERAGE_INDEX)
 $(COVERAGE_INDEX): $(COVERAGE_LOG)
 ```
 
-## Example Output
+### Example Output
 
 Running `$ make test` displays something like:
 
