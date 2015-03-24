@@ -14,7 +14,7 @@ My professional profiles:
 The projects I work on:
 
 * [github.com](https://github.com/jacebrowning)
-* [last.fm](http://www.last.fm/music/Jace+Browning)
+* [last.fm](http://www.last.fm/music/Jace+Browning/+albums)
 
 Some talks I've given:
 
