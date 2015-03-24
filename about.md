@@ -26,7 +26,7 @@ Groups I help lead:
 * [GRPUG](http://www.meetup.com/grpython/)
 * [GamdevGR](http://www.meetup.com/GamedevGR/)
 
-My social live:
+My social life:
 
 * [twitter.com](https://twitter.com/jacebrowning)
 * [plus.google.com](https://plus.google.com/+JaceBrowning/posts)
