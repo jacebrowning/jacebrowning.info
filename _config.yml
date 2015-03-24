@@ -3,8 +3,8 @@ markdown:         redcarpet
 highlighter:      pygments
 
 # Permalinks
-permalink:        pretty
-relative_permalinks: true
+permalink:              pretty
+relative_permalinks:    true
 
 # Setup
 title:            Jace Browning
@@ -13,6 +13,7 @@ description:      'I build, customize, integrate, and teach engineering software
 url:              http://jacebrowning.info
 baseurl:          /
 downloads:        /downloads
+assets:           /assets
 
 author:
   name:           'Jace Browning'
