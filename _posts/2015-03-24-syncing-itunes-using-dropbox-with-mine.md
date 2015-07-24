@@ -34,7 +34,13 @@ Additional configuration instructions are found in the project's [README](https:
 
 ## Using Mine to Manage Remote Applications
 
-Once installed and configured, applications can be killed remotely and started on the current computer via:
+Once installed and configured, let it run in the background on each computer:
+
+```
+$ mine --daemon
+```
+
+Applications can be killed remotely and started on the current computer:
 
 ```
 $ mine switch
@@ -47,6 +53,8 @@ $ mine switch <name>
 ```
 
 where `<name>` is part of the name of another computer with `mine` running.
+
+To leave `mine` running in the background:
 
 -----
 
