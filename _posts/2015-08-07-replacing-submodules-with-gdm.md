@@ -9,7 +9,7 @@ tags:
 - python
 ---
 
-Lots of languages offer dependencies managers ([`pip`](https://pip.pypa.io/en/stable/), [`gem`](https://rubygems.org/), [`npm`](https://www.npmjs.com/), etc.), but in many situations, that's not enough. Sometimes you need to:
+Lots of languages offer dependency managers ([`pip`](https://pip.pypa.io/en/stable/), [`gem`](https://rubygems.org/), [`npm`](https://www.npmjs.com/), etc.), but in many situations, that's not enough. Sometimes you need to:
 
 * use a language without a dependency manager
 * include code from multiple languages
