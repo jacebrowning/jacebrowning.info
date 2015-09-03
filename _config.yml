@@ -1,23 +1,31 @@
-# Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+# Settings
 
-# Permalinks
+exclude:
+- vendor
+
+paginate:   5
+
+markdown:       redcarpet
+highlighter:    pygments
+
 permalink:              pretty
 relative_permalinks:    true
 
-# Setup
-title:            Jace Browning
-tagline:          'Software Craftsman'
-description:      'I build, customize, integrate, and teach engineering software tools.'
-url:              http://jacebrowning.info
-baseurl:          /
-downloads:        /downloads
-assets:           /assets
+# Routes
+
+url:        http://jacebrowning.info
+baseurl:    /
+downloads:  /downloads
+assets:     /assets
+
+# Content
+
+title:          Jace Browning
+tagline:        "Software Craftsman"
+description:    "I build, customize, integrate, and teach engineering software tools."
 
 author:
-  name:           'Jace Browning'
-  twitter:        https://twitter.com/jacebrowning
-  speakerdeck:    https://speakerdeck.com/jacebrowning
-
-paginate:         5
+  name:         "Jace Browning"
+  twitter:      https://twitter.com/jacebrowning
+  linkedin:     https://www.linkedin.com/in/jacebrowning
+  speakerdeck:  https://speakerdeck.com/jacebrowning
