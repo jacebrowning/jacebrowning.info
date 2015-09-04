@@ -39,7 +39,7 @@ check: build
 
 .PHONY: run
 run: install
-	bundle exec jekyll serve
+	bundle exec jekyll serve --future --drafts
 
 .PHONY: launch
 launch: install

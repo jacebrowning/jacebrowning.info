@@ -8,7 +8,7 @@ tags:
 - xctool
 - make
 - coverage
-- unit-tests
+- unit-testing
 - testing
 ---
 
