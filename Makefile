@@ -49,5 +49,8 @@ launch: install
 
 .PHONY: clean
 clean:
-	rm -rf .bundle $(VENDOR_DIR)
 	rm -rf _site
+
+.PHONY: clean-all
+clean-all: clean
+	rm -rf .bundle $(VENDOR_DIR)
