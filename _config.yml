@@ -6,7 +6,7 @@ exclude:
 paginate:   5
 
 markdown:       redcarpet
-highlighter:    pygments
+highlighter:    rouge
 
 permalink:              pretty
 relative_permalinks:    true
