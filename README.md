@@ -1,5 +1,7 @@
 # jacebrowning.info
 
+[![Build Status](https://travis-ci.org/jacebrowning/info.svg?branch=master)](https://travis-ci.org/jacebrowning/info)
+
 ## Requirements
 
 * Ruby 2.1: `$ rbenv install 2.1.4`
