@@ -1,7 +1,11 @@
 # Settings
 
 exclude:
-- vendor
+  - README.md
+  - Makefile
+  - Gemfile*
+  - vendor/
+  - info.sublime-*
 
 paginate:   5
 
