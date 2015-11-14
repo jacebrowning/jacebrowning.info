@@ -54,8 +54,6 @@ $ mine switch <name>
 
 where `<name>` is part of the name of another computer with `mine` running.
 
-To leave `mine` running in the background:
-
 -----
 
 Find a problem? Please submit an [issue](https://github.com/jacebrowning/mine/issues) or contribute!
