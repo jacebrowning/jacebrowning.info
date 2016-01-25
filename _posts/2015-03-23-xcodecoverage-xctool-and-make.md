@@ -152,4 +152,6 @@ Running `$ make read-cov` launches a report similar to:
 
 ![sample-lcov-html-report]({{ site.assets }}/sample-lcov-html-report.png "Sample LCOV HTML Report")
 
+-----
 
+ See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.

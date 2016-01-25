@@ -89,7 +89,6 @@ $ gdm list
 
 -----
 
-Find a problem? Please submit an [issue](https://github.com/jacebrowning/gdm/issues) or contribute!
+See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
 
-
-
+Find a problem with `gdm`? Please submit an [issue](https://github.com/jacebrowning/gdm/issues) or contribute!

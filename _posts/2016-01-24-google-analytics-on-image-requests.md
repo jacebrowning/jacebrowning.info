@@ -135,4 +135,6 @@ This causes the browser to render the image as expected, but also run a bit of J
 
 -----
 
+See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
+
 Interested in seeing the full implementation? Check out the [code](https://github.com/jacebrowning/memegen) on GitHub.

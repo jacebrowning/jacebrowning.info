@@ -93,7 +93,7 @@ When I am done editing, running `$ make ci` will confirm that the site is ready 
 
 [Travis CI](https://travis-ci.org/) offers free continuous integration for open source projects that can be used to deploy software after running a number of checks.
 
-Adding a [`.travis.yml`](https://raw.githubusercontent.com/jacebrowning/info/master/.travis.yml) to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit: 
+Adding a [`.travis.yml`](https://raw.githubusercontent.com/jacebrowning/info/master/.travis.yml) to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:
 
 ```yaml
 install:
@@ -131,6 +131,4 @@ After deployment, you should now see your Jekyll blog live at:
 
 -----
 
-See a problem with these instructions? Please submit an [issue](https://github.com/jacebrowning/info/issues) so I can correct it.
-
-
+See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.

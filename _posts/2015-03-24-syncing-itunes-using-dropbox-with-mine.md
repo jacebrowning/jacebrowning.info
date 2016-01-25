@@ -56,7 +56,6 @@ where `<name>` is part of the name of another computer with `mine` running.
 
 -----
 
-Find a problem? Please submit an [issue](https://github.com/jacebrowning/mine/issues) or contribute!
+See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
 
-
-
+Find a problem with `mine`? Please submit an [issue](https://github.com/jacebrowning/mine/issues) or contribute!
