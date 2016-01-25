@@ -19,7 +19,7 @@ The site also provides an [API](http://memegen.link/api) to generate memes using
 
 ## Client-side Analytics
 
-I have added [Google Analytics](https://www.google.com/analytics/) to the index and API documentation pages using the standard approach of embedding JavaScript on the page:
+I have added [Google Analytics](https://www.google.com/analytics/) to the index and API documentation pages using the standard approach of [embedding](https://developers.google.com/analytics/devguides/collection/analyticsjs/) JavaScript on the page:
 
 ```html
 ...
