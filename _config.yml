@@ -11,9 +11,10 @@ paginate:   5
 
 markdown:       redcarpet
 highlighter:    rouge
+gems:
+  - jekyll-paginate
 
 permalink:              pretty
-relative_permalinks:    true
 
 # Routes
 
