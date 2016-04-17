@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Continuously Deploying a Jekyll Blog to GitHub Pages using Travis CI
+title: Deploying a Jekyll Blog to GitHub Pages using Travis CI
 tags:
 - jekyll
 - github
