@@ -20,10 +20,10 @@ Some talks I've given:
 
 * [Speaker Deck](https://speakerdeck.com/jacebrowning)
 
-Groups I help lead:
+Groups I've helped organize:
 
-* [Embedded GR](http://www.meetup.com/embedded-gr/)
 * [GRPUG](http://www.meetup.com/grpython/)
+* [Embedded GR](http://www.meetup.com/embedded-gr/)
 * [GamdevGR](http://www.meetup.com/GamedevGR/)
 
 My social life:
