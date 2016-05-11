@@ -15,12 +15,11 @@ INSTALLED_FLAG := $(VENDOR_DIR)/.installed
 install: $(INSTALLED_FLAG)
 $(INSTALLED_FLAG): Gemfile* Makefile
 	bundle install --path vendor
-	@ touch $(INSTALLED_FLAG)  # indicate that dependencies are installed
+	@ touch $@  # mark dependencies as installed
 
 .PHONY: update
 update: install
 	bundle update
-	@ touch $(INSTALLED_FLAG)  # indicate that dependencies are installed
 
 # BUILD ########################################################################
 

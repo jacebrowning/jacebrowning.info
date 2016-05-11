@@ -3,11 +3,6 @@ sudo: false
 language: ruby
 rvm:
 - 2.1
-cache:
-  directories:
-  - vendor
-before_cache:
-- rm -rfv vendor/.installed  # force gems to refresh
 
 env:
   global:
@@ -41,3 +36,9 @@ after_success: >
     git commit -m "Deploy Travis CI build $TRAVIS_BUILD_NUMBER to GitHub pages" ;
     git push -f https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} master:gh-pages ;
   fi
+
+cache:
+  directories:
+  - vendor
+before_cache:
+- rm -rfv vendor/.installed  # force gems to refresh
