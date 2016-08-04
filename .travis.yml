@@ -1,23 +1,28 @@
-sudo: false
+branches:
+  except:
+  - gh-pages
 
 language: ruby
-rvm:
-- 2.1
+
+cache:
+  bundler: true
+  directories:
+    - vendor/bundler
 
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true  # speeds up installation of html-proofer
   - secure: "X3DRF4IOel11IO+BuPy4iMYNKAULzHI5QR1sIIIlOVEPIqkaR25H/VEDNjd9ewTOWLXYDipoeAJ1XTINIQNx5no168rKPBRRKCplsOXoZqrZYVbNOABWYYlIFeG6qBp0M5fOIPODmQ4DkpGOhwvhUbHGaTqt3R6VoSAMeutlNm4="
 
-branches:
-  except:
-  - gh-pages
+before_install:
+  - make doctor
 
 install:
-- make install
+  - make install
 
 script:
-- make ci
+  - make check
+  - make test
 
 after_success: >
   echo $TRAVIS_BRANCH; echo $TRAVIS_PULL_REQUEST;
@@ -37,8 +42,7 @@ after_success: >
     git push -f https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} master:gh-pages ;
   fi
 
-cache:
-  directories:
-  - vendor
-before_cache:
-- rm -rfv vendor/.installed  # force gems to refresh
+notifications:
+  email:
+    on_success: never
+    on_failure: change

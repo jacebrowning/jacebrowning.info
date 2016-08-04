@@ -1,55 +1,89 @@
-URL := "jacebrowning.info"
+BE := bundle exec
+
+JEKYLL := $(BE) jekyll
+HTMLPROOF := $(BE) htmlproofer
+
+# MAIN TASKS ###################################################################
 
 .PHONY: all
-all: build
+all: install
 
 .PHONY: ci
-ci: check
+ci: check test
 
-# INSTALL ######################################################################
+# SYSTEM DEPENDENCIES ##########################################################
 
-VENDOR_DIR := vendor
-INSTALLED_FLAG := $(VENDOR_DIR)/.installed
+.PHONY: doctor
+doctor:  ## Confirm system dependencies are available
+	@ echo "Checking Ruby version:"
+	@ ruby --version | tee /dev/stderr | grep -q `cat .ruby-version`
+
+# PROJECT DEPENDENCIES #########################################################
+
+GEMS := vendor/bundler
 
 .PHONY: install
-install: $(INSTALLED_FLAG)
-$(INSTALLED_FLAG): Gemfile* Makefile
-	bundle install --path vendor
-	@ touch $@  # mark dependencies as installed
+install: $(GEMS) ## Install all project dependnecies
+
+$(GEMS): Gemfile*
+	bundle install --path $@
+	@ touch $@
 
 .PHONY: update
-update: install
+update: ## Update all project dependnecies
 	bundle update
 
-# BUILD ########################################################################
+# SERVER TARGETS ###############################################################
 
-.PHONY: build
-build: install
-	bundle exec jekyll build --quiet
-	echo ${URL} > _site/CNAME
-
-# CHECK ########################################################################
-
-.PHONY: check
-check: build
-	bundle exec htmlproof _site --only-4xx
-
-# RUN ##########################################################################
+PORT ?= 3000
 
 .PHONY: run
 run: install
-	bundle exec jekyll serve --future --drafts
+	$(JEKYLL) serve  --future --drafts --port $(PORT)
 
 .PHONY: launch
 launch: install
-	eval "sleep 5; open http://localhost:4000" & make run
+	eval "sleep 3; open http://localhost:$(PORT)" &
+	make run
 
-# CLEAN ########################################################################
+# BUILD ########################################################################
+
+URL := jacebrowning.info
+
+.PHONY: build
+build: install
+	$(JEKYLL) build --quiet
+	echo $(URL) > _site/CNAME
+
+# CHECKS #######################################################################
+
+.PHONY: check
+check: install build ## Run linters and static analysis
+	$(JEKYLL) doctor
+	$(HTMLPROOF) _site --allow-hash-href --only-4xx
+
+# TESTS ########################################################################
+
+.PHONY: test
+test: install ## Run unit and integration tests
+	@ echo "TODO: add 'test' task"
+
+# DOCUMENTATION ################################################################
+
+.PHONY: doc
+doc: install ## Run documentation generators
+	@ echo "TODO: add 'doc' task"
+
+# CLEANUP ######################################################################
 
 .PHONY: clean
-clean:
-	rm -rf _site
+clean: ## Delete all generated and temporary files
+	rm -rf $(GEMS)
 
-.PHONY: clean-all
-clean-all: clean
-	rm -rf .bundle $(VENDOR_DIR)
+# HELP #########################################################################
+
+.PHONY: help
+help: all
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+.DEFAULT_GOAL := help
