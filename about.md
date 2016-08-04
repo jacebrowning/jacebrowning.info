@@ -25,11 +25,3 @@ Groups I've helped organize:
 * [GRPUG](http://www.meetup.com/grpython/)
 * [Embedded GR](http://www.meetup.com/embedded-gr/)
 * [GamdevGR](http://www.meetup.com/GamedevGR/)
-
-My social life:
-
-* [Twitter](https://twitter.com/jacebrowning)
-* [Google+](https://plus.google.com/+JaceBrowning/posts)
-* [Foursquare](https://foursquare.com/jacebrowning)
-* [Last.fm](http://www.last.fm/user/justus87)
-* [Facebook](https://www.facebook.com/jacebrowning)
