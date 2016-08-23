@@ -30,7 +30,7 @@ And while submodules can be used to track a branch (rather than a SHA), this wil
 
 ## An Alternative
 
-[GitMan](http://git-dependency-manager.info) avoids these issues and adds the ability to:
+[GitMan](http://gitman.readthedocs.io) avoids these issues and adds the ability to:
 
 * track a specific tag in a source dependency's repository
 * checkout by `rev-parse` dates (e.g. `'develop@{2015-06-18 10:30:59}'`)
