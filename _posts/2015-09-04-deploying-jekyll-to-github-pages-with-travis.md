@@ -13,7 +13,7 @@ tags:
 - yaml
 ---
 
-[Jekyll](http://jekyllrb.com/) is a "blog-aware static site generator" written in [Ruby](https://www.ruby-lang.org/) that will generate a responsive website from [Markdown](https://help.github.com/articles/markdown-basics/) and [YAML](http://yaml.org/) files.
+[Jekyll](https://jekyllrb.com/) is a "blog-aware static site generator" written in [Ruby](https://www.ruby-lang.org/) that will generate a responsive website from [Markdown](https://help.github.com/articles/markdown-basics/) and [YAML](https://yaml.org/) files.
 
 [GitHub Pages](https://pages.github.com/) offers you a free way to host static websites. And while they will automatically publish files in a repository named `<your-github-id>.github.io`, sometimes you need a little more control over the process.
 
@@ -123,11 +123,11 @@ git push -f https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} master:gh-pages ;
 
 which will publish the generated files to the `gh-pages` branch on GitHub.
 
-`GH_TOKEN` is an encrypted access token to grant Travis CI permissions to modify files in your repository. [This site](http://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/) provides a good overview on generating these tokens.
+`GH_TOKEN` is an encrypted access token to grant Travis CI permissions to modify files in your repository. [This site](https://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/) provides a good overview on generating these tokens.
 
 After deployment, you should now see your Jekyll blog live at:
 
-`http://<your-github-id>.github.io/<your-repository-name>`
+`https://<your-github-id>.github.io/<your-repository-name>`
 
 -----
 

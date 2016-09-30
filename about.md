@@ -8,13 +8,13 @@ I build, customize, integrate, and teach engineering software tools. I've worked
 My professional profiles:
 
 * [LinkedIn]({{ site.author.linkedin }})
-* [StackOverflow](http://careers.stackoverflow.com/jacebrowning)
+* [StackOverflow](https://careers.stackoverflow.com/jacebrowning)
 * [About.me](https://about.me/jacebrowning)
 
 The projects I work on:
 
 * [GitHub](https://github.com/jacebrowning)
-* [Last.fm](http://www.last.fm/music/Jace+Browning/+albums)
+* [Last.fm](https://www.last.fm/music/Jace+Browning/+albums)
 
 Some talks I've given:
 
@@ -22,6 +22,6 @@ Some talks I've given:
 
 Groups I've helped organize:
 
-* [GRPUG](http://www.meetup.com/grpython/)
-* [Embedded GR](http://www.meetup.com/embedded-gr/)
-* [GamdevGR](http://www.meetup.com/GamedevGR/)
+* [GRPUG](https://www.meetup.com/grpython/)
+* [Embedded GR](https://www.meetup.com/embedded-gr/)
+* [GamdevGR](https://www.meetup.com/GamedevGR/)

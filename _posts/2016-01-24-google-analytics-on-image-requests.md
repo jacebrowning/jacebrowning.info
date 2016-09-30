@@ -9,13 +9,13 @@ tags:
 - flask
 ---
 
-[MemeGen.link](http://memegen.link/) is an open source meme generator. It renders meme images based on the requested URL.
+[MemeGen.link](https://memegen.link/) is an open source meme generator. It renders meme images based on the requested URL.
 
 For example, `memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg` produces this image:
 
-![oprah](http://memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg)
+![oprah](https://memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg)
 
-The site also provides an [API](http://memegen.link/api) to generate memes using [Flask](http://flask.pocoo.org/) and [Flask API](http://www.flaskapi.org/).
+The site also provides an [API](https://memegen.link/api) to generate memes using [Flask](https://flask.pocoo.org/) and [Flask API](https://www.flaskapi.org/).
 
 ## Client-side Analytics
 
@@ -39,7 +39,7 @@ And while this works great for HTML rendered in the browser, direct images reque
 
 ## Server-side Analytics
 
-One solution is to track file downloads on the backend by posting to the Google Analytics API directly using an HTTP library like [requests](http://docs.python-requests.org/en/latest/):
+One solution is to track file downloads on the backend by posting to the Google Analytics API directly using an HTTP library like [requests](https://docs.python-requests.org/en/latest/):
 
 ```python
 logging.info("Sending image: %s", path)
@@ -58,7 +58,7 @@ data = dict(
     ua=request.user_agent.string,
     dr=request.referrer,
 )
-requests.post("http://www.google-analytics.com/collect", data=data)
+requests.post("https://www.google-analytics.com/collect", data=data)
 
 return send_file(path)
 ```
@@ -73,14 +73,14 @@ While this will track page views for an image, much of the client's information 
 
 My complete solution involves a bit of hack to return HTML instead of an image for clients that can handle it and the normal image for those that can't.
 
-Visit [memegen.link/fry/not-sure-if-image/or-webpage.jpg](http://memegen.link/fry/not-sure-if-image/or-webpage.jpg) in your browser:
+Visit [memegen.link/fry/not-sure-if-image/or-webpage.jpg](https://memegen.link/fry/not-sure-if-image/or-webpage.jpg) in your browser:
 
 ![browser]({{ site.assets }}/memegen-in-browser.png)
 
 It appears to be an image that can be downloaded:
 
 ```sh
-$ wget http://memegen.link/fry/not-sure-if-image/or-webpage.jpg
+$ wget https://memegen.link/fry/not-sure-if-image/or-webpage.jpg
 Length: 27809 (27K) [image/jpeg]
 Saving to: 'or-webpage.jpg'
 or-webpage.jpg 100%[============================>]  27.16K  70.7KB/s

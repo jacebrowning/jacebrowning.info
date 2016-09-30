@@ -17,7 +17,7 @@ Lots of languages offer dependency managers ([`pip`](https://pip.pypa.io/en/stab
 
 ## Git Submodules
 
-When using [Git](https://git-scm.com/) for version control, the obvious choice is to use [submodules](http://git-scm.com/docs/git-submodule) to include the source from another repository. However, in practice, submodules can often be a pain to use, as they:
+When using [Git](https://git-scm.com/) for version control, the obvious choice is to use [submodules](https://git-scm.com/docs/git-submodule) to include the source from another repository. However, in practice, submodules can often be a pain to use, as they:
 
 * require extra information to meaningfully identify the submodule's SHA
 * cause confusing merge conflicts (one SHA vs. another)
@@ -30,7 +30,7 @@ And while submodules can be used to track a branch (rather than a SHA), this wil
 
 ## An Alternative
 
-[GitMan](http://gitman.readthedocs.io) avoids these issues and adds the ability to:
+[GitMan](https://gitman.readthedocs.io) avoids these issues and adds the ability to:
 
 * track a specific tag in a source dependency's repository
 * checkout by `rev-parse` dates (e.g. `'develop@{2015-06-18 10:30:59}'`)

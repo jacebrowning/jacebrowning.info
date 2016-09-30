@@ -14,9 +14,9 @@ Many applications provide their own synchronization methods to enable usage on m
 
 Many guides exist showing you how to do this with iTunes:
 
-* [digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox](http://digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox-0155955)
-* [lifehacker.com/5715126/how-to-sync-itunes-across-all-your-computers-with-dropbox](http://lifehacker.com/5715126/how-to-sync-itunes-across-all-your-computers-with-dropbox)
-* [cloudproductivity.net/automatically-backup-itunes-dropbox](http://www.cloudproductivity.net/automatically-backup-itunes-dropbox)
+* [digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox](https://digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox-0155955)
+* [lifehacker.com/5715126/how-to-sync-itunes-across-all-your-computers-with-dropbox](https://lifehacker.com/5715126/how-to-sync-itunes-across-all-your-computers-with-dropbox)
+* [cloudproductivity.net/automatically-backup-itunes-dropbox](https://www.cloudproductivity.net/automatically-backup-itunes-dropbox)
 
 Unfortunately, the shared caveat in all these guides is that only one instance of iTunes is to be running at any given time. That's where `mine` comes in.
 
@@ -28,7 +28,7 @@ Unfortunately, the shared caveat in all these guides is that only one instance o
 $ pip3 install --upgrade mine
 ```
 
-If you don't have `pip3`, install `python3` with your system's package manager (on OSX with [Homebrew](http://brew.sh/): `$ brew install python3`).
+If you don't have `pip3`, install `python3` with your system's package manager (on OSX with [Homebrew](https://brew.sh/): `$ brew install python3`).
 
 Additional configuration instructions are found in the project's [README](https://github.com/jacebrowning/mine#setup).
 

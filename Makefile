@@ -60,7 +60,7 @@ build: install
 .PHONY: check
 check: install build ## Run linters and static analysis
 	$(JEKYLL) doctor
-	$(HTMLPROOF) _site --allow-hash-href --only-4xx
+	$(HTMLPROOF) _site --allow-hash-href --only-4xx --enforce-https
 
 # TESTS ########################################################################
 
