@@ -5,7 +5,6 @@ exclude:
   - Makefile
   - Gemfile*
   - vendor/
-  - info.sublime-*
 
 paginate:   5
 
