@@ -24,3 +24,7 @@ Groups I actively participate in:
 * [GRWebDev](https://www.meetup.com/grwebdev/)
 * [GR Testers](https://www.meetup.com/GR-Testers/)
 * [Citizen Labs](http://citizenlabs.org/)
+
+-----
+
+See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this page.
