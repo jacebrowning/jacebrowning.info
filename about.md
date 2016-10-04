@@ -9,19 +9,18 @@ My professional profiles:
 
 * [LinkedIn]({{ site.author.linkedin }})
 * [StackOverflow](https://careers.stackoverflow.com/jacebrowning)
-* [About.me](https://about.me/jacebrowning)
 
-The projects I work on:
-
-* [GitHub](https://github.com/jacebrowning)
-* [Last.fm](https://www.last.fm/music/Jace+Browning/+albums)
-
-Some talks I've given:
+Talks I've given:
 
 * [Speaker Deck](https://speakerdeck.com/jacebrowning)
 
-Groups I've helped organize:
+Papers I've written:
+
+* [JSEA, March 2014](http://www.scirp.org/journal/PaperInformation.aspx?PaperID=44268#.UzYtfWRdXEZ)
+
+Groups I actively participate in:
 
 * [GRPUG](https://www.meetup.com/grpython/)
-* [Embedded GR](https://www.meetup.com/embedded-gr/)
-* [GamdevGR](https://www.meetup.com/GamedevGR/)
+* [GRWebDev](https://www.meetup.com/grwebdev/)
+* [GR Testers](https://www.meetup.com/GR-Testers/)
+* [Citizen Labs](http://citizenlabs.org/)
