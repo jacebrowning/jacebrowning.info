@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Coverage as a Service
+title: Test Coverage as a Service
 tags:
 - coverage
 - api
