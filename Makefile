@@ -43,7 +43,7 @@ run: install
 
 .PHONY: launch
 launch: install
-	eval "sleep 3; open http://localhost:$(PORT)" &
+	eval "sleep 4 && open http://localhost:$(PORT)" &
 	make run
 
 # BUILD ########################################################################
