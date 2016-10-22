@@ -8,7 +8,7 @@ I build, customize, integrate, and teach engineering software tools. I've worked
 My professional profiles:
 
 * [LinkedIn]({{ site.author.linkedin }})
-* [StackOverflow](https://careers.stackoverflow.com/jacebrowning)
+* [StackOverflow](https://stackoverflow.com/cv/jacebrowning)
 
 Talks I've given:
 
