@@ -25,9 +25,9 @@ I encourage everyone to make similar lists as a way to learn about your true car
   - music
   - theme parks
 
-4. Work on Python code full-time
+4. Work at "a Python shop"
 
-5. Consult other companies and teams on:
+5. Consult teams and companies on:
   - Automation
   - Quality Assurance
   - Testing
