@@ -46,7 +46,7 @@ I encourage everyone to make similar lists as a way to learn about your true car
 
 4. Have some free work time for side projects
 
-5. To have a dedicated conference budget
+5. Have a dedicated conference budget
 
 -----
 
