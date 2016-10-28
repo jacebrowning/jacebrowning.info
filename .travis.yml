@@ -15,7 +15,6 @@ env:
 
 before_install:
   - make doctor
-  - touch Gemfile  # ensure dependencies are checked
 
 install:
   - make install

@@ -9,21 +9,20 @@ HTMLPROOF := $(BE) htmlproofer
 all: install
 
 .PHONY: ci
-ci: check test
+ci: check test ## Run all tasks that determine CI status
 
 # SYSTEM DEPENDENCIES ##########################################################
 
 .PHONY: doctor
 doctor:  ## Confirm system dependencies are available
-	@ echo "Checking Ruby version:"
-	@ ruby --version | tee /dev/stderr | grep -q `cat .ruby-version`
+	bin/verchew
 
 # PROJECT DEPENDENCIES #########################################################
 
 GEMS := vendor/bundler
 
 .PHONY: install
-install: $(GEMS) ## Install all project dependnecies
+install: $(GEMS) ## Install all project dependencies
 
 $(GEMS): Gemfile*
 	bundle install --path $@
@@ -84,6 +83,6 @@ clean: ## Delete all generated and temporary files
 
 .PHONY: help
 help: all
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+	@ grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .DEFAULT_GOAL := help
