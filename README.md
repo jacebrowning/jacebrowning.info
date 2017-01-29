@@ -6,7 +6,7 @@ Website for [jacebrowning.info](https://jacebrowning.info/).
 
 ## Requirements
 
-* Ruby 2.3.0
+* Ruby 2.4.0
 
 ## Usage
 
