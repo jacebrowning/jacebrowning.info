@@ -31,7 +31,7 @@ I still use this tool nearly every day to simplify the task of closing lots of G
 
 ## MemeGen.link
 
-My most entertaining project is a website and API to generate memes:
+When using [Slack](https://slack.com/) for communication with colleagues and friends, I found we needed a simple way to create and share memes as links to images. Few of the existing meme generators allowed hot-linking to images, so I build an API to generate memes:
 
 * [memegen.link](https://memegen.link)
 
@@ -39,11 +39,23 @@ Many chat bots have been written to use the API and the service continues to get
 
 ## The Coverage Space
 
-The newest project on this list is an API to track code coverage metrics:
+I try to enable test coverage in all of my projects as a gut check that new functionality has to decreased the overall coverage. To avoid storing the minimum coverage metric in each project's repository, I build an API to track code coverage metrics:
 
 * [coverage.space](https://coverage.space/)
 
 I have already started using this in most of my projects to detect when code coverage decreases. Read more [on the blog]({% post_url 2016-09-30-coverage-as-a-service %}).
+
+## Crowd Sorter
+
+Create lists of items and leverage the public to help sort it:
+
+* [crowdsorter.com](https://crowdsorter.com/)
+
+## Virtual Boombox
+
+Discover music playing nearby:
+
+* [virtualboombox.com](https://virtualboombox.com/)
 
 -----
 
