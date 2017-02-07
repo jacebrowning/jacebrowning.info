@@ -25,11 +25,15 @@ assets:     /assets
 # Content
 
 title:          Jace Browning
-tagline:        "Software Craftsman"
-description:    "I build, customize, integrate, and teach engineering software tools."
+tagline:        Software Craftsman
+description:    I build, customize, integrate, and teach engineering software tools.
+
+repo: https://github.com/jacebrowning/jacebrowning.info
 
 author:
-  name:         "Jace Browning"
-  twitter:      https://twitter.com/jacebrowning
-  linkedin:     https://www.linkedin.com/in/jacebrowning
-  speakerdeck:  https://speakerdeck.com/jacebrowning
+  name:           Jace Browning
+  twitter:        https://twitter.com/jacebrowning
+  linkedin:       https://www.linkedin.com/in/jacebrowning
+  github:         https://github.com/jacebrowning
+  stackoverflow:  https://stackoverflow.com/cv/jacebrowning
+  speakerdeck:    https://speakerdeck.com/jacebrowning

@@ -8,23 +8,23 @@ I build, customize, integrate, and teach engineering software tools. I've worked
 My professional profiles:
 
 * [LinkedIn]({{ site.author.linkedin }})
-* [StackOverflow](https://stackoverflow.com/cv/jacebrowning)
+* [GitHub]({{ site.author.github }})
+* [StackOverflow]({{ site.author.stackoverflow }})
 
 Talks I've given:
 
-* [Speaker Deck](https://speakerdeck.com/jacebrowning)
+* [Speaker Deck]({{ site.author.speakerdeck }})
 
 Papers I've written:
 
 * [JSEA, March 2014](http://www.scirp.org/journal/PaperInformation.aspx?PaperID=44268#.UzYtfWRdXEZ)
 
-Groups I actively participate in:
+Groups I help run:
 
 * [GRPUG](https://www.meetup.com/grpython/)
-* [GRWebDev](https://www.meetup.com/grwebdev/)
-* [GR Testers](https://www.meetup.com/GR-Testers/)
 * [Citizen Labs](http://citizenlabs.org/)
+* [Django Girls Grand Rapids](https://djangogirls.org/grandrapids/)
 
 -----
 
-See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this page.
+See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this page.

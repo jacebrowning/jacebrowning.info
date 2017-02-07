@@ -58,7 +58,7 @@ $ gitman --help
 
 ### Mimicking Submodules
 
-While GitMan, provides [additional capabilities](https://github.com/jacebrowning/gitman#basic-usage), it can also directly replace the behavior of submodules. To mimic a working tree containing a submodule:
+While GitMan, provides [additional capabilities]({{ site.author.github }}/gitman#basic-usage), it can also directly replace the behavior of submodules. To mimic a working tree containing a submodule:
 
 ```bash
 <root>/vendor/my_dependency  # submodule at: a5fe3d...
@@ -89,6 +89,6 @@ $ gitman list
 
 -----
 
-See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
 
-Find a problem with `gitman`? Please submit an [issue](https://github.com/jacebrowning/gitman/issues) or contribute!
+Find a problem with `gitman`? Please submit an [issue]({{ site.author.github }}/gitman/issues) or contribute!

@@ -18,7 +18,7 @@ tags:
 
 The XodeCoverage [project](https://github.com/jonreid/XcodeCoverage) is a set of shell scripts bundled with `lcov` to measure lines of code coverage during execution of instrumented test builds.
 
-In this example, the scripts are used to generate an HTML coverage report (with a few modifications made in [my fork](https://github.com/jacebrowning/XcodeCoverage/releases/tag/blog-2015-03-23) to customize report location).
+In this example, the scripts are used to generate an HTML coverage report (with a few modifications made in [my fork]({{ site.author.github }}/XcodeCoverage/releases/tag/blog-2015-03-23) to customize report location).
 
 ### xctool
 
@@ -154,4 +154,4 @@ Running `$ make read-cov` launches a report similar to:
 
 -----
 
- See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
+ See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.

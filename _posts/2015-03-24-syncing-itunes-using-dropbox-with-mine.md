@@ -22,7 +22,7 @@ Unfortunately, the shared caveat in all these guides is that only one instance o
 
 ## Installing and Configuring Mine
 
-`mine` is a daemon and command-line [Python program](https://github.com/jacebrowning/mine) that starts and stops remote applications using a configuration file in Dropbox. After setting up iTunes and Dropbox using one of the above guides, install `mine`:
+`mine` is a daemon and command-line [Python program]({{ site.author.github }}/mine) that starts and stops remote applications using a configuration file in Dropbox. After setting up iTunes and Dropbox using one of the above guides, install `mine`:
 
 ```
 $ pip3 install --upgrade mine
@@ -30,7 +30,7 @@ $ pip3 install --upgrade mine
 
 If you don't have `pip3`, install `python3` with your system's package manager (on OSX with [Homebrew](https://brew.sh/): `$ brew install python3`).
 
-Additional configuration instructions are found in the project's [README](https://github.com/jacebrowning/mine#setup).
+Additional configuration instructions are found in the project's [README]({{ site.author.github }}/mine#setup).
 
 ## Using Mine to Manage Remote Applications
 
@@ -56,6 +56,6 @@ where `<name>` is part of the name of another computer with `mine` running.
 
 -----
 
-See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
 
-Find a problem with `mine`? Please submit an [issue](https://github.com/jacebrowning/mine/issues) or contribute!
+Find a problem with `mine`? Please submit an [issue]({{ site.author.github }}/mine/issues) or contribute!

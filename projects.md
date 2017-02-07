@@ -47,4 +47,4 @@ I have already started using this in most of my projects to detect when code cov
 
 -----
 
-See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this page.
+See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this page.

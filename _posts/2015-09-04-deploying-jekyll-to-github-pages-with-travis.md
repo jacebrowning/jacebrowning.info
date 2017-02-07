@@ -75,7 +75,7 @@ launch: install
 ```
 
 
-See the [source code](https://github.com/jacebrowning/info) that generates **this** site as an example of how these files are used together in practice.
+See the [source code]({{ site.repo }}) that generates **this** site as an example of how these files are used together in practice.
 
 ## Developing Locally
 
@@ -131,4 +131,4 @@ After deployment, you should now see your Jekyll blog live at:
 
 -----
 
-See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.

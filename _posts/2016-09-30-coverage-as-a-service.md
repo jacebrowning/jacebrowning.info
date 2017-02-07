@@ -67,7 +67,7 @@ Check out the full client documentation at [cli.coverage.space](https://cli.cove
 
 -----
 
-See a typo? Help me [edit](https://github.com/jacebrowning/info/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
 
-Interested in seeing the full implementation? Check out the [code](https://github.com/jacebrowning/coverage-space) on GitHub.
+Interested in seeing the full implementation? Check out the [code]({{ site.author.github }}/coverage-space) on GitHub.
 
