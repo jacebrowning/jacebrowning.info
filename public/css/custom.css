@@ -82,6 +82,19 @@ a.sidebar-nav-item:focus {
   font-weight: bold;
 }
 
+/* Sidebar button */
+.sidebar-button {
+  text-align: center;
+  background: #4586bd;
+  color: #fff !important;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+.sidebar-button:hover {
+  text-decoration: none;
+  color: #202020 !important;
+}
+
 /* Sticky sidebar
  *
  * Add the `sidebar-sticky` class to the sidebar's container to affix it the
