@@ -19,13 +19,13 @@ doctor:  ## Confirm system dependencies are available
 
 # PROJECT DEPENDENCIES #########################################################
 
-GEMS := vendor/bundler
+GEMS := vendor/bundler/.flag
 
 .PHONY: install
 install: $(GEMS) ## Install all project dependencies
 
 $(GEMS): Gemfile*
-	bundle install --path $@
+	bundle install --path vendor/bundler
 	@ touch $@
 
 .PHONY: update
