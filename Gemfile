@@ -1,9 +1,10 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "jekyll"
+gem 'jekyll'
 
-gem "rouge"
-gem "jekyll-paginate"
-gem "redcarpet"
+gem 'rouge'
+gem 'jekyll-paginate'
+gem 'redcarpet'
 
-gem "html-proofer"
+gem 'html-proofer'
+gem 'jekyll-redirect-from'

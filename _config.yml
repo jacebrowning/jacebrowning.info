@@ -12,6 +12,7 @@ markdown:       redcarpet
 highlighter:    rouge
 gems:
   - jekyll-paginate
+  - jekyll-redirect-from
 
 permalink:              pretty
 
