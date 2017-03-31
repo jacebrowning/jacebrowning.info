@@ -3,23 +3,23 @@ layout: page
 title: About
 ---
 
-I build, customize, integrate, and teach engineering software tools. I've worked on products in the embedded, mobile, and web space, but my expertise is Python programming. Sharing knowledge and active involvement in the local tech community are integral parts of my life and career.
+Jace Browning builds, customizes, integrates, and teaches engineering software tools. He has worked on products in the embedded, mobile, and web space, but his expertise is systems programming, specifically in Python. Professionally, he focuses on quality assurance, automation, and process optimization. In his free time, he enjoys contributing to open source and volunteering at local technology events.
 
-My professional profiles:
+Browse his profiles:
 
 * [LinkedIn]({{ site.author.linkedin }})
 * [GitHub]({{ site.author.github }})
 * [StackOverflow]({{ site.author.stackoverflow }})
 
-Talks I've given:
+View his talks:
 
 * [Speaker Deck]({{ site.author.speakerdeck }})
 
-Papers I've written:
+Read his papers:
 
 * [JSEA, March 2014](http://www.scirp.org/journal/PaperInformation.aspx?PaperID=44268#.UzYtfWRdXEZ)
 
-Groups I help run:
+Join his groups:
 
 * [GRPUG](https://www.meetup.com/grpython/)
 * [Citizen Labs](http://citizenlabs.org/)
