@@ -38,13 +38,13 @@ To run our application on Heroku using Sappy, we'll need to add a few files:
 **`runtime.txt`** indicates that Heroku should use a Python [buildpack](https://devcenter.heroku.com/articles/buildpacks) (because Sappy is written in Python):
 
 ```
-python-3.6.0
+python-3.6.1
 ```
 
 **`requrements.txt`** tells Heroku to install Sappy using [pip](https://en.wikipedia.org/wiki/Pip_(package_manager)) (the package manager for Python):
 
 ```
-sappy==1.1
+sappy==1.0.1
 ```
 
 **`Procfile`** specifies `sappy` as the command to run our application:
@@ -67,6 +67,6 @@ Because the temporary application deployment performs virtually identical to pro
 
 -----
 
-A working example can be found at: [github.com/jacebrowning/grwifi](https://github.com/jacebrowning/grwifi)
+A working example can be found at: [github.com/citizenlabsgr/homepage](https://github.com/citizenlabsgr/homepage)
 
 See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
