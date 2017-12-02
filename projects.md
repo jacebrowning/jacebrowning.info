@@ -75,6 +75,18 @@ I've used [Last.fm](https://www.last.fm/about/trackmymusic) for as long as I've 
 
 > [virtualboombox.com](https://virtualboombox.com/)
 
+## Meme Complete
+
+Autocomplete for memes via text and speech.
+
+> [memecomplete.com](https://memecomplete.com/)
+
+## MediaVouch
+
+Your playlist for everything.
+
+> [mediavouch.com](https://mediavouch.com/)
+
 -----
 
 See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this page.
