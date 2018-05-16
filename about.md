@@ -21,9 +21,9 @@ Read his papers:
 
 Join his groups:
 
-* [GRPUG](https://www.meetup.com/grpython/)
-* [Citizen Labs](http://citizenlabs.org/)
-* [Django Girls Grand Rapids](https://djangogirls.org/grandrapids/)
+* [Grand Rapids Python Users Group](https://www.meetup.com/grpython/)
+* [PyLaides Grand Rapids](https://www.meetup.com/PyLadiesGrandRapids/)
+* [Citizen Labs](https://citizenlabs.org/)
 
 -----
 

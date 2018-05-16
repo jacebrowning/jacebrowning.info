@@ -45,7 +45,7 @@ At several jobs, my team ran into the problem of needing to manage multiple Git 
 
 I still use this tool nearly every day to simplify the task of cloning lots of Git repositories for work. Read more [on the blog]({% post_url 2015-08-07-replacing-submodules-with-gitman %}).
 
-## MemeGen.link
+## memegen.link
 
 When using [Slack](https://slack.com/) for communication with colleagues and friends, I found we needed a simple way to create and share memes as links to images. Few of the existing meme generators allowed hot-linking to images, so I build an API to generate memes:
 
