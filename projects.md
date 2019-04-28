@@ -87,6 +87,12 @@ Your playlist for everything.
 
 > [mediavouch.com](https://mediavouch.com/)
 
+## Lunchdown
+
+A restaurant recommendation engine powered by Foursquare.
+
+> [lunchdown.com](https://lunchdown.com/)
+
 -----
 
 See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this page.
