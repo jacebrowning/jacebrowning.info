@@ -10,7 +10,7 @@ paginate:   5
 
 markdown:       redcarpet
 highlighter:    rouge
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-redirect-from
 
