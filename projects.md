@@ -93,6 +93,12 @@ A restaurant recommendation engine powered by Foursquare.
 
 > [lunchdown.com](https://lunchdown.com/)
 
+## Datafiles
+
+The spiritual successor to [YORM](https://datafiles.readthedocs.io/), `datafiles` is a file-based ORM for Python dataclasses leveraging type annotations for serialization:
+
+> [datafiles.readthedocs.io](https://datafiles.readthedocs.io/)
+
 -----
 
 See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this page.
