@@ -25,7 +25,8 @@ GEMS := vendor/bundler/.flag
 install: $(GEMS) ## Install all project dependencies
 
 $(GEMS): Gemfile*
-	bundle install --path vendor/bundler
+	@ bundle config set path vendor/bundler
+	bundle install
 	@ touch $@
 
 .PHONY: update
