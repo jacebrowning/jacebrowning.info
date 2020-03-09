@@ -22,7 +22,7 @@ Read his papers:
 Join his groups:
 
 * [Grand Rapids Python Users Group](https://www.meetup.com/grpython/)
-* [PyLaides Grand Rapids](https://www.meetup.com/PyLadiesGrandRapids/)
+* [PyLadies Grand Rapids](https://www.meetup.com/PyLadiesGrandRapids/)
 * [Citizen Labs](https://citizenlabs.org/)
 
 -----
