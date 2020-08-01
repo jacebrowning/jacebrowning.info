@@ -5,6 +5,8 @@ title: About
 
 Jace Browning builds, customizes, integrates, and teaches engineering software tools. He has worked on products in the embedded, mobile, and web space, but his expertise is systems programming, specifically in Python. Professionally, he focuses on quality assurance, automation, and process optimization. In his free time, he enjoys contributing to open source and volunteering at local technology events.
 
+<iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="107" style="border: 0;"></iframe>
+
 Browse his profiles:
 
 * [LinkedIn]({{ site.author.linkedin }})
