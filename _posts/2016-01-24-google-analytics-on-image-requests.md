@@ -9,13 +9,13 @@ tags:
 - flask
 ---
 
-[MemeGen.link](https://memegen.link/) is an open source meme generator. It renders meme images based on the requested URL.
+[memegen.link](https://memegen.link/) is an open source meme generator. It renders meme images based on the requested URL.
 
 For example, `memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg` produces this image:
 
 ![oprah](https://memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg)
 
-The site also provides an [API](https://memegen.link/api) to generate memes using [Flask](https://flask.pocoo.org/) and [Flask API](https://www.flaskapi.org/).
+The site also provides an [API](https://api.memegen.link) to generate memes. This article is about the [legacy implementation](https://github.com/jacebrowning/memegen-flask) written using [Flask](https://flask.palletsprojects.com/) and [Flask API](https://www.flaskapi.org/).
 
 ## Client-side Analytics
 
@@ -39,7 +39,7 @@ And while this works great for HTML rendered in the browser, direct images reque
 
 ## Server-side Analytics
 
-One solution is to track file downloads on the backend by posting to the Google Analytics API directly using an HTTP library like [requests](https://docs.python-requests.org/en/latest/):
+One solution is to track file downloads on the backend by posting to the Google Analytics API directly using an HTTP library like [requests](https://requests.readthedocs.io/):
 
 ```python
 logging.info("Sending image: %s", path)
