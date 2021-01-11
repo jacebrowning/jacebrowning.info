@@ -52,7 +52,7 @@ URL := jacebrowning.info
 
 .PHONY: build
 build: install
-	$(JEKYLL) build --quiet
+	$(JEKYLL) build
 	echo $(URL) > _site/CNAME
 
 # CHECKS #######################################################################
@@ -60,7 +60,7 @@ build: install
 .PHONY: check
 check: install build ## Run linters and static analysis
 	$(JEKYLL) doctor
-	$(HTMLPROOF) _site --allow-hash-href --only-4xx
+	$(HTMLPROOF) _site --url-ignore "https://www.linkedin.com/in/jacebrowning,https://twitter.com/jacebrowning"
 
 # TESTS ########################################################################
 
