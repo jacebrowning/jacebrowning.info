@@ -65,7 +65,7 @@ I have already started using this in most of my projects to detect when code cov
 
 I've always been fascinated with how people tend to use ratings as a ranking system. Inspired by other ranking sites, I build a tool to manage lists of arbitrary items  and leverage the public to help sort it:
 
-> crowdsorter.com](https://github.com/jacebrowning/crowdsorter)
+> [crowdsorter.com](https://github.com/jacebrowning/crowdsorter)
 
 _This site was shut down in 2020._
 
