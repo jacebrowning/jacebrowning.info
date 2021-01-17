@@ -56,6 +56,6 @@ where `<name>` is part of the name of another computer with `mine` running.
 
 -----
 
-See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this post.
 
 Find a problem with `mine`? Please submit an [issue]({{ site.author.github }}/mine/issues) or contribute!

@@ -101,4 +101,4 @@ The spiritual successor to [YORM](https://datafiles.readthedocs.io/), `datafiles
 
 -----
 
-See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this page.
+See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this page.

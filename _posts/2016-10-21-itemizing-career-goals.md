@@ -50,4 +50,4 @@ I encourage everyone to make similar lists as a way to learn about your true car
 
 -----
 
-See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this post.

@@ -23,14 +23,14 @@ After running `$ jekyll new`, the base project structure will be generated for y
 
 ### Gemfile
 
-A [`Gemfile`](https://raw.githubusercontent.com/jacebrowning/info/master/Gemfile) is used to specify the Ruby dependencies ("Gems") required to generate the website. In addition to `jekyll`, I'm using:
+A [`Gemfile`](https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile) is used to specify the Ruby dependencies ("Gems") required to generate the website. In addition to `jekyll`, I'm using:
 
 * `rouge` - to provide syntax highlighting in code examples
 * `html-proofer` - to confirm that external links are valid
 
 ### Gemfile.lock
 
-The [`Gemfile.lock`](https://raw.githubusercontent.com/jacebrowning/info/master/Gemfile.lock) is automatically generated when installing Gems. It's purpose is to record of the exact version of each dependency the last time the project was successfully deployed.
+The [`Gemfile.lock`](https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile.lock) is automatically generated when installing Gems. It's purpose is to record of the exact version of each dependency the last time the project was successfully deployed.
 
 ### Bundler
 
@@ -38,7 +38,7 @@ The [`Gemfile.lock`](https://raw.githubusercontent.com/jacebrowning/info/master/
 
 ### Makefile
 
-A [`Makefile`](https://raw.githubusercontent.com/jacebrowning/info/master/Makefile) puts everything together. I like using `make` (rather than `rake`) because it doesn't depend on Ruby itself, does a good of tracking when files have changed, and provides a standard interface between projects.
+A [`Makefile`](https://raw.githubusercontent.com/jacebrowning/info/main/Makefile) puts everything together. I like using `make` (rather than `rake`) because it doesn't depend on Ruby itself, does a good of tracking when files have changed, and provides a standard interface between projects.
 
 I'll highlight the important parts of this file. This reinstalls the dependencies whenever they change:
 
@@ -93,7 +93,7 @@ When I am done editing, running `$ make ci` will confirm that the site is ready 
 
 [Travis CI](https://travis-ci.org/) offers free continuous integration for open source projects that can be used to deploy software after running a number of checks.
 
-Adding a [`.travis.yml`](https://raw.githubusercontent.com/jacebrowning/info/master/.travis.yml) to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:
+Adding a [`.travis.yml`](https://raw.githubusercontent.com/jacebrowning/info/main/.travis.yml) to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:
 
 ```yaml
 install:
@@ -118,7 +118,7 @@ cd _site ;
 git init ;
 git add . ;
 git commit -m "Deploy Travis CI build $TRAVIS_BUILD_NUMBER to GitHub pages" ;
-git push -f https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} master:gh-pages ;
+git push -f https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG} main:gh-pages ;
 ```
 
 which will publish the generated files to the `gh-pages` branch on GitHub.
@@ -131,4 +131,4 @@ After deployment, you should now see your Jekyll blog live at:
 
 -----
 
-See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this post.

@@ -154,4 +154,4 @@ Running `$ make read-cov` launches a report similar to:
 
 -----
 
- See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
+ See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this post.

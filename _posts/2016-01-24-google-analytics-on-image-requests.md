@@ -135,6 +135,6 @@ This causes the browser to render the image as expected, but also run a bit of J
 
 -----
 
-See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this post.
 
 Interested in seeing the full implementation? Check out the [code]({{ site.author.github }}/memegen) on GitHub.

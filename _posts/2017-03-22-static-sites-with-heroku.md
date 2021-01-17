@@ -69,4 +69,4 @@ Because the temporary application deployment performs virtually identical to pro
 
 A working example can be found at: [github.com/citizenlabsgr/homepage](https://github.com/citizenlabsgr/homepage)
 
-See a typo? Help me [edit]({{ site.repo }}/edit/master/{{page.path}}) this post.
+See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this post.
