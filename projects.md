@@ -102,3 +102,9 @@ The spiritual successor to [YORM](https://datafiles.readthedocs.io/), `datafiles
 -----
 
 See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this page.
+
+## Pomace
+
+In an effort define Page Object Models (POM) without code, Pomace was born:
+
+> [jacebrowning/pomace](https://github.com/jacebrowning/pomace)
