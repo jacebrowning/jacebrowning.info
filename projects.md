@@ -5,6 +5,8 @@ title: Projects
 
 I enjoy building command-line utilities to automate developments tasks. Lately, I've been getting into more web development for fun. This projects list is more or less in order of completion date.
 
+<script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jacebrowning" data-description="Support my projects!" data-message="Thank you for checking out my project. Buy me a coffee to support this work!" data-color="#85A9CA" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
 ## Doorstop
 
 For my masters thesis at [GVSU](http://scholarworks.gvsu.edu/oapsf_articles/32/), I built a tool to help manage engineering requirements using version control:

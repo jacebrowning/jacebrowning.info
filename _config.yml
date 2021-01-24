@@ -38,3 +38,7 @@ author:
   github:         https://github.com/jacebrowning
   stackoverflow:  https://stackoverflow.com/cv/jacebrowning
   speakerdeck:    https://speakerdeck.com/jacebrowning
+
+# Options
+
+show_resume: false
