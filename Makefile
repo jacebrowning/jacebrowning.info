@@ -9,7 +9,7 @@ HTMLPROOF := $(BE) htmlproofer
 all: install
 
 .PHONY: ci
-ci: check test ## Run all tasks that determine CI status
+ci: test ## Run all tasks that determine CI status
 
 # SYSTEM DEPENDENCIES ##########################################################
 
@@ -55,24 +55,12 @@ build: install
 	$(JEKYLL) build
 	echo $(URL) > _site/CNAME
 
-# CHECKS #######################################################################
-
-.PHONY: check
-check: install build ## Run linters and static analysis
-	$(JEKYLL) doctor
-	$(HTMLPROOF) _site --url-ignore "https://www.linkedin.com/in/jacebrowning,https://twitter.com/jacebrowning"
-
-# TESTS ########################################################################
+# TEST ########################################################################
 
 .PHONY: test
-test: install ## Run unit and integration tests
-	@ echo "TODO: add 'test' task"
-
-# DOCUMENTATION ################################################################
-
-.PHONY: doc
-doc: install ## Run documentation generators
-	@ echo "TODO: add 'doc' task"
+test: install build ## Check site content
+	$(JEKYLL) doctor
+	$(HTMLPROOF) _site --url-ignore "https://www.linkedin.com/in/jacebrowning,https://twitter.com/jacebrowning"
 
 # CLEANUP ######################################################################
 
