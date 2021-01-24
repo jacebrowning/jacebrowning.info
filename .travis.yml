@@ -20,8 +20,7 @@ install:
   - make install
 
 script:
-  - make check
-  - make test
+  - make ci
 
 after_success: >
   echo $TRAVIS_BRANCH; echo $TRAVIS_PULL_REQUEST;
