@@ -15,7 +15,7 @@ For example, `memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg` produces
 
 ![oprah](https://memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg)
 
-The site also provides an [API](https://api.memegen.link) to generate memes. This article is about the [legacy implementation](https://github.com/jacebrowning/memegen-flask) written using [Flask](https://flask.palletsprojects.com/) and [Flask API](https://www.flaskapi.org/).
+The site also provides an [API](https://api.memegen.link) to generate memes. This article is about the [legacy implementation](https://github.com/jacebrowning/memegen-flask) written using [Flask](https://flask.palletsprojects.com/) and [Flask API](https://flask-api.github.io/flask-api/).
 
 ## Client-side Analytics
 
