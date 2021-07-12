@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Measuring Coverage with XcodeCoverage, xctool, & Make
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1>
+          Jace Browning
+      </h1>
+      <p class="lead">I build, customize, integrate, and teach engineering software tools.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="sidebar-nav-item" href="/about/">About</a>
+
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      <a class="sidebar-nav-item" href="/projects/">Projects</a>
+
+    </nav>
+
+    
+    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="120" style="border: 0;"></iframe>
+    
+
+    <p>&copy; 2021. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Measuring Coverage with XcodeCoverage, xctool, & Make</h1>
+  <span class="post-date">23 Mar 2015</span>
+  <h2>The Pieces</h2>
+
+<h3>XcodeCoverage</h3>
+
+<p>The XodeCoverage <a href="https://github.com/jonreid/XcodeCoverage">project</a> is a set of shell scripts bundled with <code>lcov</code> to measure lines of code coverage during execution of instrumented test builds.</p>
+
+<p>In this example, the scripts are used to generate an HTML coverage report (with a few modifications made in <a href="https://github.com/jacebrowning/XcodeCoverage/releases/tag/blog-2015-03-23">my fork</a> to customize report location).</p>
+
+<h3>xctool</h3>
+
+<p><a href="https://github.com/facebook/xctool">Facebook</a> created the <code>xctool</code> command-line program to provide an easier way to build and test Xcode projects.</p>
+
+<p>In this example, the tool is used to build and run Objective-C unit tests from the command line.</p>
+
+<h3>Make</h3>
+
+<p><a href="https://www.gnu.org/software/make/">Make</a> is usually my default entry point for creating builds, running tests, and generating reports. I like putting this sort of automation in a <code>Makefile</code> because, for basic tasks, the syntax is fairly minimal and <code>make</code> is ubiquitous on most platforms.</p>
+
+<h2>Putting Them Together</h2>
+
+<h3>The Makefile</h3>
+
+<p>First, we define few shared variables that can be common to all projects:</p>
+<div class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="nv">WORKSPACE_NAME</span><span class="o">:=</span>&lt;???&gt;
+<span class="nv">PROJECT_NAME</span><span class="o">:=</span>&lt;???&gt;
+<span class="nv">SOURCE_NAME</span><span class="o">:=</span>&lt;???&gt;
+<span class="nv">APP_NAME</span><span class="o">:=</span>&lt;???&gt;
+
+<span class="c"># Common
+</span><span class="nv">ROOT_DIR</span><span class="o">:=</span>.
+<span class="nv">PROJECT_DIR</span><span class="o">:=</span><span class="nv">$(ROOT_DIR)</span>/<span class="nv">$(SOURCE_NAME)</span>
+<span class="nv">SOURCE_DIR</span><span class="o">:=</span><span class="nv">$(PROJECT_DIR)</span>/<span class="nv">$(SOURCE_NAME)</span>
+<span class="nv">SOURCES</span><span class="o">:=</span>Makefile <span class="nv">$(SOURCE_DIR)</span>/<span class="k">*</span>
+
+<span class="c"># Xcode
+</span><span class="nv">XCODE_SCHEME</span><span class="o">?=</span><span class="nv">$(APP_NAME)</span>
+<span class="nv">XCODE_CONFIGURATION</span><span class="o">?=</span>Debug
+
+<span class="c"># xctool
+</span><span class="nv">XCTOOL</span><span class="o">:=</span>xctool
+<span class="nv">XCTOOL_RESULTS_REPORTER</span><span class="o">?=</span>pretty
+<span class="nv">XCTOOL_ARGS_SHARED</span><span class="o">:=</span><span class="nt">-scheme</span> <span class="nv">$(XCODE_SCHEME)</span> <span class="nt">-configuration</span> <span class="se">\</span>
+	<span class="nv">$(XCODE_CONFIGURATION)</span> <span class="nt">-reporter</span> user-notifications
+<span class="nv">XCTOOL_ARGS_TEST</span><span class="o">:=</span><span class="nt">-reporter</span> <span class="nv">$(XCTOOL_RESULTS_REPORTER)</span>
+
+<span class="c"># XcodeCoverage
+</span><span class="nv">XCODECOVERAGE_DIR</span><span class="o">:=</span><span class="nv">$(PROJECT_DIR)</span>/XcodeCoverage
+<span class="nv">XCODECOVERAGE_GETCOV</span><span class="o">:=</span><span class="nv">$(XCODECOVERAGE_DIR)</span>/getcov
+<span class="nv">XCODECOVERAGE_CLEANCOV</span><span class="o">:=</span><span class="nv">$(XCODECOVERAGE_DIR)</span>/cleancov
+</code></pre></div>
+<p>and a few more variables dictating where we&#39;d like coverage output to go:</p>
+<div class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="nv">COVERAGE_DIR</span><span class="o">:=</span><span class="nv">$(ROOT_DIR)</span>/coverage
+<span class="nv">COVERAGE_LOG</span><span class="o">:=</span><span class="nv">$(COVERAGE_DIR)</span>/getcov.log
+<span class="nv">COVERAGE_REPORT</span><span class="o">:=</span><span class="nv">$(COVERAGE_DIR)</span>/index.html
+</code></pre></div>
+<p>The test target is defined as:</p>
+<div class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">test</span>
+<span class="nl">test</span><span class="o">:</span> <span class="nf">$(COVERAGE_LOG)</span>
+<span class="nl">$(COVERAGE_LOG)</span><span class="o">:</span> <span class="nf">$(SOURCES)</span>
+	<span class="nv">$(XCODECOVERAGE_CLEANCOV)</span>
+	<span class="nv">$(XCTOOL)</span> <span class="nb">test</span> <span class="nv">$(XCTOOL_ARGS_SHARED)</span> <span class="nv">$(XCTOOL_ARGS_TEST)</span>
+	<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="nv">$(COVERAGE_DIR)</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+	    <span class="nv">$(XCODECOVERAGE_GETCOV)</span> <span class="nv">$(PROJECT_NAME)</span> <span class="nv">$(COVERAGE_DIR)</span> <span class="o">&gt;</span> <span class="se">\</span>
+	        <span class="nv">$(COVERAGE_LOG)</span>
+	<span class="nb">tail</span> <span class="nt">-n</span> 3 <span class="nv">$(COVERAGE_LOG)</span>
+</code></pre></div>
+<p>which will:</p>
+
+<ol>
+<li>Delete the old coverage data</li>
+<li>Build and run the unit tests</li>
+<li>Parse the generated coverage data</li>
+<li>Generate an HTML coverage report</li>
+<li>Display the percentage of lines coverage</li>
+</ol>
+
+<p>A shortcut to open the coverage report is defined as:</p>
+<div class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">read-cov</span>
+<span class="nl">read-cov</span><span class="o">:</span> <span class="nf">$(COVERAGE_INDEX)</span>
+	open <span class="nv">$(COVERAGE_INDEX)</span>
+
+<span class="nl">$(COVERAGE_INDEX)</span><span class="o">:</span> <span class="nf">$(COVERAGE_LOG)</span>
+</code></pre></div>
+<h3>Example Output</h3>
+
+<p>Running <code>$ make test</code> displays something like:</p>
+<div class="highlight"><pre><code class="language-" data-lang="">./MyProject/XcodeCoverage/cleancov
+Deleting all .da files in /Users/Browning/Library/Developer/Xcode/DerivedData/MyWorkspace/Build/Intermediates/MyProject.build/Debug-iphonesimulator/MyProject.build/Objects-normal/x86_64 and subdirectories
+Done.
+
+xctool test -scheme MyProject -configuration Debug -reporter user-notifications -reporter pretty
+[Info] Loading settings for scheme 'MyProject' ... (1950 ms)
+
+=== TEST ===
+
+  xcodebuild build build
+    MyProject / MyProject (Debug)
+      ✓ Check dependencies (111 ms)
+      ✓ Write auxiliary files (0 ms)
+      ✓ Compile BatterySensor.m (574 ms)
+      ...
+      ✓ Compile Platform.m (68 ms)
+      0 errored, 0 warning (1315 ms)
+
+  [Info] Collecting info for testables... (1196 ms)
+  run-test MyProjectTests.xctest (iphonesimulator8.2, iPad Air, application-test)
+    [Info] Installed 'MyProject'. (1392 ms)
+    [Info] Launching test host and running tests ... (0 ms)
+    ✓ -[BatterySensorCellTestCase testSensorLevel] (5 ms)
+    ...
+    ✓ -[GroupManagerTestCase testCanCreateGroup] (0 ms)
+    99 passed, 0 failed, 0 errored, 99 total (9999 ms)
+
+** TEST SUCCEEDED: 99 passed, 0 failed, 0 errored, 99 total ** (99999 ms)
+
+mkdir -p ./coverage &amp;&amp; ./MyProject/XcodeCoverage/getcov MyProject ./coverage &gt; ./coverage/getcov.log
+
+tail -n 3 ./coverage/getcov.log
+Overall coverage rate:
+  lines......: 17.6% (3676 of 20867 lines)
+  functions..: 19.5% (817 of 4192 functions)
+
+</code></pre></div>
+<p>Running <code>$ make read-cov</code> launches a report similar to:</p>
+
+<p><img src="/assets/sample-lcov-html-report.png" alt="sample-lcov-html-report" title="Sample LCOV HTML Report"></p>
+
+<hr>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-03-23-xcodecoverage-xctool-and-make.md">edit</a> this post.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/03/22/static-sites-with-heroku/">
+            Using Heroku to Review Static Websites
+            <small>22 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/09/30/coverage-as-a-service/">
+            Test Coverage as a Service
+            <small>30 Sep 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

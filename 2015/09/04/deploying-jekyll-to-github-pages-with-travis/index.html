@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Deploying a Jekyll Blog to GitHub Pages using Travis CI
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1>
+          Jace Browning
+      </h1>
+      <p class="lead">I build, customize, integrate, and teach engineering software tools.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="sidebar-nav-item" href="/about/">About</a>
+
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      <a class="sidebar-nav-item" href="/projects/">Projects</a>
+
+    </nav>
+
+    
+    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="120" style="border: 0;"></iframe>
+    
+
+    <p>&copy; 2021. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Deploying a Jekyll Blog to GitHub Pages using Travis CI</h1>
+  <span class="post-date">04 Sep 2015</span>
+  <p><a href="https://jekyllrb.com/">Jekyll</a> is a &quot;blog-aware static site generator&quot; written in <a href="https://www.ruby-lang.org/">Ruby</a> that will generate a responsive website from <a href="https://help.github.com/articles/markdown-basics/">Markdown</a> and <a href="https://yaml.org/">YAML</a> files.</p>
+
+<p><a href="https://pages.github.com/">GitHub Pages</a> offers you a free way to host static websites. And while they will automatically publish files in a repository named <code>&lt;your-github-id&gt;.github.io</code>, sometimes you need a little more control over the process.</p>
+
+<h2>Project Tooling</h2>
+
+<p>After running <code>$ jekyll new</code>, the base project structure will be generated for you. To simplify setup on additional machines and enable continuous deployment, I like to add additional tooling to this project.</p>
+
+<h3>Gemfile</h3>
+
+<p>A <a href="https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile"><code>Gemfile</code></a> is used to specify the Ruby dependencies (&quot;Gems&quot;) required to generate the website. In addition to <code>jekyll</code>, I&#39;m using:</p>
+
+<ul>
+<li><code>rouge</code> - to provide syntax highlighting in code examples</li>
+<li><code>html-proofer</code> - to confirm that external links are valid</li>
+</ul>
+
+<h3>Gemfile.lock</h3>
+
+<p>The <a href="https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile.lock"><code>Gemfile.lock</code></a> is automatically generated when installing Gems. It&#39;s purpose is to record of the exact version of each dependency the last time the project was successfully deployed.</p>
+
+<h3>Bundler</h3>
+
+<p><code>bundler</code> is a tool that can install and run particular versions of Gems for a project. I prefer to store the Gems locally via <code>$ bundler install --path vendor</code> so that I&#39;m not polluting my system directories and can completely delete all files a project creates.</p>
+
+<h3>Makefile</h3>
+
+<p>A <a href="https://raw.githubusercontent.com/jacebrowning/info/main/Makefile"><code>Makefile</code></a> puts everything together. I like using <code>make</code> (rather than <code>rake</code>) because it doesn&#39;t depend on Ruby itself, does a good of tracking when files have changed, and provides a standard interface between projects.</p>
+
+<p>I&#39;ll highlight the important parts of this file. This reinstalls the dependencies whenever they change:</p>
+<div class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="nv">VENDOR_DIR</span> <span class="o">:=</span> vendor
+<span class="nv">INSTALLED_FLAG</span> <span class="o">:=</span> <span class="nv">$(VENDOR_DIR)</span>/.installed
+
+<span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">install</span>
+<span class="nl">install</span><span class="o">:</span> <span class="nf">$(INSTALLED_FLAG)</span>
+<span class="nl">$(INSTALLED_FLAG)</span><span class="o">:</span> <span class="nf">Gemfile* Makefile</span>
+	bundle <span class="nb">install</span> <span class="nt">--path</span> vendor
+	<span class="p">@</span> <span class="nb">touch</span> <span class="nv">$(INSTALLED_FLAG)</span>
+</code></pre></div>
+<p>This builds the site and validates the generated HTML:</p>
+<div class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">build</span>
+<span class="nl">build</span><span class="o">:</span> <span class="nf">install</span>
+	bundle <span class="nb">exec </span>jekyll build <span class="nt">--quiet</span>
+	bundle <span class="nb">exec </span>htmlproof _site <span class="nt">--only-4xx</span>
+</code></pre></div>
+<p>And these targets provide a way to run the site locally:</p>
+<div class="highlight"><pre><code class="language-makefile" data-lang="makefile"><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">run</span>
+<span class="nl">run</span><span class="o">:</span> <span class="nf">install</span>
+	bundle <span class="nb">exec </span>jekyll serve <span class="nt">--future</span> <span class="nt">--drafts</span>
+
+<span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">launch</span>
+<span class="nl">launch</span><span class="o">:</span> <span class="nf">install</span>
+	<span class="nb">eval</span> <span class="s2">"sleep 5; open http://localhost:4000"</span> &amp; make run
+</code></pre></div>
+<p>See the <a href="https://github.com/jacebrowning/jacebrowning.info">source code</a> that generates <strong>this</strong> site as an example of how these files are used together in practice.</p>
+
+<h2>Developing Locally</h2>
+
+<p>Using the above tooling, my only system dependencies are <code>ruby</code>, <code>bundler</code>, and <code>make</code>. To work on a new blog entry, I simply run:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">$ </span>make launch
+</code></pre></div>
+<p>to bring up a local instance of the site that is regenerated whenever I edit content.</p>
+
+<p>When I am done editing, running <code>$ make ci</code> will confirm that the site is ready to be published.</p>
+
+<h2>Deploying with Travis CI</h2>
+
+<p><a href="https://travis-ci.org/">Travis CI</a> offers free continuous integration for open source projects that can be used to deploy software after running a number of checks.</p>
+
+<p>Adding a <a href="https://raw.githubusercontent.com/jacebrowning/info/main/.travis.yml"><code>.travis.yml</code></a> to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">install</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">make install</span>
+
+<span class="na">script</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">make ci</span>
+</code></pre></div>
+<p>If a new commit passes those checks, the following shell script is run:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Generate HTML</span>
+make build <span class="p">;</span>
+<span class="c"># Configure Git with Travis CI information</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"travis@travis-ci.org"</span> <span class="p">;</span>
+git config <span class="nt">--global</span> user.name <span class="s2">"travis-ci"</span> <span class="p">;</span>
+<span class="c"># Delete the current repository</span>
+<span class="nb">rm</span> <span class="nt">-rf</span> .git <span class="p">;</span>
+<span class="c"># Rebuild the repository from the generated files and push to GitHub pages</span>
+<span class="nb">cd </span>_site <span class="p">;</span>
+git init <span class="p">;</span>
+git add <span class="nb">.</span> <span class="p">;</span>
+git commit <span class="nt">-m</span> <span class="s2">"Deploy Travis CI build </span><span class="nv">$TRAVIS_BUILD_NUMBER</span><span class="s2"> to GitHub pages"</span> <span class="p">;</span>
+git push <span class="nt">-f</span> https://<span class="k">${</span><span class="nv">GH_TOKEN</span><span class="k">}</span>@github.com/<span class="k">${</span><span class="nv">TRAVIS_REPO_SLUG</span><span class="k">}</span> main:gh-pages <span class="p">;</span>
+</code></pre></div>
+<p>which will publish the generated files to the <code>gh-pages</code> branch on GitHub.</p>
+
+<p><code>GH_TOKEN</code> is an encrypted access token to grant Travis CI permissions to modify files in your repository. <a href="https://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/">This site</a> provides a good overview on generating these tokens.</p>
+
+<p>After deployment, you should now see your Jekyll blog live at:</p>
+
+<p><code>https://&lt;your-github-id&gt;.github.io/&lt;your-repository-name&gt;</code></p>
+
+<hr>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-09-04-deploying-jekyll-to-github-pages-with-travis.md">edit</a> this post.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/03/22/static-sites-with-heroku/">
+            Using Heroku to Review Static Websites
+            <small>22 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/09/30/coverage-as-a-service/">
+            Test Coverage as a Service
+            <small>30 Sep 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

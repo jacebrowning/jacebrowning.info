@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Projects
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1>
+          Jace Browning
+      </h1>
+      <p class="lead">I build, customize, integrate, and teach engineering software tools.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="sidebar-nav-item" href="/about/">About</a>
+
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      <a class="sidebar-nav-item active" href="/projects/">Projects</a>
+
+    </nav>
+
+    
+    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="120" style="border: 0;"></iframe>
+    
+
+    <p>&copy; 2021. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="page">
+  <h1 class="page-title">Projects</h1>
+  <p>I enjoy building command-line utilities to automate developments tasks. Lately, I&#39;ve been getting into more web development for fun. This projects list is more or less in order of completion date.</p>
+
+<script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jacebrowning" data-description="Support my projects!" data-message="Thank you for checking out my projects. Buy me a coffee to support this work!" data-color="#85A9CA"  data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+<h2>Doorstop</h2>
+
+<p>For my masters thesis at <a href="http://scholarworks.gvsu.edu/oapsf_articles/32/">GVSU</a>, I built a tool to help manage engineering requirements using version control:</p>
+
+<blockquote>
+<p><a href="https://doorstop.readthedocs.io/">doorstop.readthedocs.io</a></p>
+</blockquote>
+
+<p>I am no longer actively working on this program, but many people continue to find it useful in their projects.</p>
+
+<h2>GR Parks</h2>
+
+<p>A local &quot;civic hacking&quot; group, <a href="http://citizenlabs.org/">Citizen Labs</a>, started a project with the City of Grand Rapids to display parks millage dollars on a map:</p>
+
+<blockquote>
+<p><a href="https://grparks.citizenlabs.org/">grparks.citizenlabs.org</a></p>
+</blockquote>
+
+<p>We hope to be able to produce similar maps for other municipalities and explore additional datasets.</p>
+
+<h2>YORM</h2>
+
+<p>Inspired by the pleasant experience of using YAML to store program data when designing Doorstop, I decided to extract some of the core functionality into a library:</p>
+
+<blockquote>
+<p><a href="https://yorm.readthedocs.io/">yorm.readthedocs.io</a></p>
+</blockquote>
+
+<p>I have since used this library as the base for lots of tools. Read more <a href="/2015/05/17/yorm-v0.4-released/">on the blog</a>.</p>
+
+<h2>Mine</h2>
+
+<p>Taking advantage of the data storage provide by YORM, I built a tool to synchronize the state of running applications using a YAML file saved in Dropbox:</p>
+
+<blockquote>
+<p><a href="https://mine.readthedocs.io/">mine.readthedocs.io</a></p>
+</blockquote>
+
+<p>I use this program every day to access my music library in iTunes. Read more <a href="/2015/03/24/syncing-itunes-using-dropbox-with-mine/">on the blog</a>.</p>
+
+<h2>GitMan</h2>
+
+<p>At several jobs, my team ran into the problem of needing to manage multiple Git repositories and found Git&#39;s submodules feature to be lacking. Out of this need, a new command-line utility arose:</p>
+
+<blockquote>
+<p><a href="https://gitman.readthedocs.io/">gitman.readthedocs.io</a></p>
+</blockquote>
+
+<p>I still use this tool nearly every day to simplify the task of cloning lots of Git repositories for work. Read more <a href="/2015/08/07/replacing-submodules-with-gitman/">on the blog</a>.</p>
+
+<h2>memegen.link</h2>
+
+<p>When using <a href="https://slack.com/">Slack</a> for communication with colleagues and friends, I found we needed a simple way to create and share memes as links to images. Few of the existing meme generators allowed hot-linking to images, so I build an API to generate memes:</p>
+
+<blockquote>
+<p><a href="https://memegen.link">memegen.link</a></p>
+</blockquote>
+
+<p>Many chat bots have been written to use the API and the service continues to get around 30k image requests per day. Read more <a href="/2016/01/24/google-analytics-on-image-requests/">on the blog</a>.</p>
+
+<h2>The Coverage Space</h2>
+
+<p>I try to enable test coverage in all of my projects as a gut check that new functionality has not decreased the overall coverage. To avoid storing the minimum coverage metric in each project&#39;s repository, I build a simple API to track code coverage metrics:</p>
+
+<blockquote>
+<p><a href="https://coverage.space/">coverage.space</a></p>
+</blockquote>
+
+<p>I have already started using this in most of my projects to detect when code coverage decreases. Read more <a href="/2016/09/30/coverage-as-a-service/">on the blog</a>.</p>
+
+<h2>Crowd Sorter</h2>
+
+<p>I&#39;ve always been fascinated with how people tend to use ratings as a ranking system. Inspired by other ranking sites, I build a tool to manage lists of arbitrary items  and leverage the public to help sort it:</p>
+
+<blockquote>
+<p><a href="https://github.com/jacebrowning/crowdsorter">crowdsorter.com</a></p>
+</blockquote>
+
+<p><em>This site was shut down in 2020.</em></p>
+
+<h2>Virtual Boombox</h2>
+
+<p>I&#39;ve used <a href="https://www.last.fm/about/trackmymusic">Last.fm</a> for as long as I&#39;ve been into music. Connecting scrobbling data to locations, I built an application to discover music playing nearby:</p>
+
+<blockquote>
+<p><a href="https://virtualboombox.com/">virtualboombox.com</a></p>
+</blockquote>
+
+<h2>Meme Complete</h2>
+
+<p>Autocomplete for memes via text and speech.</p>
+
+<blockquote>
+<p><a href="https://memecomplete.com/">memecomplete.com</a></p>
+</blockquote>
+
+<h2>MediaVouch</h2>
+
+<p>Your playlist for everything.</p>
+
+<blockquote>
+<p><a href="https://mediavouch.com/">mediavouch.com</a></p>
+</blockquote>
+
+<h2>Lunchdown</h2>
+
+<p>A restaurant recommendation engine powered by Foursquare.</p>
+
+<blockquote>
+<p><a href="https://lunchdown.com/">lunchdown.com</a></p>
+</blockquote>
+
+<h2>Datafiles</h2>
+
+<p>The spiritual successor to <a href="https://datafiles.readthedocs.io/">YORM</a>, <code>datafiles</code> is a file-based ORM for Python dataclasses leveraging type annotations for serialization:</p>
+
+<blockquote>
+<p><a href="https://datafiles.readthedocs.io/">datafiles.readthedocs.io</a></p>
+</blockquote>
+
+<h2>Pomace</h2>
+
+<p>In an effort define Page Object Models (POM) without code, Pomace was born:</p>
+
+<blockquote>
+<p><a href="https://github.com/jacebrowning/pomace">jacebrowning/pomace</a></p>
+</blockquote>
+
+<hr>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/projects.md">edit</a> this page.</p>
+
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

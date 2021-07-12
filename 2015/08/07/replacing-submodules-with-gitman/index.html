@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Replacing Git Submodules with GitMan
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1>
+          Jace Browning
+      </h1>
+      <p class="lead">I build, customize, integrate, and teach engineering software tools.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="sidebar-nav-item" href="/about/">About</a>
+
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      <a class="sidebar-nav-item" href="/projects/">Projects</a>
+
+    </nav>
+
+    
+    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="120" style="border: 0;"></iframe>
+    
+
+    <p>&copy; 2021. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Replacing Git Submodules with GitMan</h1>
+  <span class="post-date">07 Aug 2015</span>
+  <p>Lots of languages offer dependency managers (<a href="https://pip.pypa.io/en/stable/"><code>pip</code></a>, <a href="https://rubygems.org/"><code>gem</code></a>, <a href="https://www.npmjs.com/"><code>npm</code></a>), but in many situations, that&#39;s not enough. Sometimes you need to:</p>
+
+<ul>
+<li>use a language without a dependency manager</li>
+<li>include code from multiple languages</li>
+<li>explicitly control the installation location</li>
+</ul>
+
+<h2>Git Submodules</h2>
+
+<p>When using <a href="https://git-scm.com/">Git</a> for version control, the obvious choice is to use <a href="https://git-scm.com/docs/git-submodule">submodules</a> to include the source from another repository. However, in practice, submodules can often be a pain to use, as they:</p>
+
+<ul>
+<li>require extra information to meaningfully identify the submodule&#39;s SHA</li>
+<li>cause confusing merge conflicts (one SHA vs. another)</li>
+<li>show confusing status changes when switching branches</li>
+</ul>
+
+<p>And while submodules can be used to track a branch (rather than a SHA), this will:</p>
+
+<ul>
+<li>show confusing status changes if the branch head moves</li>
+<li>require a new commit by whomever updates submodules first</li>
+</ul>
+
+<h2>An Alternative</h2>
+
+<p><a href="https://gitman.readthedocs.io">GitMan</a> avoids these issues and adds the ability to:</p>
+
+<ul>
+<li>track a specific tag in a source dependency&#39;s repository</li>
+<li>checkout by <code>rev-parse</code> dates (e.g. <code>&#39;develop@{2015-06-18 10:30:59}&#39;</code>)</li>
+</ul>
+
+<h3>Installation</h3>
+
+<p>To install GitMan, first install Python 3 and it&#39;s dependency manager, <code>pip</code>:</p>
+
+<ul>
+<li>Windows: <a href="https://www.python.org/downloads">python.org/downloads</a></li>
+<li>Mac: <code>$ brew install python3</code></li>
+<li>Ubuntu: <code>$ sudo apt-get install python3-pip</code></li>
+</ul>
+
+<p>Then, install <code>gitman</code> using <code>pip3</code>:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>pip3 <span class="nb">install</span> <span class="nt">--upgrade</span> gitman
+</code></pre></div>
+<p>Version and help information are available on the command-line</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gitman <span class="nt">--version</span>
+<span class="nv">$ </span>gitman <span class="nt">--help</span>
+</code></pre></div>
+<h3>Mimicking Submodule</h3>
+
+<p>While GitMan, provides <a href="https://github.com/jacebrowning/gitman#usage">additional capabilities</a>, it can also directly replace the behavior of submodules. To mimic a working tree containing a submodule:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;root&gt;/vendor/my_dependency  <span class="c"># submodule at: a5fe3d...</span>
+</code></pre></div>
+<p>create a <code>gitman.yml</code> file in the root of your working tree:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">location</span><span class="pi">:</span> <span class="s">gitman_sources</span>
+<span class="na">sources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">repo</span><span class="pi">:</span> <span class="s">&lt;URL of my_dependency's repository&gt;</span>
+  <span class="na">dir</span><span class="pi">:</span> <span class="s">my_dependency</span>
+  <span class="na">rev</span><span class="pi">:</span> <span class="s">a5fe3d</span>
+  <span class="na">link</span><span class="pi">:</span> <span class="s">vendor/my_depenendy</span>
+</code></pre></div>
+<p>and run:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gitman <span class="nb">install</span>
+</code></pre></div>
+<p>To display the specific versions of source dependencies:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gitman list
+</code></pre></div>
+<hr>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-08-07-replacing-submodules-with-gitman.md">edit</a> this post.</p>
+
+<p>Find a problem with <code>gitman</code>? Please submit an <a href="https://github.com/jacebrowning/gitman/issues">issue</a> or contribute!</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/03/22/static-sites-with-heroku/">
+            Using Heroku to Review Static Websites
+            <small>22 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/09/30/coverage-as-a-service/">
+            Test Coverage as a Service
+            <small>30 Sep 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; YORM v0.4 Released
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1>
+          Jace Browning
+      </h1>
+      <p class="lead">I build, customize, integrate, and teach engineering software tools.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="sidebar-nav-item" href="/about/">About</a>
+
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      <a class="sidebar-nav-item" href="/projects/">Projects</a>
+
+    </nav>
+
+    
+    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="120" style="border: 0;"></iframe>
+    
+
+    <p>&copy; 2021. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">YORM v0.4 Released</h1>
+  <span class="post-date">17 May 2015</span>
+  <p>Yesterday, I released an important milestone of my file-based object relational mapper for Python, <a href="https://github.com/jacebrowning/yorm">YORM</a>. Among other <a href="https://github.com/jacebrowning/yorm/blob/develop/CHANGELOG.md#04-20150516">changes</a>, this release provides support for unlimited nesting of container-like attributes. This is a feature I&#39;ve wanted for a while, but was actually quite difficult to implement. The API for YORM is also starting to stabilize after some breaking changes from the previous release.</p>
+
+<h2>Some Background</h2>
+
+<p>Lately, I&#39;ve been running into many situations where I&#39;d like to store program configuration and/or data in version control. YORM was born to provide automatic, bidirectional, and human-friendly mappings of Python object attributes to YAML files.</p>
+
+<p>Traditional object serializes don&#39;t provide output fit for human modification and ORM databases aren&#39;t fit for storage in version control. YORM supports additional uses beyond typical object serialization and mapping including:</p>
+
+<ul>
+<li>bidirectional conversion between basic YAML and Python types</li>
+<li>attribute creation and type inference for new attributes</li>
+<li>storage of content in text files optimized for version control</li>
+<li>extensible converters to customize formatting on complex classes</li>
+</ul>
+
+<h2>An Example</h2>
+
+<p>Given an existing class:</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">school</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2009</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">school</span> <span class="o">=</span> <span class="n">school</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gpa</span> <span class="o">=</span> <span class="mf">0.0</span>
+</code></pre></div>
+<p>an attribute mapping is defined mapping attributes to converter classes and instances to a file pattern:</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">yorm</span>
+<span class="kn">from</span> <span class="nn">yorm.converters</span> <span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
+
+<span class="o">@</span><span class="n">yorm</span><span class="o">.</span><span class="n">attr</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">String</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="n">Integer</span><span class="p">,</span> <span class="n">gpa</span><span class="o">=</span><span class="n">Float</span><span class="p">)</span>
+<span class="o">@</span><span class="n">yorm</span><span class="o">.</span><span class="n">sync</span><span class="p">(</span><span class="s">"students/{self.school}/{self.number}.yml"</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+    <span class="o">...</span>
+</code></pre></div>
+<p>Modifications to each object&#39;s mapped attributes:</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">"John Doe"</span><span class="p">,</span> <span class="s">"GVSU"</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">"Jane Doe"</span><span class="p">,</span> <span class="s">"GVSU"</span><span class="p">,</span> <span class="mi">456</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2014</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span><span class="o">.</span><span class="n">gpa</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div>
+<p>are automatically reflected on the filesytem:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cat </span>students/GVSU/123.yml
+name: John Doe
+gpa: 3.0
+school: GVSU
+year: 2009
+</code></pre></div>
+<p>Modifications and new content in each mapped file:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"name: John Doe
+&gt; gpa: 1.8
+&gt; year: 2010
+&gt; expelled: true
+"</span> <span class="o">&gt;</span> students/GVSU/123.yml
+</code></pre></div>
+<p>are automatically reflected in their corresponding object:</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span><span class="o">.</span><span class="n">gpa</span>
+<span class="mf">1.8</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span><span class="o">.</span><span class="n">expelled</span>
+<span class="bp">True</span>
+</code></pre></div>
+<h2>Current Uses</h2>
+
+<p>Right now I&#39;m using YORM to:</p>
+
+<ul>
+<li>store program state in Dropbox: <a href="https://github.com/jacebrowning/mine">mine</a></li>
+<li>simplify configuration file loading: <a href="https://github.com/jacebrowning/gitman">GitMan</a></li>
+<li>prototype a RESTful game API: <a href="https://github.com/jacebrowning/gridcommand">GridCommand</a></li>
+</ul>
+
+<hr>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-05-17-yorm-v0.4-released.md">edit</a> this post.</p>
+
+<p>Find a problem with <code>yorm</code>? Please submit an <a href="https://github.com/jacebrowning/yorm/issues">issue</a> or contribute!</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/03/22/static-sites-with-heroku/">
+            Using Heroku to Review Static Websites
+            <small>22 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/09/30/coverage-as-a-service/">
+            Test Coverage as a Service
+            <small>30 Sep 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

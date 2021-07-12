@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Using Heroku to Review Static Websites
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1>
+          Jace Browning
+      </h1>
+      <p class="lead">I build, customize, integrate, and teach engineering software tools.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="sidebar-nav-item" href="/about/">About</a>
+
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      <a class="sidebar-nav-item" href="/projects/">Projects</a>
+
+    </nav>
+
+    
+    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="120" style="border: 0;"></iframe>
+    
+
+    <p>&copy; 2021. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Using Heroku to Review Static Websites</h1>
+  <span class="post-date">22 Mar 2017</span>
+  <p><a href="https://devcenter.heroku.com/start">Heroku</a> is a great platform to deploy your full-stack application. While not the appropriate place to deploy a production frontend application, Heroku&#39;s <a href="https://devcenter.heroku.com/articles/github-integration-review-apps">Review Apps</a> offer an automated mechanism to create a temporary deployment of your application to a unique, predictable URL.</p>
+
+<h2>Review Apps</h2>
+
+<p>After creating a Heroku account, create a <a href="https://devcenter.heroku.com/articles/pipelines">&quot;Pipeline&quot;</a> for your project and connect it to a repository on GitHub. Heroku&#39;s Pipelines allow your application code to be deployed multiple times, from different branches.</p>
+
+<p>Regardless of the technology your application uses, you will need to tell Heroku about your application&#39;s dependencies in a <a href="https://devcenter.heroku.com/articles/app-json-schema">manifest file</a>. The most basic <code>app.json</code> will look similar to the following:</p>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grwifi"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"formation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"buildpacks"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h2>Web Server</h2>
+
+<p>In order to serve up our static site, we&#39;ll need to run a web server on Heroku. I developed <a href="https://github.com/jacebrowning/sappy">sappy</a> specifically for the purpose of serving up single-page applications (SPAs) and static websites.</p>
+
+<p>To run our application on Heroku using Sappy, we&#39;ll need to add a few files:</p>
+
+<p><strong><code>runtime.txt</code></strong> indicates that Heroku should use a Python <a href="https://devcenter.heroku.com/articles/buildpacks">buildpack</a> (because Sappy is written in Python):</p>
+<div class="highlight"><pre><code class="language-" data-lang="">python-3.6.1
+</code></pre></div>
+<p><strong><code>requrements.txt</code></strong> tells Heroku to install Sappy using <a href="https://en.wikipedia.org/wiki/Pip_(package_manager)">pip</a> (the package manager for Python):</p>
+<div class="highlight"><pre><code class="language-" data-lang="">sappy==1.0.1
+</code></pre></div>
+<p><strong><code>Procfile</code></strong> specifies <code>sappy</code> as the command to run our application:</p>
+<div class="highlight"><pre><code class="language-" data-lang="">web: sappy --port=${PORT}
+</code></pre></div>
+<h2>Automated Deployment</h2>
+
+<p>After adding the above files to your repository, enable Review Apps on the pipeline we created earlier:</p>
+
+<p><img src="/assets/enable-review-apps.png" alt="enable review apps"></p>
+
+<p>When new pull requests are created on GitHub, Heroku will automatically deploy the code in that branch to a separate Heroku instance:</p>
+
+<p><img src="/assets/review-app-deployment.png" alt="review app deployment"></p>
+
+<p>Because the temporary application deployment performs virtually identical to production, the end-to-end testing and design review that might occur later in our quality assurance process can now be performed before the code is even merged.</p>
+
+<hr>
+
+<p>A working example can be found at: <a href="https://github.com/citizenlabsgr/homepage">github.com/citizenlabsgr/homepage</a></p>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2017-03-22-static-sites-with-heroku.md">edit</a> this post.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/09/30/coverage-as-a-service/">
+            Test Coverage as a Service
+            <small>30 Sep 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/24/google-analytics-on-image-requests/">
+            Tracking Direct Image Requests with Google Analytics
+            <small>24 Jan 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

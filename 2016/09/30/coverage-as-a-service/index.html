@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Test Coverage as a Service
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+    <div class="sidebar-about">
+      <h1>
+          Jace Browning
+      </h1>
+      <p class="lead">I build, customize, integrate, and teach engineering software tools.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a class="sidebar-nav-item" href="/about/">About</a>
+
+      <a class="sidebar-nav-item" href="/">Blog</a>
+
+      <a class="sidebar-nav-item" href="/projects/">Projects</a>
+
+    </nav>
+
+    
+    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="40" width="120" style="border: 0;"></iframe>
+    
+
+    <p>&copy; 2021. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Test Coverage as a Service</h1>
+  <span class="post-date">30 Sep 2016</span>
+  <p>Measuring coverage is an important, but sometimes forgotten part of running tests. One of the common debates is around how much coverage a project should have: 50%, 80%, 100%?</p>
+
+<p>More important than the actual coverage metrics is ensuring that your coverage metrics don&#39;t decrease when adding new code. Coverage metrics don&#39;t tell us when a particular section of code has enough tests, but they do help inform us when a section of code has zero tests.</p>
+
+<h2>Tracking Metrics</h2>
+
+<p>A few options exist for tracking coverage metrics.</p>
+
+<h3>Version Control</h3>
+
+<p>The naive solution is to commit coverage metrics to a file in your project repository. When tests are run, check this file and report an error if coverage decreased. The main disadvantage of this approach is having lots of commits unrelated to functional changes, which adds noise to your repository.</p>
+
+<h3>External Services</h3>
+
+<p>Many external services exist to track coverage metrics. One such example is <a href="https://coveralls.io/">Coveralls</a>. This service works great and is highly recommended for open-source projects to track coverage on pull requests. The main disadvantages of this service are the costs for private repositories and the inability to check coverage metrics locally.</p>
+
+<h2>The Coverage Space</h2>
+
+<p><a href="https://coverage.space">coverage.space</a> is a new RESTful API to track coverage metrics that aims to find a balance between these two options.</p>
+
+<h3>Basic Usage</h3>
+
+<p>The easiest way to get started with The Coverage Space is to use an HTTP client. <a href="https://github.com/jkbrzt/httpie">HTTPie</a> works well for this:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>pip <span class="nb">install </span>HTTPie
+</code></pre></div>
+<p>Update metrics for your project:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>http PUT api.coverage.space/my_owner/my_repo <span class="nv">unit</span><span class="o">=</span>90
+</code></pre></div>
+<p>where <code>my_owner/my_repo</code> matches your project.</p>
+
+<p>Check out the full API documentation at <a href="https://coverage.space/api/">coverage.space/api</a>.</p>
+
+<h3>Command-line Client</h3>
+
+<p>A command-line client is also available to automate the process of reading and uploading coverage metrics:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>pip <span class="nb">install</span> <span class="nt">--update</span> coverage.space
+</code></pre></div>
+<p>After running your tests with coverage enabled, update metrics for your project:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>coverage.space my_owner/my_repo unit
+</code></pre></div>
+<p>where <code>my_owner/my_repo</code> matches your project.</p>
+
+<p>Check out the full client documentation at <a href="https://cli.coverage.space">cli.coverage.space</a>.</p>
+
+<hr>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-09-30-coverage-as-a-service.md">edit</a> this post.</p>
+
+<p>Interested in seeing the full implementation? Check out the <a href="https://github.com/jacebrowning/coverage-space">code</a> on GitHub.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/03/22/static-sites-with-heroku/">
+            Using Heroku to Review Static Websites
+            <small>22 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/24/google-analytics-on-image-requests/">
+            Tracking Direct Image Requests with Google Analytics
+            <small>24 Jan 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>
