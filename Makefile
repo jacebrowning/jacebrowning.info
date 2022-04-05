@@ -60,8 +60,7 @@ build: install
 .PHONY: test
 test: install build ## Check site content
 	$(JEKYLL) doctor
-	# TODO: Fix 'nokogumbo' installation error
-	# $(HTMLPROOF) _site --url-ignore "https://www.linkedin.com/in/jacebrowning,https://twitter.com/jacebrowning"
+	$(HTMLPROOF) _site --http-status-ignore 0,301,403,999
 
 # CLEANUP ######################################################################
 

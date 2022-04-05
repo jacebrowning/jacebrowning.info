@@ -6,6 +6,5 @@ gem 'rouge'
 gem 'jekyll-paginate'
 gem 'redcarpet'
 
-# TODO: Fix 'nokogumbo' installation error
-# gem 'html-proofer'
+gem 'html-proofer'
 gem 'jekyll-redirect-from'
