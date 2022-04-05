@@ -60,7 +60,7 @@ build: install
 .PHONY: test
 test: install build ## Check site content
 	$(JEKYLL) doctor
-	$(HTMLPROOF) _site --url-ignore "https://www.linkedin.com/in/jacebrowning,https://twitter.com/jacebrowning,https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+	$(HTMLPROOF) _site --http-status-ignore 0,301,403,999
 
 # CLEANUP ######################################################################
 
