@@ -14,7 +14,7 @@ plugins:
   - jekyll-paginate
   - jekyll-redirect-from
 
-permalink:              pretty
+permalink:  pretty
 
 # Routes
 
@@ -27,7 +27,7 @@ assets:     /assets
 
 title:          Jace Browning
 tagline:        Software Craftsman
-description:    I build, customize, integrate, and teach engineering software tools.
+description:    I build tools that empower developers to ship quality code.
 
 repo: https://github.com/jacebrowning/jacebrowning.info
 
@@ -36,7 +36,7 @@ author:
   twitter:        https://twitter.com/jacebrowning
   linkedin:       https://www.linkedin.com/in/jacebrowning
   github:         https://github.com/jacebrowning
-  stackoverflow:  https://stackoverflow.com/cv/jacebrowning
+  stackoverflow:  https://stackoverflow.com/users/429533/jace-browning
   speakerdeck:    https://speakerdeck.com/jacebrowning
 
 # Options

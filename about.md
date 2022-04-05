@@ -3,7 +3,7 @@ layout: page
 title: About
 ---
 
-Jace Browning builds, customizes, integrates, and teaches engineering software tools. He has worked on products in the embedded, mobile, and web space, but his expertise is systems programming, specifically in Python. Professionally, he focuses on quality assurance, automation, and process optimization. In his free time, he enjoys contributing to open source and volunteering at local technology events.
+Jace Browning builds, customizes, and integrates tools that empower developers to ship quality code. He has worked on products in the embedded, mobile, and web space, but his expertise is test automation, specifically in Python. Professionally, he focuses on Quality Assurance, CI/CD, and Tools Engineering. In his free time, he enjoys contributing to open source and volunteering at local technology events.
 
 Browse his profiles:
 
