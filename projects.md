@@ -39,13 +39,23 @@ Taking advantage of the data storage provide by YORM, I built a tool to synchron
 
 I use this program every day to access my music library in iTunes. Read more [on the blog]({% post_url 2015-03-24-syncing-itunes-using-dropbox-with-mine %}).
 
-## GitMan
+## Gitman
 
 At several jobs, my team ran into the problem of needing to manage multiple Git repositories and found Git's submodules feature to be lacking. Out of this need, a new command-line utility arose:
 
 > [gitman.readthedocs.io](https://gitman.readthedocs.io/)
 
 I still use this tool nearly every day to simplify the task of cloning lots of Git repositories for work. Read more [on the blog]({% post_url 2015-08-07-replacing-submodules-with-gitman %}).
+
+## Sappy
+
+See [this post](https://jacebrowning.info/2017/03/22/static-sites-with-heroku/) for an explanation of how this tool acts as a web server for static sites.
+
+## Verchew
+
+While onboarding new team members, I discovered that ensuring their computers have everything needed to work on the project can be painful. So, I built a command-line program to check the versions of your project's system dependencies.
+
+> [jacebrowning/verchew](https://github.com/jacebrowning/verchew)
 
 ## Memegen.link
 
@@ -54,6 +64,12 @@ When using [Slack](https://slack.com/) for communication with colleagues and fri
 > [memegen.link](https://memegen.link)
 
 Many chat bots have been written to use the API and the service continues to get around 30k image requests per day. Read more [on the blog]({% post_url 2016-01-24-google-analytics-on-image-requests %}).
+
+## env-diff
+
+In a [Twelve-Factor](https://12factor.net/) app running in multiple environments, it can be difficult to determine how each is configured. I build `env-diff` to essentially be a diff tool for the `env` command.
+
+> [jacebrowning/env-diff](https://github.com/jacebrowning/env-diff)
 
 ## The Coverage Space
 
