@@ -6,10 +6,7 @@ HTMLPROOF := $(BE) htmlproofer
 # MAIN TASKS ###################################################################
 
 .PHONY: all
-all: install
-
-.PHONY: ci
-ci: test ## Run all tasks that determine CI status
+all: test ## Run all tasks that determine CI status
 
 # SYSTEM DEPENDENCIES ##########################################################
 
@@ -60,7 +57,7 @@ build: install
 .PHONY: test
 test: install build ## Check site content
 	$(JEKYLL) doctor
-	$(HTMLPROOF) _site --http-status-ignore 0,301,403,999
+	$(HTMLPROOF) _site --no-enforce-http --ignore-status-codes 0,301,403,999
 
 # CLEANUP ######################################################################
 
@@ -71,7 +68,7 @@ clean: ## Delete all generated and temporary files
 # HELP #########################################################################
 
 .PHONY: help
-help: all
+help: install
 	@ grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .DEFAULT_GOAL := help

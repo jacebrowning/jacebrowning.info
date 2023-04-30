@@ -17,7 +17,7 @@ View his talks:
 
 Read his papers:
 
-* [JSEA, March 2014](http://www.scirp.org/journal/PaperInformation.aspx?PaperID=44268#.UzYtfWRdXEZ)
+* [JSEA, March 2014](http://www.scirp.org/journal/PaperInformation.aspx?PaperID=44268)
 
 Join his groups:
 
