@@ -3,6 +3,8 @@ branches:
   - gh-pages
 
 language: ruby
+rvm:
+  - 3.2
 
 cache:
   bundler: true
@@ -20,7 +22,7 @@ install:
   - make install
 
 script:
-  - make ci
+  - make all
 
 after_success: >
   echo $TRAVIS_BRANCH; echo $TRAVIS_PULL_REQUEST;
