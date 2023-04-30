@@ -48,9 +48,12 @@ launch: install
 URL := jacebrowning.info
 
 .PHONY: build
-build: install
+build: install music.md
 	$(JEKYLL) build
 	echo $(URL) > _site/CNAME
+
+music.md: scripts/music.py
+	python $<
 
 # TEST ########################################################################
 

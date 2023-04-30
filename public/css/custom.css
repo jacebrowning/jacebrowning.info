@@ -95,6 +95,7 @@ a.sidebar-nav-item:focus {
   color: #202020 !important;
 }
 
+
 /* Sticky sidebar
  *
  * Add the `sidebar-sticky` class to the sidebar's container to affix it the
@@ -161,7 +162,6 @@ a.sidebar-nav-item:focus {
     margin-right: 22rem;
   }
 }
-
 
 
 /*
@@ -252,4 +252,29 @@ a.sidebar-nav-item:focus {
 .theme-custom-blue .content a,
 .theme-custom-blue .related-posts li a:hover {
   color: #0B5394;
+}
+
+
+/*
+ * Audio player
+ */
+
+ .title-download-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.download-link {
+  text-decoration: none;
+  color: #000;
+}
+
+.download-link:hover {
+  color: #007bff;
+}
+
+.audio-player {
+  margin-bottom: 0.5rem;
 }
