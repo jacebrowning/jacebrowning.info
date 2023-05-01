@@ -8,19 +8,19 @@ mashup_links = """
 08 Billie's Back.mp3
 03 Never Watching.mp3
 09 Goodnight Kryptonite.mp3
-01 The Speed of Clocks.mp3
 07 She Said Put Your Loving Hand Out.mp3
+01 The Speed of Clocks.mp3
 05 Summer's Ending Soon My Old Friend.mp3
 06 In a Day or Two I Can't Explain.mp3
 """.strip().splitlines()
 
 remix_links = """
 07 Disarm [Remix].mp3
-03 Beautiful Day [Remix].mp3
 04 Spirited.mp3
-01 Annie Waits [Remix].mp3
 06 Snakes on a Plane [Remix].mp3
+01 Annie Waits [Remix].mp3
 05 Everytime You Touch Me [Remix].mp3
+03 Beautiful Day [Remix].mp3
 02 Not the Same [Remix].mp3
 """.strip().splitlines()
 
@@ -28,10 +28,10 @@ original_links = """
 11 Partition.mp3
 12 Nyemix.mp3
 07 Comeback.mp3
-05 Rise.mp3
 09 Cloud.mp3
-01 Hypertrax.mp3
+05 Rise.mp3
 10 Runner.mp3
+01 Hypertrax.mp3
 13 Makedown.mp3
 14 Green.mp3
 15 A Way.mp3
