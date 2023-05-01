@@ -32,11 +32,33 @@ Here are some of my favorite electronica songs I've created over the years.
 
 <div class="audio-player">
   <div class="title-download-container">
+    <span>Billie's Back</span>
+    <a href="https://www.dropbox.com/s/d3i8x66tn44q6qo/Billie%27s%20Back.mp3?dl=1" class="download-link">Download</a>
+  </div>
+  <audio controls style="width:100%;">
+    <source src="https://www.dropbox.com/s/d3i8x66tn44q6qo/Billie%27s%20Back.mp3?dl=1" type="audio/mpeg">
+  </audio>
+</div>
+
+
+<div class="audio-player">
+  <div class="title-download-container">
     <span>Never Watching</span>
     <a href="https://www.dropbox.com/s/9t6ho7ksab5q5hj/03%20Never%20Watching.mp3?dl=1" class="download-link">Download</a>
   </div>
   <audio controls style="width:100%;">
     <source src="https://www.dropbox.com/s/9t6ho7ksab5q5hj/03%20Never%20Watching.mp3?dl=1" type="audio/mpeg">
+  </audio>
+</div>
+
+
+<div class="audio-player">
+  <div class="title-download-container">
+    <span>Goodnight Kryptonite</span>
+    <a href="https://www.dropbox.com/s/04e3e3525mfjqhz/Goodnight%20Kryptonite.mp3?dl=1" class="download-link">Download</a>
+  </div>
+  <audio controls style="width:100%;">
+    <source src="https://www.dropbox.com/s/04e3e3525mfjqhz/Goodnight%20Kryptonite.mp3?dl=1" type="audio/mpeg">
   </audio>
 </div>
 
