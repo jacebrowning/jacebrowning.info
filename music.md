@@ -33,10 +33,10 @@ Here are some of my favorite electronica songs I've created over the years.
 <div class="audio-player">
   <div class="title-download-container">
     <span>Billie's Back</span>
-    <a href="https://www.dropbox.com/s/d3i8x66tn44q6qo/Billie%27s%20Back.mp3?dl=1" class="download-link">Download</a>
+    <a href="/downloads/Billie's Back.mp3" class="download-link" download="Jace Browning - Billie's Back.mp3">Download</a>
   </div>
   <audio controls style="width:100%;">
-    <source src="https://www.dropbox.com/s/d3i8x66tn44q6qo/Billie%27s%20Back.mp3?dl=1" type="audio/mpeg">
+    <source src="/downloads/Billie's%20Back.mp3" type="audio/mpeg">
   </audio>
 </div>
 
