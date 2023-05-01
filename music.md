@@ -55,10 +55,10 @@ Here are some of my favorite electronica songs I've created over the years.
 <div class="audio-player">
   <div class="title-download-container">
     <span>Goodnight Kryptonite</span>
-    <a href="https://www.dropbox.com/s/04e3e3525mfjqhz/Goodnight%20Kryptonite.mp3?dl=1" class="download-link">Download</a>
+    <a href="https://www.dropbox.com/s/phm9xqnf3p3j5zu/Goodnight%20Kryptonite.mp3?dl=1" class="download-link">Download</a>
   </div>
   <audio controls style="width:100%;">
-    <source src="https://www.dropbox.com/s/04e3e3525mfjqhz/Goodnight%20Kryptonite.mp3?dl=1" type="audio/mpeg">
+    <source src="https://www.dropbox.com/s/phm9xqnf3p3j5zu/Goodnight%20Kryptonite.mp3?dl=1" type="audio/mpeg">
   </audio>
 </div>
 
