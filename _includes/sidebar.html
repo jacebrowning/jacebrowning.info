@@ -21,10 +21,13 @@
 
     {% if site.show_resume %}
     <p>
-      <a class="sidebar-button" href="{{ site.downloads }}/Jace_Browning_Resume.pdf" rel="nofollow" target="_blank">Download Resume</a>
+      <a class="sidebar-button" href="{{ site.downloads }}/Jace_Browning_Resume.pdf"
+        rel="nofollow" target="_blank">Download Resume</a>
     </p>
     {% else %}
-    <iframe src="https://github.com/sponsors/jacebrowning/button" title="Sponsor jacebrowning" height="32" width="120" style="border: 0;"></iframe>
+    <iframe src="https://github.com/sponsors/jacebrowning/button"
+      title="Sponsor jacebrowning" height="32" width="120"
+      style="border: 0; border-radius: 6px;"></iframe>
     {% endif %}
 
     <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
