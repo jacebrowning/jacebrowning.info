@@ -33,8 +33,6 @@ original_links = """
 10 Runner.mp3
 01 Hypertrax.mp3
 13 Makedown.mp3
-14 Green.mp3
-15 A Way.mp3
 """.strip().splitlines()
 
 mashup_links = [f"/downloads/mashups/{filename.replace(' ', '%20')}" for filename in mashup_links]
