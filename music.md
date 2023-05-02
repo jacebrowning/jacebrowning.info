@@ -5,8 +5,6 @@ title: Music
 
 Here are some of my favorite electronica songs I've created over the years.
 
-<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jacebrowning" data-description="Support my music!" data-message="Thank you for checking out my music. Buy me a coffee to support this work!" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-
 ## Mashups
 
 <div class="audio-player">
