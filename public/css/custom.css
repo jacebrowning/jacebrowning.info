@@ -278,3 +278,12 @@ a.sidebar-nav-item:focus {
 .audio-player {
   margin-bottom: 0.5rem;
 }
+
+.highlighted {
+  background-color: rgb(255, 255, 200);
+  border-radius: 10px;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}

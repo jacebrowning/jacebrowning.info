@@ -60,10 +60,24 @@ Here are some of my favorite electronica songs I've created over the years.
 {originals}
 """.lstrip()
 
+script = """
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const anchor = window.location.hash;
+  if (anchor) {
+    const audioPlayer = document.querySelector(anchor);
+    if (audioPlayer) {
+      audioPlayer.classList.add("highlighted");
+    }
+  }
+});
+</script>
+""".lstrip()
+
 audio_player_template = """
-<div class="audio-player">
+<div class="audio-player" id="{anchor_id}">
   <div class="title-download-container">
-    <span>{title}</span>
+    <a href="#{anchor_id}" style="text-decoration: none; color: inherit;"><span>{title}</span></a>
     <a href="{download_link}" class="download-link" download="{download_filename}">Download</a>
   </div>
   <audio controls style="width:100%;">
@@ -83,18 +97,19 @@ def generate_audio_players(links, category):
     audio_players = []
     for link in links:
         title = extract_title(link)
+        anchor_id = f"{category}-{title.replace(' ', '-').lower()}"
         download_link = f"/downloads/{category}/{link.split('/')[-1]}"
         download_filename = f"Jace Browning - {title}.mp3"
         if "[Remix]" in title:
             title = title.replace('[Remix]', '').strip()
-        audio_players.append(audio_player_template.format(title=title, download_link=download_link, download_filename=download_filename))
+        audio_players.append(audio_player_template.format(title=title, download_link=download_link, download_filename=download_filename, anchor_id=anchor_id))
     return "\n".join(audio_players)
 
 mashups = generate_audio_players(mashup_links, "mashups")
 remixes = generate_audio_players(remix_links, "remixes")
 originals = generate_audio_players(original_links, "originals")
 
-music_md_content = music_md_template.format(mashups=mashups, remixes=remixes, originals=originals)
+music_md_content = music_md_template.format(mashups=mashups, remixes=remixes, originals=originals) + script
 
 with open("music.md", "w") as f:
     f.write(music_md_content)
