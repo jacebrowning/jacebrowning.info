@@ -104,6 +104,7 @@ script = """
     const highlightedPlayers = document.querySelectorAll(".highlighted");
     highlightedPlayers.forEach(function(player) {
       player.classList.remove("highlighted");
+      adjustScrollPosition();
     });
   }
 
@@ -112,6 +113,14 @@ script = """
     const audioPlayer = document.querySelector(anchor);
     if (audioPlayer) {
       audioPlayer.classList.add("highlighted");
+      adjustScrollPosition();
+    }
+  }
+
+  function adjustScrollPosition() {
+    const extraSpace = 15;
+    if (window.scrollY > 0) {
+      window.scrollTo(window.scrollX, window.scrollY - extraSpace);
     }
   }
 

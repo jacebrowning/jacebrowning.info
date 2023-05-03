@@ -258,6 +258,7 @@ Here are some of my favorite electronica songs I've created over the years.
     const highlightedPlayers = document.querySelectorAll(".highlighted");
     highlightedPlayers.forEach(function(player) {
       player.classList.remove("highlighted");
+      adjustScrollPosition();
     });
   }
 
@@ -266,6 +267,14 @@ Here are some of my favorite electronica songs I've created over the years.
     const audioPlayer = document.querySelector(anchor);
     if (audioPlayer) {
       audioPlayer.classList.add("highlighted");
+      adjustScrollPosition();
+    }
+  }
+
+  function adjustScrollPosition() {
+    const extraSpace = 15;
+    if (window.scrollY > 0) {
+      window.scrollTo(window.scrollX, window.scrollY - extraSpace);
     }
   }
 
