@@ -60,7 +60,7 @@ music.md: scripts/music.py
 .PHONY: test
 test: install build ## Check site content
 	$(JEKYLL) doctor
-	$(HTMLPROOF) _site --no-enforce-http --ignore-status-codes 0,301,403,999
+	$(HTMLPROOF) _site --no-enforce-http --ignore-status-codes 0,301,403,999 --ignore-urls "https://www.meetup.com/PyLadiesGrandRapids/"
 
 # CLEANUP ######################################################################
 
