@@ -2,42 +2,38 @@ import os
 import re
 from urllib.parse import unquote
 
-mashup_links = """
-04 Time In My Head.mp3
-02 Your Mom.mp3
-08 Billie's Back.mp3
-03 Never Watching.mp3
-09 Goodnight Kryptonite.mp3
-07 She Said Put Your Loving Hand Out.mp3
-01 The Speed of Clocks.mp3
-05 Summer's Ending Soon My Old Friend.mp3
-06 In a Day or Two I Can't Explain.mp3
-""".strip().splitlines()
+mashup_songs = [
+    ("04 Time In My Head.mp3", "2010"),
+    ("02 Your Mom.mp3", "2006"),
+    ("08 Billie's Back.mp3", "2023"),
+    ("03 Never Watching.mp3", "2006"),
+    ("09 Goodnight Kryptonite.mp3", "2023"),
+    ("07 She Said Put Your Loving Hand Out.mp3", "2011"),
+    ("01 The Speed of Clocks.mp3", "2006"),
+    ("05 Summer's Ending Soon My Old Friend.mp3", "2010"),
+    ("06 In a Day or Two I Can't Explain.mp3", "2010"),
+]
 
-remix_links = """
-07 Disarm [Remix].mp3
-04 Spirited.mp3
-06 Snakes on a Plane [Remix].mp3
-01 Annie Waits [Remix].mp3
-05 Everytime You Touch Me [Remix].mp3
-03 Beautiful Day [Remix].mp3
-02 Not the Same [Remix].mp3
-""".strip().splitlines()
+remix_songs = [
+    ("07 Disarm [Remix].mp3", "2007"),
+    ("04 Spirited.mp3", "2006"),
+    ("06 Snakes on a Plane [Remix].mp3", "2006"),
+    ("01 Annie Waits [Remix].mp3", "2006"),
+    ("05 Everytime You Touch Me [Remix].mp3", "2006"),
+    ("03 Beautiful Day [Remix].mp3", "2006"),
+    ("02 Not the Same [Remix].mp3", "2006"),
+]
 
-original_links = """
-11 Partition.mp3
-12 Nyemix.mp3
-07 Comeback.mp3
-09 Cloud.mp3
-05 Rise.mp3
-10 Runner.mp3
-01 Hypertrax.mp3
-13 Makedown.mp3
-""".strip().splitlines()
-
-mashup_links = [f"/downloads/mashups/{filename.replace(' ', '%20')}" for filename in mashup_links]
-remix_links = [f"/downloads/remixes/{filename.replace(' ', '%20').replace('[', '%5B').replace(']', '%5D')}" for filename in remix_links]
-original_links = [f"/downloads/originals/{filename.replace(' ', '%20')}" for filename in original_links]
+original_songs = [
+    ("11 Partition.mp3", "2005"),
+    ("12 Nyemix.mp3", "2006"),
+    ("07 Comeback.mp3", "2005"),
+    ("09 Cloud.mp3", "2005"),
+    ("05 Rise.mp3", "2005"),
+    ("10 Runner.mp3", "2005"),
+    ("01 Hypertrax.mp3", "2003"),
+    ("13 Makedown.mp3", "2006"),
+]
 
 music_md_template = """
 ---
@@ -60,9 +56,6 @@ Here are some of my favorite electronica songs I've created over the years.
 {originals}
 """.lstrip()
 
-
-
-
 audio_player_template = """
 <div class="audio-player" id="{anchor_id}">
   <div class="title-download-container">
@@ -77,26 +70,31 @@ audio_player_template = """
 
 def extract_title(url):
     filename = os.path.basename(url)
-    title = os.path.splitext(filename)[0]
+    title, _ = os.path.splitext(filename)
     title = unquote(title)
     title = re.sub(r'^\d+\s*', '', title)
     return title
 
-def generate_audio_players(links, category):
+def generate_audio_players(songs, category):
     audio_players = []
-    for link in links:
-        title = extract_title(link)
-        anchor_id = re.sub(r"[\'\[\]]", '', title.replace(' ', '-').lower())
-        download_link = f"/downloads/{category}/{link.split('/')[-1]}"
+    for filename, year in songs:
+        title = extract_title(filename)
+
+        anchor_id = re.sub(r"[\'\[\]]", '', title.replace(' [Remix]', '').replace(' ', '-').lower())
+        download_link = f"/downloads/{category}/{filename.replace(' ', '%20').replace('[', '%5B').replace(']', '%5D')}"
         download_filename = f"Jace Browning - {title}.mp3"
+
+        title = f"{title} ({year})"
         if "[Remix]" in title:
             title = title.replace('[Remix]', '').strip()
+
         audio_players.append(audio_player_template.format(title=title, download_link=download_link, download_filename=download_filename, anchor_id=anchor_id))
     return "\n".join(audio_players)
 
-mashups = generate_audio_players(mashup_links, "mashups")
-remixes = generate_audio_players(remix_links, "remixes")
-originals = generate_audio_players(original_links, "originals")
+
+mashups = generate_audio_players(mashup_songs, "mashups")
+remixes = generate_audio_players(remix_songs, "remixes")
+originals = generate_audio_players(original_songs, "originals")
 
 script = """
 <script>
