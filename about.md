@@ -24,9 +24,9 @@ Read my papers:
 
 Join my groups:
 
+* [Citizen Labs](https://citizenlabs.org/)
 * [Grand Rapids Python Users Group](https://www.meetup.com/grpython/)
 * [PyLadies Grand Rapids](https://www.meetup.com/PyLadiesGrandRapids/)
-* [Citizen Labs](https://citizenlabs.org/)
 
 -----
 
