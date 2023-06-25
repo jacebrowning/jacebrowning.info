@@ -47,6 +47,16 @@ Here are some of my favorite electronica songs I've created over the years.
   </audio>
 </div>
 
+<div class="audio-player" id="purple">
+  <div class="title-download-container">
+    <a href="#purple" style="text-decoration: none; color: inherit;"><span>Purple (2023)</span></a>
+    <a href="/downloads/mashups/10%20Purple.mp3" class="download-link" download="Jace Browning - Purple.mp3">Download</a>
+  </div>
+  <audio controls style="width:100%;">
+    <source src="/downloads/mashups/10%20Purple.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
 <div class="audio-player" id="goodnight-kryptonite">
   <div class="title-download-container">
     <a href="#goodnight-kryptonite" style="text-decoration: none; color: inherit;"><span>Goodnight Kryptonite (2023)</span></a>

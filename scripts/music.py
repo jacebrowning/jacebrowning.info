@@ -7,6 +7,7 @@ mashup_songs = [
     ("02 Your Mom.mp3", "2006"),
     ("08 Billie's Back.mp3", "2023"),
     ("03 Never Watching.mp3", "2006"),
+    ("10 Purple.mp3", "2023"),
     ("09 Goodnight Kryptonite.mp3", "2023"),
     ("07 She Said Put Your Loving Hand Out.mp3", "2011"),
     ("01 The Speed of Clocks.mp3", "2006"),
