@@ -15,7 +15,6 @@ Many applications provide their own synchronization methods to enable usage on m
 Many guides exist showing you how to do this with iTunes:
 
 * [digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox](https://digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox-0155955)
-* [lifehacker.com/5715126/how-to-sync-itunes-across-all-your-computers-with-dropbox](https://lifehacker.com/5715126/how-to-sync-itunes-across-all-your-computers-with-dropbox)
 * [macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox](https://www.macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox/)
 
 Unfortunately, the shared caveat in all these guides is that only one instance of iTunes is to be running at any given time. That's where `mine` comes in.
