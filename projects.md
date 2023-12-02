@@ -92,6 +92,8 @@ _This site was shut down in 2020._
 I've used [Last.fm](https://www.last.fm/about/trackmymusic) for as long as I've been into music. Connecting scrobbling data to locations, I built an application to discover music playing nearby:
 
 > [virtualboombox.com](https://virtualboombox.com/)
+>
+> _This site was shut down in 2023._
 
 ## Meme Complete
 
