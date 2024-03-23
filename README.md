@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jacebrowning/jacebrowning.info.svg?branch=main)](https://travis-ci.org/jacebrowning/jacebrowning.info)
+[![Build Status](https://github.com/jacebrowning/jacebrowning.info/actions/workflows/main.yml/badge.svg)](https://github.com/jacebrowning/jacebrowning.info/actions/)
 
 # Overview
 
