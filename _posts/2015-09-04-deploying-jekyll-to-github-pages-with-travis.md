@@ -93,7 +93,7 @@ When I am done editing, running `$ make ci` will confirm that the site is ready 
 
 [Travis CI](https://travis-ci.org/) offers free continuous integration for open source projects that can be used to deploy software after running a number of checks.
 
-Adding a [`.travis.yml`](https://raw.githubusercontent.com/jacebrowning/info/main/.travis.yml) to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:
+Adding a [`.travis.yml`](https://github.com/jacebrowning/jacebrowning.info/blob/55c13120f6aac2ddff4aa6eeead106fb547b8998/.travis.yml) to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:
 
 ```yaml
 install:
