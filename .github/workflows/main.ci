@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  pull_request:
+    branches-ignore:
+      - gh-pages
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby-version: [3.2]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install system dependencies
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true
+
+    - name: Download dependency cache
+      uses: actions/cache@v2
+      with:
+        path: vendor/bundler
+        key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems-
+
+    - name: Check system dependencies
+      run: make doctor
+
+    - name: Install project dependencies
+      run: make install
+
+    - name: Build project
+      run: make all
+
+    - name: Deploy project
+      if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      run: |
+        make build
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        rm -rf .git
+        cd _site
+        git init
+        git add .
+        git commit -m "Deploy GitHub Actions build $GITHUB_RUN_NUMBER to GitHub pages"
+        git push -f https://${{ secrets.GH_TOKEN }}@github.com/${GITHUB_REPOSITORY} master:gh-pages
