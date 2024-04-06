@@ -213,6 +213,16 @@ Here are some of my favorite electronica songs I've created over the years.
   </audio>
 </div>
 
+<div class="audio-player" id="runner">
+  <div class="title-download-container">
+    <a href="#runner" style="text-decoration: none; color: inherit;"><span>Runner (2005)</span></a>
+    <a href="/downloads/originals/10%20Runner.mp3" class="download-link" download="Jace Browning - Runner.mp3">Download</a>
+  </div>
+  <audio controls style="width:100%;">
+    <source src="/downloads/originals/10%20Runner.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
 <div class="audio-player" id="cloud">
   <div class="title-download-container">
     <a href="#cloud" style="text-decoration: none; color: inherit;"><span>Cloud (2005)</span></a>
@@ -230,16 +240,6 @@ Here are some of my favorite electronica songs I've created over the years.
   </div>
   <audio controls style="width:100%;">
     <source src="/downloads/originals/05%20Rise.mp3" type="audio/mpeg">
-  </audio>
-</div>
-
-<div class="audio-player" id="runner">
-  <div class="title-download-container">
-    <a href="#runner" style="text-decoration: none; color: inherit;"><span>Runner (2005)</span></a>
-    <a href="/downloads/originals/10%20Runner.mp3" class="download-link" download="Jace Browning - Runner.mp3">Download</a>
-  </div>
-  <audio controls style="width:100%;">
-    <source src="/downloads/originals/10%20Runner.mp3" type="audio/mpeg">
   </audio>
 </div>
 
