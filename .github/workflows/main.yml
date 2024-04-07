@@ -45,6 +45,7 @@ jobs:
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       run: |
         make build
+        git config --global init.defaultBranch main
         git config --global user.email "action@github.com"
         git config --global user.name "GitHub Action"
         rm -rf .git
