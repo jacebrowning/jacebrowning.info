@@ -13,20 +13,17 @@
       <a class="sidebar-nav-item{% if page.url == '/music/' %} active{% endif %}" href="{% link music.md %}">Music</a>
     </nav>
 
-    {% if site.show_resume %}
-
     <p>
-      <a class="sidebar-button" href="{{ site.downloads }}/Jace_Browning_Resume.pdf"
-        rel="nofollow" target="_blank">Download Resume</a>
-    </p>
-
+    {% if site.show_resume %}
+      <a class="sidebar-button" href="{{ site.downloads }}/Jace_Browning_Resume.pdf" target="_blank" rel="nofollow">
+        Download Resume
+      </a>
     {% else %}
-
-    <iframe src="https://github.com/sponsors/jacebrowning/button"
-      title="Sponsor jacebrowning" height="32" width="120"
-      style="border: 0; border-radius: 6px; margin-bottom: 10px;"></iframe>
-
+      <a class="sidebar-button" href="https://github.com/sponsors/jacebrowning" target="_blank">
+        Sponsor on GitHub
+      </a>
     {% endif %}
+    </p>
 
     <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
   </div>
