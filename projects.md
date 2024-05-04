@@ -131,6 +131,8 @@ To improve my work-life balance, I created a tool to automatically log out of Sl
 
 > [jacebrowning/slackoff](https://github.com/jacebrowning/slackoff)
 
+Check out [this blog]({% post_url 2024-05-04-managing-slack-with-stream-deck %}) for instructions on connecting this to a Stream Deck.
+
 -----
 
 See a typo? Help me [edit]({{ site.repo }}/edit/main/{{page.path}}) this page.
