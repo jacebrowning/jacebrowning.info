@@ -36,7 +36,7 @@ PORT ?= 3000
 
 .PHONY: run
 run: install
-	$(JEKYLL) serve  --future --drafts --port $(PORT)
+	$(JEKYLL) serve --port=$(PORT) --livereload --future --drafts
 
 .PHONY: launch
 launch: install

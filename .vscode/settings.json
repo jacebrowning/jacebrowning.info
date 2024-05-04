@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
+        "applescript",
+        "buildpack",
         "cfasync",
         "citizenlabs",
         "crowdsorter",
@@ -19,8 +21,11 @@
         "NOKOGIRI",
         "Nyemix",
         "Paraphaze",
+        "pipx",
         "redcarpet",
         "scrobbling",
+        "signin",
+        "signout",
         "Slackoff",
         "speakerdeck",
         "stackoverflow",
