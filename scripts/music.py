@@ -39,7 +39,7 @@ original_songs = [
 music_md_template = """
 ---
 layout: page
-title: Music
+title: My Music Projects
 ---
 
 Here are some of my favorite electronica songs I've created over the years.

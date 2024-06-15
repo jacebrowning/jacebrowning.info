@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Projects
+title: My Software Projects
 ---
 
 I enjoy building command-line utilities to automate developments tasks. Lately, I've been getting into more web development for fun. This projects list is more or less in order of completion date.
