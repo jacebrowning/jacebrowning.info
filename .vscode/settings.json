@@ -32,5 +32,6 @@
         "Verchew",
         "virtualboombox",
         "yorm"
-    ]
+    ],
+    "djlint.showInstallError": false
 }
