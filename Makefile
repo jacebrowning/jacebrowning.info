@@ -10,6 +10,12 @@ all: test ## Run all tasks that determine CI status
 
 # SYSTEM DEPENDENCIES ##########################################################
 
+.PHONY: bootstrap
+bootstrap: ## Attempt to install system dependencies
+	asdf plugin add ruby || asdf plugin update ruby
+	asdf plugin add bundler || asdf plugin update bundler
+	asdf install
+
 .PHONY: doctor
 doctor:  ## Confirm system dependencies are available
 	bin/verchew
