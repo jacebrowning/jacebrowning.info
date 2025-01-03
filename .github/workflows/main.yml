@@ -43,8 +43,6 @@ jobs:
 
     - name: Deploy project
       if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         make build
         git config --global init.defaultBranch main
@@ -55,4 +53,4 @@ jobs:
         git init
         git add .
         git commit -m "Deploy GitHub Actions build $GITHUB_RUN_NUMBER to GitHub pages"
-        git push -f https://${GH_TOKEN}@github.com/${GITHUB_REPOSITORY} main:gh-pages
+        git push -f https://${{ secrets.GH_TOKEN }}@github.com/${GITHUB_REPOSITORY} main:gh-pages
