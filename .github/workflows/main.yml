@@ -55,4 +55,4 @@ jobs:
         git init
         git add .
         git commit -m "Deploy GitHub Actions build $GITHUB_RUN_NUMBER to GitHub pages"
-        git push -f https://${{GH_TOKEN}}@github.com/${GITHUB_REPOSITORY} main:gh-pages
+        git push -f https://${GH_TOKEN}@github.com/${GITHUB_REPOSITORY} main:gh-pages
