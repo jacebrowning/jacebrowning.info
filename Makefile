@@ -33,7 +33,7 @@ $(GEMS): Gemfile*
 	@ touch $@
 
 .PHONY: update
-update: ## Update all project dependnecies
+update: ## Update all project dependencies
 	bundle update
 
 # SERVER TARGETS ###############################################################
@@ -41,7 +41,7 @@ update: ## Update all project dependnecies
 PORT ?= 3000
 
 .PHONY: run
-run: install
+run: install downloads/Jace_Browning_Resume.pdf
 	$(JEKYLL) serve --port=$(PORT) --livereload --future --drafts
 
 .PHONY: launch
@@ -51,15 +51,20 @@ launch: install
 
 # BUILD ########################################################################
 
+RESUME := $(HOME)/Downloads/Jace Browning's Resume.pdf
 URL := jacebrowning.info
 
 .PHONY: build
-build: install music.md
+build: install music.md downloads/Jace_Browning_Resume.pdf
 	$(JEKYLL) build
 	echo $(URL) > _site/CNAME
 
 music.md: scripts/music.py
 	python $<
+
+.PHONY: downloads/Jace_Browning_Resume.pdf
+downloads/Jace_Browning_Resume.pdf:
+	- mv "$(RESUME)" $@
 
 # TEST ########################################################################
 
