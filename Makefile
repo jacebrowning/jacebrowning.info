@@ -71,7 +71,7 @@ music.md: scripts/music.py
 resume: downloads/Jace_Browning_Resume.pdf
 downloads/Jace_Browning_Resume.pdf:
 	@ if [ -f "$(RESUME)" ]; then \
-		echo Updating to $@; \
+		echo Updating $@; \
 		echo; \
 		mv "$(RESUME)" $@; \
 	fi
