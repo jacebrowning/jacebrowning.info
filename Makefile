@@ -41,7 +41,7 @@ update: ## Update all project dependencies
 PORT ?= 3000
 
 .PHONY: run
-run: install downloads/Jace_Browning_Resume.pdf
+run: install music resume
 	$(JEKYLL) serve --port=$(PORT) --livereload --future --drafts
 
 .PHONY: launch
@@ -55,16 +55,26 @@ RESUME := $(HOME)/Downloads/Jace Browning's Resume.pdf
 URL := jacebrowning.info
 
 .PHONY: build
-build: install music.md downloads/Jace_Browning_Resume.pdf
+build: install music resume
 	$(JEKYLL) build
+	@ echo
 	echo $(URL) > _site/CNAME
 
+.PHONY: music
+music: music.md
 music.md: scripts/music.py
-	python $<
+	@ echo Updating $@
+	@ echo
+	@ python $<
 
-.PHONY: downloads/Jace_Browning_Resume.pdf
+.PHONY: resume downloads/Jace_Browning_Resume.pdf
+resume: downloads/Jace_Browning_Resume.pdf
 downloads/Jace_Browning_Resume.pdf:
-	- mv "$(RESUME)" $@
+	@ if [ -f "$(RESUME)" ]; then \
+		echo Updating to $@; \
+		echo; \
+		mv "$(RESUME)" $@; \
+	fi
 
 # TEST ########################################################################
 
@@ -82,7 +92,7 @@ clean: ## Delete all generated and temporary files
 # HELP #########################################################################
 
 .PHONY: help
-help: install
+help: install music resume
 	@ grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .DEFAULT_GOAL := help
