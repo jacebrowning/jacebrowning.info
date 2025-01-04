@@ -57,23 +57,17 @@ URL := jacebrowning.info
 .PHONY: build
 build: install music resume
 	$(JEKYLL) build
-	@ echo
 	echo $(URL) > _site/CNAME
 
 .PHONY: music
 music: music.md
 music.md: scripts/music.py
-	@ echo Updating $@
-	@ echo
-	@ python $<
+	python $<
 
-.PHONY: resume downloads/Jace_Browning_Resume.pdf
-resume: downloads/Jace_Browning_Resume.pdf
-downloads/Jace_Browning_Resume.pdf:
+.PHONY: resume
+resume:
 	@ if [ -f "$(RESUME)" ]; then \
-		echo Updating $@; \
-		echo; \
-		mv "$(RESUME)" $@; \
+		mv "$(RESUME)" downloads/; \
 	fi
 
 # TEST ########################################################################
