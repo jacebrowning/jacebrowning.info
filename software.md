@@ -13,7 +13,7 @@ For my masters thesis at [GVSU](http://scholarworks.gvsu.edu/oapsf_articles/32/)
 
 > [doorstop.readthedocs.io](https://doorstop.readthedocs.io/)
 
-I am no longer actively working on this program, but many people continue to find it useful in their projects.
+I am no longer actively working on this program, but many people find it useful to their projects and the open source community continues to submit contributions.
 
 ## GR Parks
 
@@ -29,7 +29,7 @@ Inspired by the pleasant experience of using YAML to store program data when des
 
 > [yorm.readthedocs.io](https://yorm.readthedocs.io/)
 
-I have since used this library as the base for lots of tools. Read more [on the blog]({% post_url 2015-05-17-yorm-v0.4-released %}).
+I have since used this library as the base for lots of tools. Read more on [this blog post]({% post_url 2015-05-17-yorm-v0.4-released %}). _I have since reimagined this library as [Datafiles](https://datafiles.readthedocs.io/)._
 
 ## Mine
 
@@ -37,7 +37,7 @@ Taking advantage of the data storage provide by YORM, I built a tool to synchron
 
 > [mine.readthedocs.io](https://mine.readthedocs.io/)
 
-I use this program every day to access my music library in iTunes. Read more [on the blog]({% post_url 2015-03-24-syncing-itunes-using-dropbox-with-mine %}).
+I use this program every day to access my music library in iTunes. Read more on [this blog post]({% post_url 2015-03-24-syncing-itunes-using-dropbox-with-mine %}).
 
 ## Gitman
 
@@ -45,17 +45,17 @@ At several jobs, my team ran into the problem of needing to manage multiple Git 
 
 > [gitman.readthedocs.io](https://gitman.readthedocs.io/)
 
-I still use this tool nearly every day to simplify the task of cloning lots of Git repositories for work. Read more [on the blog]({% post_url 2015-08-07-replacing-submodules-with-gitman %}).
+I still use this tool nearly every day to simplify the task of cloning lots of Git repositories for work. Read more on [this blog post]({% post_url 2015-08-07-replacing-submodules-with-gitman %}).
 
 ## Sappy
 
-See [this post](https://jacebrowning.info/2017/03/22/static-sites-with-heroku/) for an explanation of how this tool acts as a web server for static sites.
+See [this blog post](https://jacebrowning.info/2017/03/22/static-sites-with-heroku/) for an explanation of how this tool acts as a web server for static sites.
 
 ## Verchew
 
 While onboarding new team members, I discovered that ensuring their computers have everything needed to work on the project can be painful. So, I built a command-line program to check the versions of your project's system dependencies.
 
-> [jacebrowning/verchew](https://github.com/jacebrowning/verchew)
+> [verchew.readthedocs.io](https://verchew.readthedocs.io/)
 
 ## Memegen.link
 
@@ -63,7 +63,7 @@ When using [Slack](https://slack.com/) for communication with colleagues and fri
 
 > [memegen.link](https://memegen.link)
 
-Many chat bots have been written to use the API and the service continues to get around 30k image requests per day. Read more [on the blog]({% post_url 2016-01-24-google-analytics-on-image-requests %}).
+Many chat bots have been written to use the API and the service continues to get around 30k image requests per day. Read more on [this blog post]({% post_url 2016-01-24-google-analytics-on-image-requests %}).
 
 ## env-diff
 
@@ -77,7 +77,7 @@ I try to enable test coverage in all of my projects as a gut check that new func
 
 > [coverage.space](https://coverage.space/)
 
-I have already started using this in most of my projects to detect when code coverage decreases. Read more [on the blog]({% post_url 2016-09-30-coverage-as-a-service %}).
+I have already started using this in most of my projects to detect when code coverage decreases. Read more on [this blog post]({% post_url 2016-09-30-coverage-as-a-service %}).
 
 ## Crowd Sorter
 
@@ -92,24 +92,24 @@ _This site was shut down in 2020._
 I've used [Last.fm](https://www.last.fm/about/trackmymusic) for as long as I've been into music. Connecting scrobbling data to locations, I built an application to discover music playing nearby:
 
 > [virtualboombox.com](https://github.com/jacebrowning/virtualboombox)
->
-> _This site was shut down in 2023._
+
+_This site was shut down in 2023._
 
 ## Meme Complete
 
-Autocomplete for memes via text and speech.
+This web app provides "autocomplete" for memes via text and speech.
 
 > [memecomplete.com](https://memecomplete.com/)
 
 ## MediaVouch
 
-Your playlist for everything.
+This is a web app to share media recommendations and track media you plan to consume.
 
 > [mediavouch.com](https://mediavouch.com/)
 
 ## Lunchdown
 
-A restaurant recommendation engine powered by Foursquare.
+This is a local restaurant recommendation engine and event organizer powered by Foursquare.
 
 > [lunchdown.com](https://lunchdown.com/)
 
@@ -131,7 +131,7 @@ To improve my work-life balance, I created a tool to automatically log out of Sl
 
 > [jacebrowning/slackoff](https://github.com/jacebrowning/slackoff)
 
-Check out [this blog]({% post_url 2024-05-04-managing-slack-with-stream-deck %}) for instructions on connecting this to a Stream Deck.
+Check out [this blog post]({% post_url 2024-05-04-managing-slack-with-stream-deck %}) for instructions on connecting this to a Stream Deck.
 
 -----
 
