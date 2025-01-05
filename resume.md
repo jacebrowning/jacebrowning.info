@@ -1,3 +1,3 @@
 ---
-redirect_to: downloads/Jace_Browning_Resume.pdf
+redirect_to: downloads/Jace Browning's Resume.pdf
 ---
