@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Replacing Git Submodules with GitMan
+title: Replacing Git Submodules with Gitman
 tags:
 - git
 - submodules
@@ -30,14 +30,14 @@ And while submodules can be used to track a branch (rather than a SHA), this wil
 
 ## An Alternative
 
-[GitMan](https://gitman.readthedocs.io) avoids these issues and adds the ability to:
+[Gitman](https://gitman.readthedocs.io) avoids these issues and adds the ability to:
 
 * track a specific tag in a source dependency's repository
 * checkout by `rev-parse` dates (e.g. `'develop@{2015-06-18 10:30:59}'`)
 
 ### Installation
 
-To install GitMan, first install Python 3 and it's dependency manager, `pip`:
+To install Gitman, first install Python 3 and it's dependency manager, `pip`:
 
 * Windows: [python.org/downloads](https://www.python.org/downloads)
 * Mac: `$ brew install python3`
@@ -58,7 +58,7 @@ $ gitman --help
 
 ### Mimicking Submodule
 
-While GitMan, provides [additional capabilities]({{ site.author.github }}/gitman#usage), it can also directly replace the behavior of submodules. To mimic a working tree containing a submodule:
+While Gitman, provides [additional capabilities]({{ site.author.github }}/gitman#usage), it can also directly replace the behavior of submodules. To mimic a working tree containing a submodule:
 
 ```bash
 <root>/vendor/my_dependency  # submodule at: a5fe3d...
