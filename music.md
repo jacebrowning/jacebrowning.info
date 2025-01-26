@@ -27,6 +27,16 @@ Here are some of my favorite electronica songs I've created over the years.
   </audio>
 </div>
 
+<div class="audio-player" id="evinrude-boy">
+  <div class="title-download-container">
+    <a href="#evinrude-boy" style="text-decoration: none; color: inherit;"><span>Evinrude Boy (2025)</span></a>
+    <a href="/downloads/mashups/11%20Evinrude%20Boy.mp3" class="download-link" download="Jace Browning - Evinrude Boy.mp3">Download</a>
+  </div>
+  <audio controls style="width:100%;">
+    <source src="/downloads/mashups/11%20Evinrude%20Boy.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
 <div class="audio-player" id="billies-back">
   <div class="title-download-container">
     <a href="#billies-back" style="text-decoration: none; color: inherit;"><span>Billie's Back (2023)</span></a>

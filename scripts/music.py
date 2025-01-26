@@ -5,6 +5,7 @@ from urllib.parse import unquote
 mashup_songs = [
     ("04 Time In My Head.mp3", "2010"),
     ("02 Your Mom.mp3", "2006"),
+    ("11 Evinrude Boy.mp3", "2025"),
     ("08 Billie's Back.mp3", "2023"),
     ("03 Never Watching.mp3", "2006"),
     ("10 Purple.mp3", "2023"),
