@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Syncing iTunes using Dropbox with Mine
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+
+    <div class="sidebar-about">
+      <h1>Jace Browning</h1>
+      <p class="lead">I build tools that empower developers to ship quality code as fast as possible.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/about/">About</a>
+      <a class="sidebar-nav-item" href="/">Blog</a>
+      <a class="sidebar-nav-item" href="https://nocomment.jacebrowning.info/comics/" target="_blank">Comic</a>
+      <a class="sidebar-nav-item" href="/music/">Music</a>
+      <a class="sidebar-nav-item" href="/software/">Software</a>
+    </nav>
+
+    <p>
+    
+      <a class="sidebar-button" href="/downloads/Jace Browning's Resume.pdf" download>
+        Download Resume
+      </a>
+    
+    </p>
+
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Syncing iTunes using Dropbox with Mine</h1>
+  <span class="post-date">24 Mar 2015</span>
+  <p>Many applications provide their own synchronization methods to enable usage on multiple computers, but what about those that don’t? It turns out that lots of programs are perfectly happy to have their files stored inside Dropbox rather than their typical location.</p>
+
+<h2 id="storing-itunes-in-dropbox">Storing iTunes in Dropbox</h2>
+
+<p>Many guides exist showing you how to do this with iTunes:</p>
+
+<ul>
+  <li><a href="https://digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox-0155955">digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox</a></li>
+  <li><a href="https://www.macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox/">macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox</a></li>
+</ul>
+
+<p>Unfortunately, the shared caveat in all these guides is that only one instance of iTunes is to be running at any given time. That’s where <code class="language-plaintext highlighter-rouge">mine</code> comes in.</p>
+
+<h2 id="installing-and-configuring-mine">Installing and Configuring Mine</h2>
+
+<p><code class="language-plaintext highlighter-rouge">mine</code> is a daemon and command-line <a href="https://github.com/jacebrowning/mine">Python program</a> that starts and stops remote applications using a configuration file in Dropbox. After setting up iTunes and Dropbox using one of the above guides, install <code class="language-plaintext highlighter-rouge">mine</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip3 install --upgrade mine
+</code></pre></div></div>
+
+<p>If you don’t have <code class="language-plaintext highlighter-rouge">pip3</code>, install <code class="language-plaintext highlighter-rouge">python3</code> with your system’s package manager (on OSX with <a href="https://brew.sh/">Homebrew</a>: <code class="language-plaintext highlighter-rouge">$ brew install python3</code>).</p>
+
+<p>Additional configuration instructions are found in the project’s <a href="https://github.com/jacebrowning/mine#setup">README</a>.</p>
+
+<h2 id="using-mine-to-manage-remote-applications">Using Mine to Manage Remote Applications</h2>
+
+<p>Once installed and configured, let it run in the background on each computer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mine --daemon
+</code></pre></div></div>
+
+<p>Applications can be killed remotely and started on the current computer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mine switch
+</code></pre></div></div>
+
+<p>To kill all local applications and start them on another computer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mine switch &lt;name&gt;
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">&lt;name&gt;</code> is part of the name of another computer with <code class="language-plaintext highlighter-rouge">mine</code> running.</p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-03-24-syncing-itunes-using-dropbox-with-mine.md">edit</a> this post.</p>
+
+<p>Find a problem with <code class="language-plaintext highlighter-rouge">mine</code>? Please submit an <a href="https://github.com/jacebrowning/mine/issues">issue</a> or contribute!</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/05/04/managing-slack-with-stream-deck/">
+            Managing Slack with Stream Deck
+            <small>04 May 2024</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/03/22/static-sites-with-heroku/">
+            Using Heroku to Review Static Websites
+            <small>22 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>
