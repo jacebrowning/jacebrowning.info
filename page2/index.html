@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+
+    <div class="sidebar-about">
+      <h1>Jace Browning</h1>
+      <p class="lead">I build tools that empower developers to ship quality code as fast as possible.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/about/">About</a>
+      <a class="sidebar-nav-item" href="/">Blog</a>
+      <a class="sidebar-nav-item" href="https://nocomment.jacebrowning.info/comics/" target="_blank">Comic</a>
+      <a class="sidebar-nav-item" href="/music/">Music</a>
+      <a class="sidebar-nav-item" href="/software/">Software</a>
+    </nav>
+
+    <p>
+    
+      <a class="sidebar-button" href="/downloads/Jace Browning's Resume.pdf" download>
+        Download Resume
+      </a>
+    
+    </p>
+
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/09/04/deploying-jekyll-to-github-pages-with-travis/">
+        Deploying a Jekyll Blog to GitHub Pages using Travis CI
+      </a>
+    </h1>
+
+    <span class="post-date">04 Sep 2015</span>
+
+    <p><a href="https://jekyllrb.com/">Jekyll</a> is a “blog-aware static site generator” written in <a href="https://www.ruby-lang.org/">Ruby</a> that will generate a responsive website from <a href="https://help.github.com/articles/markdown-basics/">Markdown</a> and <a href="https://yaml.org/">YAML</a> files.</p>
+
+<p><a href="https://pages.github.com/">GitHub Pages</a> offers you a free way to host static websites. And while they will automatically publish files in a repository named <code class="language-plaintext highlighter-rouge">&lt;your-github-id&gt;.github.io</code>, sometimes you need a little more control over the process.</p>
+
+<h2 id="project-tooling">Project Tooling</h2>
+
+<p>After running <code class="language-plaintext highlighter-rouge">$ jekyll new</code>, the base project structure will be generated for you. To simplify setup on additional machines and enable continuous deployment, I like to add additional tooling to this project.</p>
+
+<h3 id="gemfile">Gemfile</h3>
+
+<p>A <a href="https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile"><code class="language-plaintext highlighter-rouge">Gemfile</code></a> is used to specify the Ruby dependencies (“Gems”) required to generate the website. In addition to <code class="language-plaintext highlighter-rouge">jekyll</code>, I’m using:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">rouge</code> - to provide syntax highlighting in code examples</li>
+  <li><code class="language-plaintext highlighter-rouge">html-proofer</code> - to confirm that external links are valid</li>
+</ul>
+
+<h3 id="gemfilelock">Gemfile.lock</h3>
+
+<p>The <a href="https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile.lock"><code class="language-plaintext highlighter-rouge">Gemfile.lock</code></a> is automatically generated when installing Gems. It’s purpose is to record of the exact version of each dependency the last time the project was successfully deployed.</p>
+
+<h3 id="bundler">Bundler</h3>
+
+<p><code class="language-plaintext highlighter-rouge">bundler</code> is a tool that can install and run particular versions of Gems for a project. I prefer to store the Gems locally via <code class="language-plaintext highlighter-rouge">$ bundler install --path vendor</code> so that I’m not polluting my system directories and can completely delete all files a project creates.</p>
+
+<h3 id="makefile">Makefile</h3>
+
+<p>A <a href="https://raw.githubusercontent.com/jacebrowning/info/main/Makefile"><code class="language-plaintext highlighter-rouge">Makefile</code></a> puts everything together. I like using <code class="language-plaintext highlighter-rouge">make</code> (rather than <code class="language-plaintext highlighter-rouge">rake</code>) because it doesn’t depend on Ruby itself, does a good of tracking when files have changed, and provides a standard interface between projects.</p>
+
+<p>I’ll highlight the important parts of this file. This reinstalls the dependencies whenever they change:</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">VENDOR_DIR</span> <span class="o">:=</span> vendor
+<span class="nv">INSTALLED_FLAG</span> <span class="o">:=</span> <span class="p">$(</span>VENDOR_DIR<span class="p">)</span>/.installed
+
+<span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">install</span>
+<span class="nl">install</span><span class="o">:</span> <span class="nf">$(INSTALLED_FLAG)</span>
+<span class="nl">$(INSTALLED_FLAG)</span><span class="o">:</span> <span class="nf">Gemfile* Makefile</span>
+    <span class="err">bundle</span> <span class="err">install</span> <span class="err">--path</span> <span class="err">vendor</span>
+    <span class="err">@</span> <span class="err">touch</span> <span class="err">$(INSTALLED_FLAG)</span>
+</code></pre></div></div>
+
+<p>This builds the site and validates the generated HTML:</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">build</span>
+<span class="nl">build</span><span class="o">:</span> <span class="nf">install</span>
+    <span class="err">bundle</span> <span class="err">exec</span> <span class="err">jekyll</span> <span class="err">build</span> <span class="err">--quiet</span>
+    <span class="err">bundle</span> <span class="err">exec</span> <span class="err">htmlproof</span> <span class="err">_site</span> <span class="err">--only-4xx</span>
+</code></pre></div></div>
+
+<p>And these targets provide a way to run the site locally:</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">run</span>
+<span class="nl">run</span><span class="o">:</span> <span class="nf">install</span>
+    <span class="err">bundle</span> <span class="err">exec</span> <span class="err">jekyll</span> <span class="err">serve</span> <span class="err">--future</span> <span class="err">--drafts</span>
+
+<span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">launch</span>
+<span class="nl">launch</span><span class="o">:</span> <span class="nf">install</span>
+    <span class="nl">eval "sleep 5; open http</span><span class="o">:</span><span class="nf">//localhost:4000" &amp; make run</span>
+</code></pre></div></div>
+
+<p>See the <a href="https://github.com/jacebrowning/jacebrowning.info">source code</a> that generates <strong>this</strong> site as an example of how these files are used together in practice.</p>
+
+<h2 id="developing-locally">Developing Locally</h2>
+
+<p>Using the above tooling, my only system dependencies are <code class="language-plaintext highlighter-rouge">ruby</code>, <code class="language-plaintext highlighter-rouge">bundler</code>, and <code class="language-plaintext highlighter-rouge">make</code>. To work on a new blog entry, I simply run:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>make launch
+</code></pre></div></div>
+
+<p>to bring up a local instance of the site that is regenerated whenever I edit content.</p>
+
+<p>When I am done editing, running <code class="language-plaintext highlighter-rouge">$ make ci</code> will confirm that the site is ready to be published.</p>
+
+<h2 id="deploying-with-travis-ci">Deploying with Travis CI</h2>
+
+<p><a href="https://travis-ci.org/">Travis CI</a> offers free continuous integration for open source projects that can be used to deploy software after running a number of checks.</p>
+
+<p>Adding a <a href="https://github.com/jacebrowning/jacebrowning.info/blob/55c13120f6aac2ddff4aa6eeead106fb547b8998/.travis.yml"><code class="language-plaintext highlighter-rouge">.travis.yml</code></a> to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">install</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">make install</span>
+
+<span class="na">script</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">make ci</span>
+</code></pre></div></div>
+
+<p>If a new commit passes those checks, the following shell script is run:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Generate HTML</span>
+make build <span class="p">;</span>
+<span class="c"># Configure Git with Travis CI information</span>
+git config <span class="nt">--global</span> user.email <span class="s2">"travis@travis-ci.org"</span> <span class="p">;</span>
+git config <span class="nt">--global</span> user.name <span class="s2">"travis-ci"</span> <span class="p">;</span>
+<span class="c"># Delete the current repository</span>
+<span class="nb">rm</span> <span class="nt">-rf</span> .git <span class="p">;</span>
+<span class="c"># Rebuild the repository from the generated files and push to GitHub pages</span>
+<span class="nb">cd </span>_site <span class="p">;</span>
+git init <span class="p">;</span>
+git add <span class="nb">.</span> <span class="p">;</span>
+git commit <span class="nt">-m</span> <span class="s2">"Deploy Travis CI build </span><span class="nv">$TRAVIS_BUILD_NUMBER</span><span class="s2"> to GitHub pages"</span> <span class="p">;</span>
+git push <span class="nt">-f</span> https://<span class="k">${</span><span class="nv">GH_TOKEN</span><span class="k">}</span>@github.com/<span class="k">${</span><span class="nv">TRAVIS_REPO_SLUG</span><span class="k">}</span> main:gh-pages <span class="p">;</span>
+</code></pre></div></div>
+
+<p>which will publish the generated files to the <code class="language-plaintext highlighter-rouge">gh-pages</code> branch on GitHub.</p>
+
+<p><code class="language-plaintext highlighter-rouge">GH_TOKEN</code> is an encrypted access token to grant Travis CI permissions to modify files in your repository. <a href="https://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/">This site</a> provides a good overview on generating these tokens.</p>
+
+<p>After deployment, you should now see your Jekyll blog live at:</p>
+
+<p><code class="language-plaintext highlighter-rouge">https://&lt;your-github-id&gt;.github.io/&lt;your-repository-name&gt;</code></p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-09-04-deploying-jekyll-to-github-pages-with-travis.md">edit</a> this post.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/08/07/replacing-submodules-with-gitman/">
+        Replacing Git Submodules with Gitman
+      </a>
+    </h1>
+
+    <span class="post-date">07 Aug 2015</span>
+
+    <p>Lots of languages offer dependency managers (<a href="https://pip.pypa.io/en/stable/"><code class="language-plaintext highlighter-rouge">pip</code></a>, <a href="https://rubygems.org/"><code class="language-plaintext highlighter-rouge">gem</code></a>, <a href="https://www.npmjs.com/"><code class="language-plaintext highlighter-rouge">npm</code></a>), but in many situations, that’s not enough. Sometimes you need to:</p>
+
+<ul>
+  <li>use a language without a dependency manager</li>
+  <li>include code from multiple languages</li>
+  <li>explicitly control the installation location</li>
+</ul>
+
+<h2 id="git-submodules">Git Submodules</h2>
+
+<p>When using <a href="https://git-scm.com/">Git</a> for version control, the obvious choice is to use <a href="https://git-scm.com/docs/git-submodule">submodules</a> to include the source from another repository. However, in practice, submodules can often be a pain to use, as they:</p>
+
+<ul>
+  <li>require extra information to meaningfully identify the submodule’s SHA</li>
+  <li>cause confusing merge conflicts (one SHA vs. another)</li>
+  <li>show confusing status changes when switching branches</li>
+</ul>
+
+<p>And while submodules can be used to track a branch (rather than a SHA), this will:</p>
+
+<ul>
+  <li>show confusing status changes if the branch head moves</li>
+  <li>require a new commit by whomever updates submodules first</li>
+</ul>
+
+<h2 id="an-alternative">An Alternative</h2>
+
+<p><a href="https://gitman.readthedocs.io">Gitman</a> avoids these issues and adds the ability to:</p>
+
+<ul>
+  <li>track a specific tag in a source dependency’s repository</li>
+  <li>checkout by <code class="language-plaintext highlighter-rouge">rev-parse</code> dates (e.g. <code class="language-plaintext highlighter-rouge">'develop@{2015-06-18 10:30:59}'</code>)</li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<p>To install Gitman, first install Python 3 and it’s dependency manager, <code class="language-plaintext highlighter-rouge">pip</code>:</p>
+
+<ul>
+  <li>Windows: <a href="https://www.python.org/downloads">python.org/downloads</a></li>
+  <li>Mac: <code class="language-plaintext highlighter-rouge">$ brew install python3</code></li>
+  <li>Ubuntu: <code class="language-plaintext highlighter-rouge">$ sudo apt-get install python3-pip</code></li>
+</ul>
+
+<p>Then, install <code class="language-plaintext highlighter-rouge">gitman</code> using <code class="language-plaintext highlighter-rouge">pip3</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip3 <span class="nb">install</span> <span class="nt">--upgrade</span> gitman
+</code></pre></div></div>
+
+<p>Version and help information are available on the command-line</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gitman <span class="nt">--version</span>
+<span class="nv">$ </span>gitman <span class="nt">--help</span>
+</code></pre></div></div>
+
+<h3 id="mimicking-submodule">Mimicking Submodule</h3>
+
+<p>While Gitman, provides <a href="https://github.com/jacebrowning/gitman#usage">additional capabilities</a>, it can also directly replace the behavior of submodules. To mimic a working tree containing a submodule:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;root&gt;/vendor/my_dependency  <span class="c"># submodule at: a5fe3d...</span>
+</code></pre></div></div>
+
+<p>create a <code class="language-plaintext highlighter-rouge">gitman.yml</code> file in the root of your working tree:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">location</span><span class="pi">:</span> <span class="s">gitman_sources</span>
+<span class="na">sources</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="na">repo</span><span class="pi">:</span> <span class="s">&lt;URL of my_dependency's repository&gt;</span>
+  <span class="na">dir</span><span class="pi">:</span> <span class="s">my_dependency</span>
+  <span class="na">rev</span><span class="pi">:</span> <span class="s">a5fe3d</span>
+  <span class="na">link</span><span class="pi">:</span> <span class="s">vendor/my_depenendy</span>
+</code></pre></div></div>
+
+<p>and run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gitman <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>To display the specific versions of source dependencies:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>gitman list
+</code></pre></div></div>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-08-07-replacing-submodules-with-gitman.md">edit</a> this post.</p>
+
+<p>Find a problem with <code class="language-plaintext highlighter-rouge">gitman</code>? Please submit an <a href="https://github.com/jacebrowning/gitman/issues">issue</a> or contribute!</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/05/17/yorm-v0.4-released/">
+        YORM v0.4 Released
+      </a>
+    </h1>
+
+    <span class="post-date">17 May 2015</span>
+
+    <p>Yesterday, I released an important milestone of my file-based object relational mapper for Python, <a href="https://github.com/jacebrowning/yorm">YORM</a>. This release provides support for unlimited nesting of container-like attributes. This is a feature I’ve wanted for a while, but was actually quite difficult to implement. The API for YORM is also starting to stabilize after some breaking changes from the previous release.</p>
+
+<h2 id="some-background">Some Background</h2>
+
+<p>Lately, I’ve been running into many situations where I’d like to store program configuration and/or data in version control. YORM was born to provide automatic, bidirectional, and human-friendly mappings of Python object attributes to YAML files.</p>
+
+<p>Traditional object serializes don’t provide output fit for human modification and ORM databases aren’t fit for storage in version control. YORM supports additional uses beyond typical object serialization and mapping including:</p>
+
+<ul>
+  <li>bidirectional conversion between basic YAML and Python types</li>
+  <li>attribute creation and type inference for new attributes</li>
+  <li>storage of content in text files optimized for version control</li>
+  <li>extensible converters to customize formatting on complex classes</li>
+</ul>
+
+<h2 id="an-example">An Example</h2>
+
+<p>Given an existing class:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">school</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2009</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">school</span> <span class="o">=</span> <span class="n">school</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">gpa</span> <span class="o">=</span> <span class="mf">0.0</span>
+</code></pre></div></div>
+
+<p>an attribute mapping is defined mapping attributes to converter classes and instances to a file pattern:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">yorm</span>
+<span class="kn">from</span> <span class="n">yorm.converters</span> <span class="kn">import</span> <span class="n">String</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">Float</span>
+
+<span class="nd">@yorm.attr</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">String</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="n">Integer</span><span class="p">,</span> <span class="n">gpa</span><span class="o">=</span><span class="n">Float</span><span class="p">)</span>
+<span class="nd">@yorm.sync</span><span class="p">(</span><span class="sh">"</span><span class="s">students/{self.school}/{self.number}.yml</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Student</span><span class="p">:</span>
+    <span class="bp">...</span>
+</code></pre></div></div>
+
+<p>Modifications to each object’s mapped attributes:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="nc">Student</span><span class="p">(</span><span class="sh">"</span><span class="s">John Doe</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">GVSU</span><span class="sh">"</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s2</span> <span class="o">=</span> <span class="nc">Student</span><span class="p">(</span><span class="sh">"</span><span class="s">Jane Doe</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">GVSU</span><span class="sh">"</span><span class="p">,</span> <span class="mi">456</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">2014</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span><span class="p">.</span><span class="n">gpa</span> <span class="o">=</span> <span class="mi">3</span>
+</code></pre></div></div>
+
+<p>are automatically reflected on the filesytem:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat </span>students/GVSU/123.yml
+name: John Doe
+gpa: 3.0
+school: GVSU
+year: 2009
+</code></pre></div></div>
+
+<p>Modifications and new content in each mapped file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s2">"name: John Doe
+&gt; gpa: 1.8
+&gt; year: 2010
+&gt; expelled: true
+"</span> <span class="o">&gt;</span> students/GVSU/123.yml
+</code></pre></div></div>
+
+<p>are automatically reflected in their corresponding object:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span><span class="p">.</span><span class="n">gpa</span>
+<span class="mf">1.8</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s1</span><span class="p">.</span><span class="n">expelled</span>
+<span class="bp">True</span>
+</code></pre></div></div>
+
+<h2 id="current-uses">Current Uses</h2>
+
+<p>Right now I’m using YORM to:</p>
+
+<ul>
+  <li>store program state in Dropbox: <a href="https://github.com/jacebrowning/mine">mine</a></li>
+  <li>simplify configuration file loading: <a href="https://github.com/jacebrowning/gitman">Gitman</a></li>
+  <li>prototype a RESTful game API: <a href="https://github.com/jacebrowning/gridcommand">GridCommand</a></li>
+</ul>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-05-17-yorm-v0.4-released.md">edit</a> this post.</p>
+
+<p>Find a problem with <code class="language-plaintext highlighter-rouge">yorm</code>? Please submit an <a href="https://github.com/jacebrowning/yorm/issues">issue</a> or contribute!</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/03/24/syncing-itunes-using-dropbox-with-mine/">
+        Syncing iTunes using Dropbox with Mine
+      </a>
+    </h1>
+
+    <span class="post-date">24 Mar 2015</span>
+
+    <p>Many applications provide their own synchronization methods to enable usage on multiple computers, but what about those that don’t? It turns out that lots of programs are perfectly happy to have their files stored inside Dropbox rather than their typical location.</p>
+
+<h2 id="storing-itunes-in-dropbox">Storing iTunes in Dropbox</h2>
+
+<p>Many guides exist showing you how to do this with iTunes:</p>
+
+<ul>
+  <li><a href="https://digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox-0155955">digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox</a></li>
+  <li><a href="https://www.macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox/">macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox</a></li>
+</ul>
+
+<p>Unfortunately, the shared caveat in all these guides is that only one instance of iTunes is to be running at any given time. That’s where <code class="language-plaintext highlighter-rouge">mine</code> comes in.</p>
+
+<h2 id="installing-and-configuring-mine">Installing and Configuring Mine</h2>
+
+<p><code class="language-plaintext highlighter-rouge">mine</code> is a daemon and command-line <a href="https://github.com/jacebrowning/mine">Python program</a> that starts and stops remote applications using a configuration file in Dropbox. After setting up iTunes and Dropbox using one of the above guides, install <code class="language-plaintext highlighter-rouge">mine</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip3 install --upgrade mine
+</code></pre></div></div>
+
+<p>If you don’t have <code class="language-plaintext highlighter-rouge">pip3</code>, install <code class="language-plaintext highlighter-rouge">python3</code> with your system’s package manager (on OSX with <a href="https://brew.sh/">Homebrew</a>: <code class="language-plaintext highlighter-rouge">$ brew install python3</code>).</p>
+
+<p>Additional configuration instructions are found in the project’s <a href="https://github.com/jacebrowning/mine#setup">README</a>.</p>
+
+<h2 id="using-mine-to-manage-remote-applications">Using Mine to Manage Remote Applications</h2>
+
+<p>Once installed and configured, let it run in the background on each computer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mine --daemon
+</code></pre></div></div>
+
+<p>Applications can be killed remotely and started on the current computer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mine switch
+</code></pre></div></div>
+
+<p>To kill all local applications and start them on another computer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ mine switch &lt;name&gt;
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">&lt;name&gt;</code> is part of the name of another computer with <code class="language-plaintext highlighter-rouge">mine</code> running.</p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-03-24-syncing-itunes-using-dropbox-with-mine.md">edit</a> this post.</p>
+
+<p>Find a problem with <code class="language-plaintext highlighter-rouge">mine</code>? Please submit an <a href="https://github.com/jacebrowning/mine/issues">issue</a> or contribute!</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2015/03/23/xcodecoverage-xctool-and-make/">
+        Measuring Coverage with XcodeCoverage, xctool, & Make
+      </a>
+    </h1>
+
+    <span class="post-date">23 Mar 2015</span>
+
+    <h2 id="the-pieces">The Pieces</h2>
+
+<h3 id="xcodecoverage">XcodeCoverage</h3>
+
+<p>The XodeCoverage <a href="https://github.com/jonreid/XcodeCoverage">project</a> is a set of shell scripts bundled with <code class="language-plaintext highlighter-rouge">lcov</code> to measure lines of code coverage during execution of instrumented test builds.</p>
+
+<p>In this example, the scripts are used to generate an HTML coverage report (with a few modifications made in <a href="https://github.com/jacebrowning/XcodeCoverage/releases/tag/blog-2015-03-23">my fork</a> to customize report location).</p>
+
+<h3 id="xctool">xctool</h3>
+
+<p><a href="https://github.com/facebook/xctool">Facebook</a> created the <code class="language-plaintext highlighter-rouge">xctool</code> command-line program to provide an easier way to build and test Xcode projects.</p>
+
+<p>In this example, the tool is used to build and run Objective-C unit tests from the command line.</p>
+
+<h3 id="make">Make</h3>
+
+<p><a href="https://www.gnu.org/software/make/">Make</a> is usually my default entry point for creating builds, running tests, and generating reports. I like putting this sort of automation in a <code class="language-plaintext highlighter-rouge">Makefile</code> because, for basic tasks, the syntax is fairly minimal and <code class="language-plaintext highlighter-rouge">make</code> is ubiquitous on most platforms.</p>
+
+<h2 id="putting-them-together">Putting Them Together</h2>
+
+<h3 id="the-makefile">The Makefile</h3>
+
+<p>First, we define few shared variables that can be common to all projects:</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">WORKSPACE_NAME</span><span class="o">:=</span>&lt;???&gt;
+<span class="nv">PROJECT_NAME</span><span class="o">:=</span>&lt;???&gt;
+<span class="nv">SOURCE_NAME</span><span class="o">:=</span>&lt;???&gt;
+<span class="nv">APP_NAME</span><span class="o">:=</span>&lt;???&gt;
+
+<span class="c"># Common
+</span><span class="nv">ROOT_DIR</span><span class="o">:=</span>.
+<span class="nv">PROJECT_DIR</span><span class="o">:=</span><span class="p">$(</span>ROOT_DIR<span class="p">)</span>/<span class="p">$(</span>SOURCE_NAME<span class="p">)</span>
+<span class="nv">SOURCE_DIR</span><span class="o">:=</span><span class="p">$(</span>PROJECT_DIR<span class="p">)</span>/<span class="p">$(</span>SOURCE_NAME<span class="p">)</span>
+<span class="nv">SOURCES</span><span class="o">:=</span>Makefile <span class="p">$(</span>SOURCE_DIR<span class="p">)</span>/<span class="k">*</span>
+
+<span class="c"># Xcode
+</span><span class="nv">XCODE_SCHEME</span><span class="o">?=</span><span class="p">$(</span>APP_NAME<span class="p">)</span>
+<span class="nv">XCODE_CONFIGURATION</span><span class="o">?=</span>Debug
+
+<span class="c"># xctool
+</span><span class="nv">XCTOOL</span><span class="o">:=</span>xctool
+<span class="nv">XCTOOL_RESULTS_REPORTER</span><span class="o">?=</span>pretty
+<span class="nv">XCTOOL_ARGS_SHARED</span><span class="o">:=</span><span class="nt">-scheme</span> <span class="p">$(</span>XCODE_SCHEME<span class="p">)</span> <span class="nt">-configuration</span> <span class="se">\</span>
+    <span class="p">$(</span>XCODE_CONFIGURATION<span class="p">)</span> <span class="nt">-reporter</span> user-notifications
+<span class="nv">XCTOOL_ARGS_TEST</span><span class="o">:=</span><span class="nt">-reporter</span> <span class="p">$(</span>XCTOOL_RESULTS_REPORTER<span class="p">)</span>
+
+<span class="c"># XcodeCoverage
+</span><span class="nv">XCODECOVERAGE_DIR</span><span class="o">:=</span><span class="p">$(</span>PROJECT_DIR<span class="p">)</span>/XcodeCoverage
+<span class="nv">XCODECOVERAGE_GETCOV</span><span class="o">:=</span><span class="p">$(</span>XCODECOVERAGE_DIR<span class="p">)</span>/getcov
+<span class="nv">XCODECOVERAGE_CLEANCOV</span><span class="o">:=</span><span class="p">$(</span>XCODECOVERAGE_DIR<span class="p">)</span>/cleancov
+</code></pre></div></div>
+
+<p>and a few more variables dictating where we’d like coverage output to go:</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">COVERAGE_DIR</span><span class="o">:=</span><span class="p">$(</span>ROOT_DIR<span class="p">)</span>/coverage
+<span class="nv">COVERAGE_LOG</span><span class="o">:=</span><span class="p">$(</span>COVERAGE_DIR<span class="p">)</span>/getcov.log
+<span class="nv">COVERAGE_REPORT</span><span class="o">:=</span><span class="p">$(</span>COVERAGE_DIR<span class="p">)</span>/index.html
+</code></pre></div></div>
+
+<p>The test target is defined as:</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">test</span>
+<span class="nl">test</span><span class="o">:</span> <span class="nf">$(COVERAGE_LOG)</span>
+<span class="nl">$(COVERAGE_LOG)</span><span class="o">:</span> <span class="nf">$(SOURCES)</span>
+    <span class="err">$(XCODECOVERAGE_CLEANCOV)</span>
+    <span class="err">$(XCTOOL)</span> <span class="err">test</span> <span class="err">$(XCTOOL_ARGS_SHARED)</span> <span class="err">$(XCTOOL_ARGS_TEST)</span>
+    <span class="err">mkdir</span> <span class="err">-p</span> <span class="err">$(COVERAGE_DIR)</span> <span class="err">&amp;&amp;</span> <span class="err">\</span>
+        <span class="err">$(XCODECOVERAGE_GETCOV)</span> <span class="err">$(PROJECT_NAME)</span> <span class="err">$(COVERAGE_DIR)</span> <span class="err">&gt;</span> <span class="err">\</span>
+            <span class="err">$(COVERAGE_LOG)</span>
+    <span class="err">tail</span> <span class="err">-n</span> <span class="err">3</span> <span class="err">$(COVERAGE_LOG)</span>
+</code></pre></div></div>
+
+<p>which will:</p>
+
+<ol>
+  <li>Delete the old coverage data</li>
+  <li>Build and run the unit tests</li>
+  <li>Parse the generated coverage data</li>
+  <li>Generate an HTML coverage report</li>
+  <li>Display the percentage of lines coverage</li>
+</ol>
+
+<p>A shortcut to open the coverage report is defined as:</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">.PHONY</span><span class="o">:</span> <span class="nf">read-cov</span>
+<span class="nl">read-cov</span><span class="o">:</span> <span class="nf">$(COVERAGE_INDEX)</span>
+    <span class="err">open</span> <span class="err">$(COVERAGE_INDEX)</span>
+
+<span class="nl">$(COVERAGE_INDEX)</span><span class="o">:</span> <span class="nf">$(COVERAGE_LOG)</span>
+</code></pre></div></div>
+
+<h3 id="example-output">Example Output</h3>
+
+<p>Running <code class="language-plaintext highlighter-rouge">$ make test</code> displays something like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./MyProject/XcodeCoverage/cleancov
+Deleting all .da files in /Users/Browning/Library/Developer/Xcode/DerivedData/MyWorkspace/Build/Intermediates/MyProject.build/Debug-iphonesimulator/MyProject.build/Objects-normal/x86_64 and subdirectories
+Done.
+
+xctool test -scheme MyProject -configuration Debug -reporter user-notifications -reporter pretty
+[Info] Loading settings for scheme 'MyProject' ... (1950 ms)
+
+=== TEST ===
+
+  xcodebuild build build
+    MyProject / MyProject (Debug)
+      ✓ Check dependencies (111 ms)
+      ✓ Write auxiliary files (0 ms)
+      ✓ Compile BatterySensor.m (574 ms)
+      ...
+      ✓ Compile Platform.m (68 ms)
+      0 errored, 0 warning (1315 ms)
+
+  [Info] Collecting info for testables... (1196 ms)
+  run-test MyProjectTests.xctest (iphonesimulator8.2, iPad Air, application-test)
+    [Info] Installed 'MyProject'. (1392 ms)
+    [Info] Launching test host and running tests ... (0 ms)
+    ✓ -[BatterySensorCellTestCase testSensorLevel] (5 ms)
+    ...
+    ✓ -[GroupManagerTestCase testCanCreateGroup] (0 ms)
+    99 passed, 0 failed, 0 errored, 99 total (9999 ms)
+
+** TEST SUCCEEDED: 99 passed, 0 failed, 0 errored, 99 total ** (99999 ms)
+
+mkdir -p ./coverage &amp;&amp; ./MyProject/XcodeCoverage/getcov MyProject ./coverage &gt; ./coverage/getcov.log
+
+tail -n 3 ./coverage/getcov.log
+Overall coverage rate:
+  lines......: 17.6% (3676 of 20867 lines)
+  functions..: 19.5% (817 of 4192 functions)
+
+</code></pre></div></div>
+
+<p>Running <code class="language-plaintext highlighter-rouge">$ make read-cov</code> launches a report similar to:</p>
+
+<p><img src="/assets/sample-lcov-html-report.png" alt="sample-lcov-html-report" title="Sample LCOV HTML Report" /></p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-03-23-xcodecoverage-xctool-and-make.md">edit</a> this post.</p>
+
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <span class="pagination-item older">Older</span>
+  
+  
+    
+      <a class="pagination-item newer" href="/">Newer</a>
+    
+  
+</div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

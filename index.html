@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+
+    <div class="sidebar-about">
+      <h1>Jace Browning</h1>
+      <p class="lead">I build tools that empower developers to ship quality code as fast as possible.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/about/">About</a>
+      <a class="sidebar-nav-item active" href="/">Blog</a>
+      <a class="sidebar-nav-item" href="https://nocomment.jacebrowning.info/comics/" target="_blank">Comic</a>
+      <a class="sidebar-nav-item" href="/music/">Music</a>
+      <a class="sidebar-nav-item" href="/software/">Software</a>
+    </nav>
+
+    <p>
+    
+      <a class="sidebar-button" href="/downloads/Jace Browning's Resume.pdf" download>
+        Download Resume
+      </a>
+    
+    </p>
+
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2024/05/04/managing-slack-with-stream-deck/">
+        Managing Slack with Stream Deck
+      </a>
+    </h1>
+
+    <span class="post-date">04 May 2024</span>
+
+    <p>If you’re in multiple Slack workspaces, you know it can get distracting to see unread message notifications. <a href="https://github.com/jacebrowning/slackoff">Slackoff</a> is a tool to help you automatically sign out of Slack workspaces (on macOS) to improve focus. This guide will show you how to connect Slack to a <a href="https://www.elgato.com/us/en/p/stream-deck-mk2-black">Stream Deck</a> to toggle workspaces with the push of a button.</p>
+
+<h2 id="slackoff">Slackoff</h2>
+
+<h3 id="installation">Installation</h3>
+
+<p>Slackoff is easiest to install with <a href="https://pipx.pypa.io/">pipx</a>, a tool to run Python applications in isolated environments. To install that on macOS:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>brew <span class="nb">install </span>pipx
+</code></pre></div></div>
+
+<p>Add this line to your shell config (e.g. <code class="language-plaintext highlighter-rouge">~/.zshrc</code>):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH="${HOME}/.local/bin:${PATH}"
+</code></pre></div></div>
+
+<p>Then in a new terminal window you should be able to install Slackoff:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pipx install slackoff
+$ slackoff --version
+</code></pre></div></div>
+
+<h3 id="usage">Usage</h3>
+
+<p>To test that it’s working, try toggling one of your Slack workspaces:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ slackoff --signout My Company Workspace
+$ slackoff --signin My Company Workspace
+</code></pre></div></div>
+
+<p>where “My Company Workspace” is the name of one of your Slack workspaces. You may need to grand accessibility permissions to your terminal application.</p>
+
+<p>Slackoff will also remember the last used workspace so you can toggle it with a single command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ slackoff
+</code></pre></div></div>
+
+<h2 id="stream-deck">Stream Deck</h2>
+
+<h2 id="setup">Setup</h2>
+
+<p>To call Slackoff from a Stream Deck action, we first need to create a wrapper script. Open the Script Editor application on macOS and paste the following:</p>
+
+<div class="language-applescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">do shell script</span><span class="w"> </span><span class="s2">"/Users/Browning/.local/bin/slackoff"</span><span class="w">
+</span></code></pre></div></div>
+
+<p>where “Browning” is your user name. Save that file somewhere that Stream Deck can find it.</p>
+
+<p>Next, add the <strong>System &gt; Open</strong> action to a button:</p>
+
+<p><img src="https://cdn.zappy.app/912d066cbd607bb9205f547b53b98945.png" alt="" /></p>
+
+<p>Then, configure that action to call the AppleScript you created:</p>
+
+<p><img src="https://cdn.zappy.app/f3c781c2d318b623f32684b0d1acdde9.png" alt="" /></p>
+
+<h2 id="usage-1">Usage</h2>
+
+<p>At the start and end of each day, simply press that Stream Deck button to toggle Slack workspaces. Enjoy your improved work-life balance! 🎉</p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2024-05-04-managing-slack-with-stream-deck.md">edit</a> this post.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2017/03/22/static-sites-with-heroku/">
+        Using Heroku to Review Static Websites
+      </a>
+    </h1>
+
+    <span class="post-date">22 Mar 2017</span>
+
+    <p><a href="https://devcenter.heroku.com/start">Heroku</a> is a great platform to deploy your full-stack application. While not the appropriate place to deploy a production frontend application, Heroku’s <a href="https://devcenter.heroku.com/articles/github-integration-review-apps">Review Apps</a> offer an automated mechanism to create a temporary deployment of your application to a unique, predictable URL.</p>
+
+<h2 id="review-apps">Review Apps</h2>
+
+<p>After creating a Heroku account, create a <a href="https://devcenter.heroku.com/articles/pipelines">“Pipeline”</a> for your project and connect it to a repository on GitHub. Heroku’s Pipelines allow your application code to be deployed multiple times, from different branches.</p>
+
+<p>Regardless of the technology your application uses, you will need to tell Heroku about your application’s dependencies in a <a href="https://devcenter.heroku.com/articles/app-json-schema">manifest file</a>. The most basic <code class="language-plaintext highlighter-rouge">app.json</code> will look similar to the following:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grwifi"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"formation"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+  </span><span class="nl">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+  </span><span class="nl">"buildpacks"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="web-server">Web Server</h2>
+
+<p>In order to serve up our static site, we’ll need to run a web server on Heroku. I developed <a href="https://github.com/jacebrowning/sappy">sappy</a> specifically for the purpose of serving up single-page applications (SPAs) and static websites.</p>
+
+<p>To run our application on Heroku using Sappy, we’ll need to add a few files:</p>
+
+<p><strong><code class="language-plaintext highlighter-rouge">runtime.txt</code></strong> indicates that Heroku should use a Python <a href="https://devcenter.heroku.com/articles/buildpacks">buildpack</a> (because Sappy is written in Python):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python-3.6.1
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">requrements.txt</code></strong> tells Heroku to install Sappy using <a href="https://en.wikipedia.org/wiki/Pip_(package_manager)">pip</a> (the package manager for Python):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sappy==1.0.1
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Procfile</code></strong> specifies <code class="language-plaintext highlighter-rouge">sappy</code> as the command to run our application:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>web: sappy --port=${PORT}
+</code></pre></div></div>
+
+<h2 id="automated-deployment">Automated Deployment</h2>
+
+<p>After adding the above files to your repository, enable Review Apps on the pipeline we created earlier:</p>
+
+<p><img src="/assets/enable-review-apps.png" alt="enable review apps" /></p>
+
+<p>When new pull requests are created on GitHub, Heroku will automatically deploy the code in that branch to a separate Heroku instance:</p>
+
+<p><img src="/assets/review-app-deployment.png" alt="review app deployment" /></p>
+
+<p>Because the temporary application deployment performs virtually identical to production, the end-to-end testing and design review that might occur later in our quality assurance process can now be performed before the code is even merged.</p>
+
+<hr />
+
+<p>A working example can be found at: <a href="https://github.com/citizenlabsgr/homepage">github.com/citizenlabsgr/homepage</a></p>
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2017-03-22-static-sites-with-heroku.md">edit</a> this post.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2016/10/21/itemizing-career-goals/">
+        Itemizing Your Career Goals
+      </a>
+    </h1>
+
+    <span class="post-date">21 Oct 2016</span>
+
+    <p>When I was searching for my last job, I found it useful to make a list of all the things I was looking for in a new career. As it turned out, there were actually two categories within these requirements. Upon making a list, I found that I both cared about the company I worked for and the job at hand.</p>
+
+<p>I encourage everyone to make similar lists as a way to learn about your true career goals. You might be surprised that you want something different than you have. I will attempt to maintain these lists as my perspective changes, but here they are.</p>
+
+<h2 id="company-requirements">Company Requirements</h2>
+
+<ol>
+  <li>
+    <p>Work on new products with friends</p>
+  </li>
+  <li>
+    <p>Build tools for software engineers</p>
+  </li>
+  <li>Work in an industry that strongly interests me:
+    <ul>
+      <li>politics</li>
+      <li>music</li>
+      <li>theme parks</li>
+    </ul>
+  </li>
+  <li>
+    <p>Work at “a Python shop”</p>
+  </li>
+  <li>Consult teams and companies on:
+    <ul>
+      <li>Automation</li>
+      <li>Quality Assurance</li>
+      <li>Testing</li>
+      <li>Agile Methodologies</li>
+      <li>DevOps</li>
+    </ul>
+  </li>
+  <li>Get paid to work on open source software</li>
+</ol>
+
+<h2 id="job-requirements">Job Requirements</h2>
+
+<ol>
+  <li>
+    <p>Feel like at least half of the team cares more than I do</p>
+  </li>
+  <li>
+    <p>Flexible working hours and support for asynchronous work</p>
+  </li>
+  <li>
+    <p>Work on a team that hates bugs and insists on prioritizing bugs first</p>
+  </li>
+  <li>
+    <p>Have some free work time for side projects</p>
+  </li>
+  <li>
+    <p>Have a dedicated conference budget</p>
+  </li>
+</ol>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-10-21-itemizing-career-goals.md">edit</a> this post.</p>
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2016/09/30/coverage-as-a-service/">
+        Test Coverage as a Service
+      </a>
+    </h1>
+
+    <span class="post-date">30 Sep 2016</span>
+
+    <p>Measuring coverage is an important, but sometimes forgotten part of running tests. One of the common debates is around how much coverage a project should have: 50%, 80%, 100%?</p>
+
+<p>More important than the actual coverage metrics is ensuring that your coverage metrics don’t decrease when adding new code. Coverage metrics don’t tell us when a particular section of code has enough tests, but they do help inform us when a section of code has zero tests.</p>
+
+<h2 id="tracking-metrics">Tracking Metrics</h2>
+
+<p>A few options exist for tracking coverage metrics.</p>
+
+<h3 id="version-control">Version Control</h3>
+
+<p>The naive solution is to commit coverage metrics to a file in your project repository. When tests are run, check this file and report an error if coverage decreased. The main disadvantage of this approach is having lots of commits unrelated to functional changes, which adds noise to your repository.</p>
+
+<h3 id="external-services">External Services</h3>
+
+<p>Many external services exist to track coverage metrics. One such example is <a href="https://coveralls.io/">Coveralls</a>. This service works great and is highly recommended for open-source projects to track coverage on pull requests. The main disadvantages of this service are the costs for private repositories and the inability to check coverage metrics locally.</p>
+
+<h2 id="the-coverage-space">The Coverage Space</h2>
+
+<p><a href="https://coverage.space">coverage.space</a> is a new RESTful API to track coverage metrics that aims to find a balance between these two options.</p>
+
+<h3 id="basic-usage">Basic Usage</h3>
+
+<p>The easiest way to get started with The Coverage Space is to use an HTTP client. <a href="https://github.com/jkbrzt/httpie">HTTPie</a> works well for this:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>HTTPie
+</code></pre></div></div>
+
+<p>Update metrics for your project:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>http PUT api.coverage.space/my_owner/my_repo <span class="nv">unit</span><span class="o">=</span>90
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">my_owner/my_repo</code> matches your project.</p>
+
+<p>Check out the full API documentation at <a href="https://coverage.space/api/">coverage.space/api</a>.</p>
+
+<h3 id="command-line-client">Command-line Client</h3>
+
+<p>A command-line client is also available to automate the process of reading and uploading coverage metrics:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install</span> <span class="nt">--update</span> coverage.space
+</code></pre></div></div>
+
+<p>After running your tests with coverage enabled, update metrics for your project:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>coverage.space my_owner/my_repo unit
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">my_owner/my_repo</code> matches your project.</p>
+
+<p>Check out the full client documentation at <a href="https://cli.coverage.space">cli.coverage.space</a>.</p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-09-30-coverage-as-a-service.md">edit</a> this post.</p>
+
+<p>Interested in seeing the full implementation? Check out the <a href="https://github.com/jacebrowning/coverage-space">code</a> on GitHub.</p>
+
+
+  </div>
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="/2016/01/24/google-analytics-on-image-requests/">
+        Tracking Direct Image Requests with Google Analytics
+      </a>
+    </h1>
+
+    <span class="post-date">24 Jan 2016</span>
+
+    <p><a href="https://memegen.link/">Memegen.link</a> is an open source meme generator. It renders meme images based on the requested URL.</p>
+
+<p>For example, <code class="language-plaintext highlighter-rouge">memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg</code> produces this image:</p>
+
+<p><img src="https://memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg" alt="oprah" /></p>
+
+<p>The site also provides an <a href="https://api.memegen.link">API</a> to generate memes. This article is about the <a href="https://github.com/jacebrowning/memegen-flask">legacy implementation</a> written using <a href="https://flask.palletsprojects.com/">Flask</a> and <a href="https://flask-api.github.io/flask-api/">Flask API</a>.</p>
+
+<h2 id="client-side-analytics">Client-side Analytics</h2>
+
+<p>I have added <a href="https://www.google.com/analytics/">Google Analytics</a> to the index and API documentation pages using the standard approach of <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/">embedding</a> JavaScript on the page:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+<span class="nt">&lt;body&gt;</span>
+
+  <span class="nt">&lt;script&gt;</span>
+    <span class="p">...</span> <span class="dl">'</span><span class="s1">//www.google-analytics.com/analytics.js</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">ga</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">create</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">&lt;Google Analytics ID&gt;</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">auto</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nf">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">send</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">pageview</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+...
+</code></pre></div></div>
+
+<p>And while this works great for HTML rendered in the browser, direct images requests (like the meme image above) go untracked.</p>
+
+<h2 id="server-side-analytics">Server-side Analytics</h2>
+
+<p>One solution is to track file downloads on the backend by posting to the Google Analytics API directly using an HTTP library like <a href="https://requests.readthedocs.io/">requests</a>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">logging</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">Sending image: %s</span><span class="sh">"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">(</span>
+    <span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">tid</span><span class="o">=</span><span class="sh">'</span><span class="s">&lt;Google Analytics ID&gt;</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">cid</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">remote_addr</span><span class="p">,</span>
+
+    <span class="n">t</span><span class="o">=</span><span class="sh">'</span><span class="s">pageview</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">dh</span><span class="o">=</span><span class="sh">'</span><span class="s">memegen.link</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">dp</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">path</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+
+    <span class="n">uip</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">remote_addr</span><span class="p">,</span>
+    <span class="n">ua</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">user_agent</span><span class="p">.</span><span class="n">string</span><span class="p">,</span>
+    <span class="n">dr</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">referrer</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">requests</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="sh">"</span><span class="s">https://www.google-analytics.com/collect</span><span class="sh">"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="nf">send_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>While this will track page views for an image, much of the client’s information is still unavailable using this method:</p>
+
+<ul>
+  <li>geographic location</li>
+  <li>language setting</li>
+  <li>device properties</li>
+</ul>
+
+<h2 id="tricking-clients">Tricking Clients</h2>
+
+<p>My complete solution involves a bit of hack to return HTML instead of an image for clients that can handle it and the normal image for those that can’t.</p>
+
+<p>Visit <a href="https://memegen.link/fry/not-sure-if-image/or-webpage.jpg">memegen.link/fry/not-sure-if-image/or-webpage.jpg</a> in your browser:</p>
+
+<p><img src="/assets/memegen-in-browser.png" alt="browser" /></p>
+
+<p>It appears to be an image that can be downloaded:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget https://memegen.link/fry/not-sure-if-image/or-webpage.jpg
+Length: 27809 <span class="o">(</span>27K<span class="o">)</span> <span class="o">[</span>image/jpeg]
+Saving to: <span class="s1">'or-webpage.jpg'</span>
+or-webpage.jpg 100%[<span class="o">============================&gt;]</span>  27.16K  70.7KB/s
+2016-01-24 20:51:46 <span class="o">(</span>70.7 KB/s<span class="o">)</span> - <span class="s1">'or-webpage.jpg'</span> saved <span class="o">[</span>27809/27809]
+</code></pre></div></div>
+
+<p>But if you view the network tab in <a href="https://developer.chrome.com/devtools">Chrome’s developer tools</a>, you’ll see that it actually loaded a small webpage to run the same client-side Google Analytics JavaScript as above:</p>
+
+<p><img src="/assets/memegen-network.png" alt="network" /></p>
+
+<p>This was accomplished by detecting what content types the client can accept:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mimetypes</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">Accept</span><span class="sh">'</span><span class="p">,</span> <span class="sh">""</span><span class="p">).</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">,</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="sh">'</span><span class="s">text/html</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">mimetypes</span><span class="p">:</span>
+    <span class="nf">send_html</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nf">send_image</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>If the client can handle HTML, the following is returned:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+
+  <span class="nt">&lt;title&gt;</span>NOT SURE IF IMAGE / OR WEBPAGE<span class="nt">&lt;/title&gt;</span>
+
+  <span class="nt">&lt;style&gt;</span>
+    <span class="nt">body</span> <span class="p">{</span>
+      <span class="nl">background-image</span><span class="p">:</span> <span class="sx">url("/fry/not-sure-if-image/or-webpage.jpg")</span><span class="p">;</span>
+      <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">no-repeat</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="nt">&lt;/style&gt;</span>
+
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+  <span class="nt">&lt;script&gt;</span>
+    <span class="p">...</span>
+    <span class="nx">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">create</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">&lt;Google Analytics ID&gt;</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">auto</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nf">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">send</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">pageview</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>This causes the browser to render the image as expected, but also run a bit of JavaScript to recored additional information about the client.</p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-01-24-google-analytics-on-image-requests.md">edit</a> this post.</p>
+
+<p>Interested in seeing the full implementation? Check out the <a href="https://github.com/jacebrowning/memegen">code</a> on GitHub.</p>
+
+  </div>
+  
+</div>
+
+<div class="pagination">
+  
+    <a class="pagination-item older" href="/page2">Older</a>
+  
+  
+    <span class="pagination-item newer">Newer</span>
+  
+</div>
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>

@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Jace Browning</title>
+ <link href="https://jacebrowning.info/atom.xml" rel="self"/>
+ <link href="https://jacebrowning.info/"/>
+ <updated>2025-04-05T22:37:02+00:00</updated>
+ <id>https://jacebrowning.info</id>
+ <author>
+   <name>Jace Browning</name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>Managing Slack with Stream Deck</title>
+   <link href="https://jacebrowning.info/2024/05/04/managing-slack-with-stream-deck/"/>
+   <updated>2024-05-04T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2024/05/04/managing-slack-with-stream-deck</id>
+   <content type="html">&lt;p&gt;If you’re in multiple Slack workspaces, you know it can get distracting to see unread message notifications. &lt;a href=&quot;https://github.com/jacebrowning/slackoff&quot;&gt;Slackoff&lt;/a&gt; is a tool to help you automatically sign out of Slack workspaces (on macOS) to improve focus. This guide will show you how to connect Slack to a &lt;a href=&quot;https://www.elgato.com/us/en/p/stream-deck-mk2-black&quot;&gt;Stream Deck&lt;/a&gt; to toggle workspaces with the push of a button.&lt;/p&gt;
+
+&lt;h2 id=&quot;slackoff&quot;&gt;Slackoff&lt;/h2&gt;
+
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
+
+&lt;p&gt;Slackoff is easiest to install with &lt;a href=&quot;https://pipx.pypa.io/&quot;&gt;pipx&lt;/a&gt;, a tool to run Python applications in isolated environments. To install that on macOS:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;pipx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add this line to your shell config (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.zshrc&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export PATH=&quot;${HOME}/.local/bin:${PATH}&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then in a new terminal window you should be able to install Slackoff:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ pipx install slackoff
+$ slackoff --version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;usage&quot;&gt;Usage&lt;/h3&gt;
+
+&lt;p&gt;To test that it’s working, try toggling one of your Slack workspaces:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ slackoff --signout My Company Workspace
+$ slackoff --signin My Company Workspace
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;where “My Company Workspace” is the name of one of your Slack workspaces. You may need to grand accessibility permissions to your terminal application.&lt;/p&gt;
+
+&lt;p&gt;Slackoff will also remember the last used workspace so you can toggle it with a single command:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ slackoff
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;stream-deck&quot;&gt;Stream Deck&lt;/h2&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;To call Slackoff from a Stream Deck action, we first need to create a wrapper script. Open the Script Editor application on macOS and paste the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-applescript highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;do shell script&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/Users/Browning/.local/bin/slackoff&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;where “Browning” is your user name. Save that file somewhere that Stream Deck can find it.&lt;/p&gt;
+
+&lt;p&gt;Next, add the &lt;strong&gt;System &amp;gt; Open&lt;/strong&gt; action to a button:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.zappy.app/912d066cbd607bb9205f547b53b98945.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, configure that action to call the AppleScript you created:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cdn.zappy.app/f3c781c2d318b623f32684b0d1acdde9.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;usage-1&quot;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;At the start and end of each day, simply press that Stream Deck button to toggle Slack workspaces. Enjoy your improved work-life balance! 🎉&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2024-05-04-managing-slack-with-stream-deck.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Using Heroku to Review Static Websites</title>
+   <link href="https://jacebrowning.info/2017/03/22/static-sites-with-heroku/"/>
+   <updated>2017-03-22T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2017/03/22/static-sites-with-heroku</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;https://devcenter.heroku.com/start&quot;&gt;Heroku&lt;/a&gt; is a great platform to deploy your full-stack application. While not the appropriate place to deploy a production frontend application, Heroku’s &lt;a href=&quot;https://devcenter.heroku.com/articles/github-integration-review-apps&quot;&gt;Review Apps&lt;/a&gt; offer an automated mechanism to create a temporary deployment of your application to a unique, predictable URL.&lt;/p&gt;
+
+&lt;h2 id=&quot;review-apps&quot;&gt;Review Apps&lt;/h2&gt;
+
+&lt;p&gt;After creating a Heroku account, create a &lt;a href=&quot;https://devcenter.heroku.com/articles/pipelines&quot;&gt;“Pipeline”&lt;/a&gt; for your project and connect it to a repository on GitHub. Heroku’s Pipelines allow your application code to be deployed multiple times, from different branches.&lt;/p&gt;
+
+&lt;p&gt;Regardless of the technology your application uses, you will need to tell Heroku about your application’s dependencies in a &lt;a href=&quot;https://devcenter.heroku.com/articles/app-json-schema&quot;&gt;manifest file&lt;/a&gt;. The most basic &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app.json&lt;/code&gt; will look similar to the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;grwifi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;scripts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;env&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;formation&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;addons&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;buildpacks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;web-server&quot;&gt;Web Server&lt;/h2&gt;
+
+&lt;p&gt;In order to serve up our static site, we’ll need to run a web server on Heroku. I developed &lt;a href=&quot;https://github.com/jacebrowning/sappy&quot;&gt;sappy&lt;/a&gt; specifically for the purpose of serving up single-page applications (SPAs) and static websites.&lt;/p&gt;
+
+&lt;p&gt;To run our application on Heroku using Sappy, we’ll need to add a few files:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runtime.txt&lt;/code&gt;&lt;/strong&gt; indicates that Heroku should use a Python &lt;a href=&quot;https://devcenter.heroku.com/articles/buildpacks&quot;&gt;buildpack&lt;/a&gt; (because Sappy is written in Python):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python-3.6.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;requrements.txt&lt;/code&gt;&lt;/strong&gt; tells Heroku to install Sappy using &lt;a href=&quot;https://en.wikipedia.org/wiki/Pip_(package_manager)&quot;&gt;pip&lt;/a&gt; (the package manager for Python):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sappy==1.0.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Procfile&lt;/code&gt;&lt;/strong&gt; specifies &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sappy&lt;/code&gt; as the command to run our application:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;web: sappy --port=${PORT}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;automated-deployment&quot;&gt;Automated Deployment&lt;/h2&gt;
+
+&lt;p&gt;After adding the above files to your repository, enable Review Apps on the pipeline we created earlier:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/enable-review-apps.png&quot; alt=&quot;enable review apps&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When new pull requests are created on GitHub, Heroku will automatically deploy the code in that branch to a separate Heroku instance:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/review-app-deployment.png&quot; alt=&quot;review app deployment&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Because the temporary application deployment performs virtually identical to production, the end-to-end testing and design review that might occur later in our quality assurance process can now be performed before the code is even merged.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;A working example can be found at: &lt;a href=&quot;https://github.com/citizenlabsgr/homepage&quot;&gt;github.com/citizenlabsgr/homepage&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2017-03-22-static-sites-with-heroku.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Itemizing Your Career Goals</title>
+   <link href="https://jacebrowning.info/2016/10/21/itemizing-career-goals/"/>
+   <updated>2016-10-21T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2016/10/21/itemizing-career-goals</id>
+   <content type="html">&lt;p&gt;When I was searching for my last job, I found it useful to make a list of all the things I was looking for in a new career. As it turned out, there were actually two categories within these requirements. Upon making a list, I found that I both cared about the company I worked for and the job at hand.&lt;/p&gt;
+
+&lt;p&gt;I encourage everyone to make similar lists as a way to learn about your true career goals. You might be surprised that you want something different than you have. I will attempt to maintain these lists as my perspective changes, but here they are.&lt;/p&gt;
+
+&lt;h2 id=&quot;company-requirements&quot;&gt;Company Requirements&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Work on new products with friends&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Build tools for software engineers&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Work in an industry that strongly interests me:
+    &lt;ul&gt;
+      &lt;li&gt;politics&lt;/li&gt;
+      &lt;li&gt;music&lt;/li&gt;
+      &lt;li&gt;theme parks&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Work at “a Python shop”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Consult teams and companies on:
+    &lt;ul&gt;
+      &lt;li&gt;Automation&lt;/li&gt;
+      &lt;li&gt;Quality Assurance&lt;/li&gt;
+      &lt;li&gt;Testing&lt;/li&gt;
+      &lt;li&gt;Agile Methodologies&lt;/li&gt;
+      &lt;li&gt;DevOps&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Get paid to work on open source software&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;job-requirements&quot;&gt;Job Requirements&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Feel like at least half of the team cares more than I do&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flexible working hours and support for asynchronous work&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Work on a team that hates bugs and insists on prioritizing bugs first&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Have some free work time for side projects&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Have a dedicated conference budget&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-10-21-itemizing-career-goals.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Test Coverage as a Service</title>
+   <link href="https://jacebrowning.info/2016/09/30/coverage-as-a-service/"/>
+   <updated>2016-09-30T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2016/09/30/coverage-as-a-service</id>
+   <content type="html">&lt;p&gt;Measuring coverage is an important, but sometimes forgotten part of running tests. One of the common debates is around how much coverage a project should have: 50%, 80%, 100%?&lt;/p&gt;
+
+&lt;p&gt;More important than the actual coverage metrics is ensuring that your coverage metrics don’t decrease when adding new code. Coverage metrics don’t tell us when a particular section of code has enough tests, but they do help inform us when a section of code has zero tests.&lt;/p&gt;
+
+&lt;h2 id=&quot;tracking-metrics&quot;&gt;Tracking Metrics&lt;/h2&gt;
+
+&lt;p&gt;A few options exist for tracking coverage metrics.&lt;/p&gt;
+
+&lt;h3 id=&quot;version-control&quot;&gt;Version Control&lt;/h3&gt;
+
+&lt;p&gt;The naive solution is to commit coverage metrics to a file in your project repository. When tests are run, check this file and report an error if coverage decreased. The main disadvantage of this approach is having lots of commits unrelated to functional changes, which adds noise to your repository.&lt;/p&gt;
+
+&lt;h3 id=&quot;external-services&quot;&gt;External Services&lt;/h3&gt;
+
+&lt;p&gt;Many external services exist to track coverage metrics. One such example is &lt;a href=&quot;https://coveralls.io/&quot;&gt;Coveralls&lt;/a&gt;. This service works great and is highly recommended for open-source projects to track coverage on pull requests. The main disadvantages of this service are the costs for private repositories and the inability to check coverage metrics locally.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-coverage-space&quot;&gt;The Coverage Space&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://coverage.space&quot;&gt;coverage.space&lt;/a&gt; is a new RESTful API to track coverage metrics that aims to find a balance between these two options.&lt;/p&gt;
+
+&lt;h3 id=&quot;basic-usage&quot;&gt;Basic Usage&lt;/h3&gt;
+
+&lt;p&gt;The easiest way to get started with The Coverage Space is to use an HTTP client. &lt;a href=&quot;https://github.com/jkbrzt/httpie&quot;&gt;HTTPie&lt;/a&gt; works well for this:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;pip &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;HTTPie
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Update metrics for your project:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;http PUT api.coverage.space/my_owner/my_repo &lt;span class=&quot;nv&quot;&gt;unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;90
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;my_owner/my_repo&lt;/code&gt; matches your project.&lt;/p&gt;
+
+&lt;p&gt;Check out the full API documentation at &lt;a href=&quot;https://coverage.space/api/&quot;&gt;coverage.space/api&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;command-line-client&quot;&gt;Command-line Client&lt;/h3&gt;
+
+&lt;p&gt;A command-line client is also available to automate the process of reading and uploading coverage metrics:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;pip &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--update&lt;/span&gt; coverage.space
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After running your tests with coverage enabled, update metrics for your project:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;coverage.space my_owner/my_repo unit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;my_owner/my_repo&lt;/code&gt; matches your project.&lt;/p&gt;
+
+&lt;p&gt;Check out the full client documentation at &lt;a href=&quot;https://cli.coverage.space&quot;&gt;cli.coverage.space&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-09-30-coverage-as-a-service.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+
+&lt;p&gt;Interested in seeing the full implementation? Check out the &lt;a href=&quot;https://github.com/jacebrowning/coverage-space&quot;&gt;code&lt;/a&gt; on GitHub.&lt;/p&gt;
+
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Tracking Direct Image Requests with Google Analytics</title>
+   <link href="https://jacebrowning.info/2016/01/24/google-analytics-on-image-requests/"/>
+   <updated>2016-01-24T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2016/01/24/google-analytics-on-image-requests</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;https://memegen.link/&quot;&gt;Memegen.link&lt;/a&gt; is an open source meme generator. It renders meme images based on the requested URL.&lt;/p&gt;
+
+&lt;p&gt;For example, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg&lt;/code&gt; produces this image:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg&quot; alt=&quot;oprah&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The site also provides an &lt;a href=&quot;https://api.memegen.link&quot;&gt;API&lt;/a&gt; to generate memes. This article is about the &lt;a href=&quot;https://github.com/jacebrowning/memegen-flask&quot;&gt;legacy implementation&lt;/a&gt; written using &lt;a href=&quot;https://flask.palletsprojects.com/&quot;&gt;Flask&lt;/a&gt; and &lt;a href=&quot;https://flask-api.github.io/flask-api/&quot;&gt;Flask API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;client-side-analytics&quot;&gt;Client-side Analytics&lt;/h2&gt;
+
+&lt;p&gt;I have added &lt;a href=&quot;https://www.google.com/analytics/&quot;&gt;Google Analytics&lt;/a&gt; to the index and API documentation pages using the standard approach of &lt;a href=&quot;https://developers.google.com/analytics/devguides/collection/analyticsjs/&quot;&gt;embedding&lt;/a&gt; JavaScript on the page:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;//www.google-analytics.com/analytics.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;ga&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ga&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;lt;Google Analytics ID&amp;gt;&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ga&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;pageview&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And while this works great for HTML rendered in the browser, direct images requests (like the meme image above) go untracked.&lt;/p&gt;
+
+&lt;h2 id=&quot;server-side-analytics&quot;&gt;Server-side Analytics&lt;/h2&gt;
+
+&lt;p&gt;One solution is to track file downloads on the backend by posting to the Google Analytics API directly using an HTTP library like &lt;a href=&quot;https://requests.readthedocs.io/&quot;&gt;requests&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Sending image: %s&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;lt;Google Analytics ID&amp;gt;&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;cid&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remote_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;pageview&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dh&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;memegen.link&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;uip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;remote_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ua&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_agent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;dr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;referrer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;https://www.google-analytics.com/collect&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;send_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;While this will track page views for an image, much of the client’s information is still unavailable using this method:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;geographic location&lt;/li&gt;
+  &lt;li&gt;language setting&lt;/li&gt;
+  &lt;li&gt;device properties&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;tricking-clients&quot;&gt;Tricking Clients&lt;/h2&gt;
+
+&lt;p&gt;My complete solution involves a bit of hack to return HTML instead of an image for clients that can handle it and the normal image for those that can’t.&lt;/p&gt;
+
+&lt;p&gt;Visit &lt;a href=&quot;https://memegen.link/fry/not-sure-if-image/or-webpage.jpg&quot;&gt;memegen.link/fry/not-sure-if-image/or-webpage.jpg&lt;/a&gt; in your browser:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/memegen-in-browser.png&quot; alt=&quot;browser&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It appears to be an image that can be downloaded:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget https://memegen.link/fry/not-sure-if-image/or-webpage.jpg
+Length: 27809 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;27K&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;image/jpeg]
+Saving to: &lt;span class=&quot;s1&quot;&gt;&apos;or-webpage.jpg&apos;&lt;/span&gt;
+or-webpage.jpg 100%[&lt;span class=&quot;o&quot;&gt;============================&amp;gt;]&lt;/span&gt;  27.16K  70.7KB/s
+2016-01-24 20:51:46 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;70.7 KB/s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - &lt;span class=&quot;s1&quot;&gt;&apos;or-webpage.jpg&apos;&lt;/span&gt; saved &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;27809/27809]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;But if you view the network tab in &lt;a href=&quot;https://developer.chrome.com/devtools&quot;&gt;Chrome’s developer tools&lt;/a&gt;, you’ll see that it actually loaded a small webpage to run the same client-side Google Analytics JavaScript as above:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/memegen-network.png&quot; alt=&quot;network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This was accomplished by detecting what content types the client can accept:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mimetypes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Accept&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;text/html&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&apos;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mimetypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;send_html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;send_image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If the client can handle HTML, the following is returned:&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;NOT SURE IF IMAGE / OR WEBPAGE&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;body&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;nl&quot;&gt;background-image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(&quot;/fry/not-sure-if-image/or-webpage.jpg&quot;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;nl&quot;&gt;background-repeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;no-repeat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ga&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;lt;Google Analytics ID&amp;gt;&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ga&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;pageview&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This causes the browser to render the image as expected, but also run a bit of JavaScript to recored additional information about the client.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-01-24-google-analytics-on-image-requests.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+
+&lt;p&gt;Interested in seeing the full implementation? Check out the &lt;a href=&quot;https://github.com/jacebrowning/memegen&quot;&gt;code&lt;/a&gt; on GitHub.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Deploying a Jekyll Blog to GitHub Pages using Travis CI</title>
+   <link href="https://jacebrowning.info/2015/09/04/deploying-jekyll-to-github-pages-with-travis/"/>
+   <updated>2015-09-04T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2015/09/04/deploying-jekyll-to-github-pages-with-travis</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; is a “blog-aware static site generator” written in &lt;a href=&quot;https://www.ruby-lang.org/&quot;&gt;Ruby&lt;/a&gt; that will generate a responsive website from &lt;a href=&quot;https://help.github.com/articles/markdown-basics/&quot;&gt;Markdown&lt;/a&gt; and &lt;a href=&quot;https://yaml.org/&quot;&gt;YAML&lt;/a&gt; files.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt; offers you a free way to host static websites. And while they will automatically publish files in a repository named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;your-github-id&amp;gt;.github.io&lt;/code&gt;, sometimes you need a little more control over the process.&lt;/p&gt;
+
+&lt;h2 id=&quot;project-tooling&quot;&gt;Project Tooling&lt;/h2&gt;
+
+&lt;p&gt;After running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ jekyll new&lt;/code&gt;, the base project structure will be generated for you. To simplify setup on additional machines and enable continuous deployment, I like to add additional tooling to this project.&lt;/p&gt;
+
+&lt;h3 id=&quot;gemfile&quot;&gt;Gemfile&lt;/h3&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;&lt;/a&gt; is used to specify the Ruby dependencies (“Gems”) required to generate the website. In addition to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll&lt;/code&gt;, I’m using:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rouge&lt;/code&gt; - to provide syntax highlighting in code examples&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;html-proofer&lt;/code&gt; - to confirm that external links are valid&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;gemfilelock&quot;&gt;Gemfile.lock&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://raw.githubusercontent.com/jacebrowning/info/main/Gemfile.lock&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;&lt;/a&gt; is automatically generated when installing Gems. It’s purpose is to record of the exact version of each dependency the last time the project was successfully deployed.&lt;/p&gt;
+
+&lt;h3 id=&quot;bundler&quot;&gt;Bundler&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundler&lt;/code&gt; is a tool that can install and run particular versions of Gems for a project. I prefer to store the Gems locally via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ bundler install --path vendor&lt;/code&gt; so that I’m not polluting my system directories and can completely delete all files a project creates.&lt;/p&gt;
+
+&lt;h3 id=&quot;makefile&quot;&gt;Makefile&lt;/h3&gt;
+
+&lt;p&gt;A &lt;a href=&quot;https://raw.githubusercontent.com/jacebrowning/info/main/Makefile&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Makefile&lt;/code&gt;&lt;/a&gt; puts everything together. I like using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt; (rather than &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rake&lt;/code&gt;) because it doesn’t depend on Ruby itself, does a good of tracking when files have changed, and provides a standard interface between projects.&lt;/p&gt;
+
+&lt;p&gt;I’ll highlight the important parts of this file. This reinstalls the dependencies whenever they change:&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;VENDOR_DIR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; vendor
+&lt;span class=&quot;nv&quot;&gt;INSTALLED_FLAG&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;VENDOR_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/.installed
+
+&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;install&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$(INSTALLED_FLAG)&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;$(INSTALLED_FLAG)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Gemfile* Makefile&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;--path&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;vendor&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;@&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;touch&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(INSTALLED_FLAG)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This builds the site and validates the generated HTML:&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;jekyll&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;build&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;--quiet&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;htmlproof&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;_site&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;--only-4xx&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And these targets provide a way to run the site locally:&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;jekyll&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;serve&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;--future&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;--drafts&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;launch&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;launch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;eval &quot;sleep 5; open http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;//localhost:4000&quot; &amp;amp; make run&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info&quot;&gt;source code&lt;/a&gt; that generates &lt;strong&gt;this&lt;/strong&gt; site as an example of how these files are used together in practice.&lt;/p&gt;
+
+&lt;h2 id=&quot;developing-locally&quot;&gt;Developing Locally&lt;/h2&gt;
+
+&lt;p&gt;Using the above tooling, my only system dependencies are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ruby&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundler&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt;. To work on a new blog entry, I simply run:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make launch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;to bring up a local instance of the site that is regenerated whenever I edit content.&lt;/p&gt;
+
+&lt;p&gt;When I am done editing, running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ make ci&lt;/code&gt; will confirm that the site is ready to be published.&lt;/p&gt;
+
+&lt;h2 id=&quot;deploying-with-travis-ci&quot;&gt;Deploying with Travis CI&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://travis-ci.org/&quot;&gt;Travis CI&lt;/a&gt; offers free continuous integration for open source projects that can be used to deploy software after running a number of checks.&lt;/p&gt;
+
+&lt;p&gt;Adding a &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/blob/55c13120f6aac2ddff4aa6eeead106fb547b8998/.travis.yml&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt;&lt;/a&gt; to your project tells Travis CI how to build and deploy your site. This specifies which commands to run to install and validate each commit:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;install&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;make install&lt;/span&gt;
+
+&lt;span class=&quot;na&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;make ci&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If a new commit passes those checks, the following shell script is run:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Generate HTML&lt;/span&gt;
+make build &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Configure Git with Travis CI information&lt;/span&gt;
+git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.email &lt;span class=&quot;s2&quot;&gt;&quot;travis@travis-ci.org&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+git config &lt;span class=&quot;nt&quot;&gt;--global&lt;/span&gt; user.name &lt;span class=&quot;s2&quot;&gt;&quot;travis-ci&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Delete the current repository&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; .git &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Rebuild the repository from the generated files and push to GitHub pages&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;_site &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+git init &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+git add &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Deploy Travis CI build &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$TRAVIS_BUILD_NUMBER&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; to GitHub pages&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+git push &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; https://&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;GH_TOKEN&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;@github.com/&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;TRAVIS_REPO_SLUG&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; main:gh-pages &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which will publish the generated files to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh-pages&lt;/code&gt; branch on GitHub.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GH_TOKEN&lt;/code&gt; is an encrypted access token to grant Travis CI permissions to modify files in your repository. &lt;a href=&quot;https://benlimmer.com/2013/12/26/automatically-publish-javadoc-to-gh-pages-with-travis-ci/&quot;&gt;This site&lt;/a&gt; provides a good overview on generating these tokens.&lt;/p&gt;
+
+&lt;p&gt;After deployment, you should now see your Jekyll blog live at:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;https://&amp;lt;your-github-id&amp;gt;.github.io/&amp;lt;your-repository-name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-09-04-deploying-jekyll-to-github-pages-with-travis.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Replacing Git Submodules with Gitman</title>
+   <link href="https://jacebrowning.info/2015/08/07/replacing-submodules-with-gitman/"/>
+   <updated>2015-08-07T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2015/08/07/replacing-submodules-with-gitman</id>
+   <content type="html">&lt;p&gt;Lots of languages offer dependency managers (&lt;a href=&quot;https://pip.pypa.io/en/stable/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip&lt;/code&gt;&lt;/a&gt;, &lt;a href=&quot;https://rubygems.org/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gem&lt;/code&gt;&lt;/a&gt;, &lt;a href=&quot;https://www.npmjs.com/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;npm&lt;/code&gt;&lt;/a&gt;), but in many situations, that’s not enough. Sometimes you need to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;use a language without a dependency manager&lt;/li&gt;
+  &lt;li&gt;include code from multiple languages&lt;/li&gt;
+  &lt;li&gt;explicitly control the installation location&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;git-submodules&quot;&gt;Git Submodules&lt;/h2&gt;
+
+&lt;p&gt;When using &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; for version control, the obvious choice is to use &lt;a href=&quot;https://git-scm.com/docs/git-submodule&quot;&gt;submodules&lt;/a&gt; to include the source from another repository. However, in practice, submodules can often be a pain to use, as they:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;require extra information to meaningfully identify the submodule’s SHA&lt;/li&gt;
+  &lt;li&gt;cause confusing merge conflicts (one SHA vs. another)&lt;/li&gt;
+  &lt;li&gt;show confusing status changes when switching branches&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And while submodules can be used to track a branch (rather than a SHA), this will:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;show confusing status changes if the branch head moves&lt;/li&gt;
+  &lt;li&gt;require a new commit by whomever updates submodules first&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;an-alternative&quot;&gt;An Alternative&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gitman.readthedocs.io&quot;&gt;Gitman&lt;/a&gt; avoids these issues and adds the ability to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;track a specific tag in a source dependency’s repository&lt;/li&gt;
+  &lt;li&gt;checkout by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rev-parse&lt;/code&gt; dates (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&apos;develop@{2015-06-18 10:30:59}&apos;&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;installation&quot;&gt;Installation&lt;/h3&gt;
+
+&lt;p&gt;To install Gitman, first install Python 3 and it’s dependency manager, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Windows: &lt;a href=&quot;https://www.python.org/downloads&quot;&gt;python.org/downloads&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Mac: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ brew install python3&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Ubuntu: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ sudo apt-get install python3-pip&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then, install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gitman&lt;/code&gt; using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip3&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;pip3 &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--upgrade&lt;/span&gt; gitman
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Version and help information are available on the command-line&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitman &lt;span class=&quot;nt&quot;&gt;--version&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitman &lt;span class=&quot;nt&quot;&gt;--help&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;mimicking-submodule&quot;&gt;Mimicking Submodule&lt;/h3&gt;
+
+&lt;p&gt;While Gitman, provides &lt;a href=&quot;https://github.com/jacebrowning/gitman#usage&quot;&gt;additional capabilities&lt;/a&gt;, it can also directly replace the behavior of submodules. To mimic a working tree containing a submodule:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;root&amp;gt;/vendor/my_dependency  &lt;span class=&quot;c&quot;&gt;# submodule at: a5fe3d...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gitman.yml&lt;/code&gt; file in the root of your working tree:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;gitman_sources&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;sources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;lt;URL of my_dependency&apos;s repository&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my_dependency&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;rev&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;a5fe3d&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;vendor/my_depenendy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and run:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitman &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To display the specific versions of source dependencies:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitman list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-08-07-replacing-submodules-with-gitman.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+
+&lt;p&gt;Find a problem with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gitman&lt;/code&gt;? Please submit an &lt;a href=&quot;https://github.com/jacebrowning/gitman/issues&quot;&gt;issue&lt;/a&gt; or contribute!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>YORM v0.4 Released</title>
+   <link href="https://jacebrowning.info/2015/05/17/yorm-v0.4-released/"/>
+   <updated>2015-05-17T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2015/05/17/yorm-v0.4-released</id>
+   <content type="html">&lt;p&gt;Yesterday, I released an important milestone of my file-based object relational mapper for Python, &lt;a href=&quot;https://github.com/jacebrowning/yorm&quot;&gt;YORM&lt;/a&gt;. This release provides support for unlimited nesting of container-like attributes. This is a feature I’ve wanted for a while, but was actually quite difficult to implement. The API for YORM is also starting to stabilize after some breaking changes from the previous release.&lt;/p&gt;
+
+&lt;h2 id=&quot;some-background&quot;&gt;Some Background&lt;/h2&gt;
+
+&lt;p&gt;Lately, I’ve been running into many situations where I’d like to store program configuration and/or data in version control. YORM was born to provide automatic, bidirectional, and human-friendly mappings of Python object attributes to YAML files.&lt;/p&gt;
+
+&lt;p&gt;Traditional object serializes don’t provide output fit for human modification and ORM databases aren’t fit for storage in version control. YORM supports additional uses beyond typical object serialization and mapping including:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;bidirectional conversion between basic YAML and Python types&lt;/li&gt;
+  &lt;li&gt;attribute creation and type inference for new attributes&lt;/li&gt;
+  &lt;li&gt;storage of content in text files optimized for version control&lt;/li&gt;
+  &lt;li&gt;extensible converters to customize formatting on complex classes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;an-example&quot;&gt;An Example&lt;/h2&gt;
+
+&lt;p&gt;Given an existing class:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__init__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;school&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2009&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;school&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;school&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;year&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpa&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;an attribute mapping is defined mapping attributes to converter classes and instances to a file pattern:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yorm&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;yorm.converters&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Float&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@yorm.attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gpa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@yorm.sync&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;students/{self.school}/{self.number}.yml&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;bp&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Modifications to each object’s mapped attributes:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;John Doe&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;GVSU&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Jane Doe&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;GVSU&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;456&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;year&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2014&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpa&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;are automatically reflected on the filesytem:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;students/GVSU/123.yml
+name: John Doe
+gpa: 3.0
+school: GVSU
+year: 2009
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Modifications and new content in each mapped file:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;name: John Doe
+&amp;gt; gpa: 1.8
+&amp;gt; year: 2010
+&amp;gt; expelled: true
+&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; students/GVSU/123.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;are automatically reflected in their corresponding object:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gpa&lt;/span&gt;
+&lt;span class=&quot;mf&quot;&gt;1.8&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expelled&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;current-uses&quot;&gt;Current Uses&lt;/h2&gt;
+
+&lt;p&gt;Right now I’m using YORM to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;store program state in Dropbox: &lt;a href=&quot;https://github.com/jacebrowning/mine&quot;&gt;mine&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;simplify configuration file loading: &lt;a href=&quot;https://github.com/jacebrowning/gitman&quot;&gt;Gitman&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;prototype a RESTful game API: &lt;a href=&quot;https://github.com/jacebrowning/gridcommand&quot;&gt;GridCommand&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-05-17-yorm-v0.4-released.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+
+&lt;p&gt;Find a problem with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;yorm&lt;/code&gt;? Please submit an &lt;a href=&quot;https://github.com/jacebrowning/yorm/issues&quot;&gt;issue&lt;/a&gt; or contribute!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Syncing iTunes using Dropbox with Mine</title>
+   <link href="https://jacebrowning.info/2015/03/24/syncing-itunes-using-dropbox-with-mine/"/>
+   <updated>2015-03-24T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2015/03/24/syncing-itunes-using-dropbox-with-mine</id>
+   <content type="html">&lt;p&gt;Many applications provide their own synchronization methods to enable usage on multiple computers, but what about those that don’t? It turns out that lots of programs are perfectly happy to have their files stored inside Dropbox rather than their typical location.&lt;/p&gt;
+
+&lt;h2 id=&quot;storing-itunes-in-dropbox&quot;&gt;Storing iTunes in Dropbox&lt;/h2&gt;
+
+&lt;p&gt;Many guides exist showing you how to do this with iTunes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox-0155955&quot;&gt;digiwonk.wonderhowto.com/how-to/sync-your-itunes-library-with-several-computers-using-dropbox&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox/&quot;&gt;macstories.net/tutorials/how-to-sync-your-entire-itunes-library-with-dropbox&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Unfortunately, the shared caveat in all these guides is that only one instance of iTunes is to be running at any given time. That’s where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mine&lt;/code&gt; comes in.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-and-configuring-mine&quot;&gt;Installing and Configuring Mine&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mine&lt;/code&gt; is a daemon and command-line &lt;a href=&quot;https://github.com/jacebrowning/mine&quot;&gt;Python program&lt;/a&gt; that starts and stops remote applications using a configuration file in Dropbox. After setting up iTunes and Dropbox using one of the above guides, install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mine&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ pip3 install --upgrade mine
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you don’t have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip3&lt;/code&gt;, install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python3&lt;/code&gt; with your system’s package manager (on OSX with &lt;a href=&quot;https://brew.sh/&quot;&gt;Homebrew&lt;/a&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ brew install python3&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;Additional configuration instructions are found in the project’s &lt;a href=&quot;https://github.com/jacebrowning/mine#setup&quot;&gt;README&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;using-mine-to-manage-remote-applications&quot;&gt;Using Mine to Manage Remote Applications&lt;/h2&gt;
+
+&lt;p&gt;Once installed and configured, let it run in the background on each computer:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mine --daemon
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Applications can be killed remotely and started on the current computer:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mine switch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To kill all local applications and start them on another computer:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mine switch &amp;lt;name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;name&amp;gt;&lt;/code&gt; is part of the name of another computer with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mine&lt;/code&gt; running.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-03-24-syncing-itunes-using-dropbox-with-mine.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+
+&lt;p&gt;Find a problem with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mine&lt;/code&gt;? Please submit an &lt;a href=&quot;https://github.com/jacebrowning/mine/issues&quot;&gt;issue&lt;/a&gt; or contribute!&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>Measuring Coverage with XcodeCoverage, xctool, &amp; Make</title>
+   <link href="https://jacebrowning.info/2015/03/23/xcodecoverage-xctool-and-make/"/>
+   <updated>2015-03-23T00:00:00+00:00</updated>
+   <id>https://jacebrowning.info/2015/03/23/xcodecoverage-xctool-and-make</id>
+   <content type="html">&lt;h2 id=&quot;the-pieces&quot;&gt;The Pieces&lt;/h2&gt;
+
+&lt;h3 id=&quot;xcodecoverage&quot;&gt;XcodeCoverage&lt;/h3&gt;
+
+&lt;p&gt;The XodeCoverage &lt;a href=&quot;https://github.com/jonreid/XcodeCoverage&quot;&gt;project&lt;/a&gt; is a set of shell scripts bundled with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lcov&lt;/code&gt; to measure lines of code coverage during execution of instrumented test builds.&lt;/p&gt;
+
+&lt;p&gt;In this example, the scripts are used to generate an HTML coverage report (with a few modifications made in &lt;a href=&quot;https://github.com/jacebrowning/XcodeCoverage/releases/tag/blog-2015-03-23&quot;&gt;my fork&lt;/a&gt; to customize report location).&lt;/p&gt;
+
+&lt;h3 id=&quot;xctool&quot;&gt;xctool&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/facebook/xctool&quot;&gt;Facebook&lt;/a&gt; created the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;xctool&lt;/code&gt; command-line program to provide an easier way to build and test Xcode projects.&lt;/p&gt;
+
+&lt;p&gt;In this example, the tool is used to build and run Objective-C unit tests from the command line.&lt;/p&gt;
+
+&lt;h3 id=&quot;make&quot;&gt;Make&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.gnu.org/software/make/&quot;&gt;Make&lt;/a&gt; is usually my default entry point for creating builds, running tests, and generating reports. I like putting this sort of automation in a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Makefile&lt;/code&gt; because, for basic tasks, the syntax is fairly minimal and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt; is ubiquitous on most platforms.&lt;/p&gt;
+
+&lt;h2 id=&quot;putting-them-together&quot;&gt;Putting Them Together&lt;/h2&gt;
+
+&lt;h3 id=&quot;the-makefile&quot;&gt;The Makefile&lt;/h3&gt;
+
+&lt;p&gt;First, we define few shared variables that can be common to all projects:&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;WORKSPACE_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&amp;lt;???&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;PROJECT_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&amp;lt;???&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;SOURCE_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&amp;lt;???&amp;gt;
+&lt;span class=&quot;nv&quot;&gt;APP_NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&amp;lt;???&amp;gt;
+
+&lt;span class=&quot;c&quot;&gt;# Common
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ROOT_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;.
+&lt;span class=&quot;nv&quot;&gt;PROJECT_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;ROOT_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;SOURCE_NAME&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SOURCE_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;PROJECT_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;SOURCE_NAME&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SOURCES&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;Makefile &lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;SOURCE_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Xcode
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;XCODE_SCHEME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;APP_NAME&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;XCODE_CONFIGURATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?=&lt;/span&gt;Debug
+
+&lt;span class=&quot;c&quot;&gt;# xctool
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;XCTOOL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;xctool
+&lt;span class=&quot;nv&quot;&gt;XCTOOL_RESULTS_REPORTER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;?=&lt;/span&gt;pretty
+&lt;span class=&quot;nv&quot;&gt;XCTOOL_ARGS_SHARED&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-scheme&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;XCODE_SCHEME&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-configuration&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;XCODE_CONFIGURATION&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-reporter&lt;/span&gt; user-notifications
+&lt;span class=&quot;nv&quot;&gt;XCTOOL_ARGS_TEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-reporter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;XCTOOL_RESULTS_REPORTER&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# XcodeCoverage
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;XCODECOVERAGE_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;PROJECT_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/XcodeCoverage
+&lt;span class=&quot;nv&quot;&gt;XCODECOVERAGE_GETCOV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;XCODECOVERAGE_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/getcov
+&lt;span class=&quot;nv&quot;&gt;XCODECOVERAGE_CLEANCOV&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;XCODECOVERAGE_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/cleancov
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and a few more variables dictating where we’d like coverage output to go:&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;COVERAGE_DIR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;ROOT_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/coverage
+&lt;span class=&quot;nv&quot;&gt;COVERAGE_LOG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;COVERAGE_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/getcov.log
+&lt;span class=&quot;nv&quot;&gt;COVERAGE_REPORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;$(&lt;/span&gt;COVERAGE_DIR&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;/index.html
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The test target is defined as:&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$(COVERAGE_LOG)&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;$(COVERAGE_LOG)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$(SOURCES)&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;$(XCODECOVERAGE_CLEANCOV)&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;$(XCTOOL)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(XCTOOL_ARGS_SHARED)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(XCTOOL_ARGS_TEST)&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;mkdir&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(COVERAGE_DIR)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;
+        &lt;span class=&quot;err&quot;&gt;$(XCODECOVERAGE_GETCOV)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(PROJECT_NAME)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(COVERAGE_DIR)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;
+            &lt;span class=&quot;err&quot;&gt;$(COVERAGE_LOG)&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;tail&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(COVERAGE_LOG)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;which will:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Delete the old coverage data&lt;/li&gt;
+  &lt;li&gt;Build and run the unit tests&lt;/li&gt;
+  &lt;li&gt;Parse the generated coverage data&lt;/li&gt;
+  &lt;li&gt;Generate an HTML coverage report&lt;/li&gt;
+  &lt;li&gt;Display the percentage of lines coverage&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A shortcut to open the coverage report is defined as:&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read-cov&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;read-cov&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$(COVERAGE_INDEX)&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;$(COVERAGE_INDEX)&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;$(COVERAGE_INDEX)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;$(COVERAGE_LOG)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;example-output&quot;&gt;Example Output&lt;/h3&gt;
+
+&lt;p&gt;Running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ make test&lt;/code&gt; displays something like:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./MyProject/XcodeCoverage/cleancov
+Deleting all .da files in /Users/Browning/Library/Developer/Xcode/DerivedData/MyWorkspace/Build/Intermediates/MyProject.build/Debug-iphonesimulator/MyProject.build/Objects-normal/x86_64 and subdirectories
+Done.
+
+xctool test -scheme MyProject -configuration Debug -reporter user-notifications -reporter pretty
+[Info] Loading settings for scheme &apos;MyProject&apos; ... (1950 ms)
+
+=== TEST ===
+
+  xcodebuild build build
+    MyProject / MyProject (Debug)
+      ✓ Check dependencies (111 ms)
+      ✓ Write auxiliary files (0 ms)
+      ✓ Compile BatterySensor.m (574 ms)
+      ...
+      ✓ Compile Platform.m (68 ms)
+      0 errored, 0 warning (1315 ms)
+
+  [Info] Collecting info for testables... (1196 ms)
+  run-test MyProjectTests.xctest (iphonesimulator8.2, iPad Air, application-test)
+    [Info] Installed &apos;MyProject&apos;. (1392 ms)
+    [Info] Launching test host and running tests ... (0 ms)
+    ✓ -[BatterySensorCellTestCase testSensorLevel] (5 ms)
+    ...
+    ✓ -[GroupManagerTestCase testCanCreateGroup] (0 ms)
+    99 passed, 0 failed, 0 errored, 99 total (9999 ms)
+
+** TEST SUCCEEDED: 99 passed, 0 failed, 0 errored, 99 total ** (99999 ms)
+
+mkdir -p ./coverage &amp;amp;&amp;amp; ./MyProject/XcodeCoverage/getcov MyProject ./coverage &amp;gt; ./coverage/getcov.log
+
+tail -n 3 ./coverage/getcov.log
+Overall coverage rate:
+  lines......: 17.6% (3676 of 20867 lines)
+  functions..: 19.5% (817 of 4192 functions)
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$ make read-cov&lt;/code&gt; launches a report similar to:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/sample-lcov-html-report.png&quot; alt=&quot;sample-lcov-html-report&quot; title=&quot;Sample LCOV HTML Report&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;See a typo? Help me &lt;a href=&quot;https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2015-03-23-xcodecoverage-xctool-and-make.md&quot;&gt;edit&lt;/a&gt; this post.&lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>

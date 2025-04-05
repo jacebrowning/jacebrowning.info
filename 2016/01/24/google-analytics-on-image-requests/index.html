@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Jace Browning &middot; Tracking Direct Image Requests with Google Analytics
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+  <link rel="stylesheet" href="/public/css/custom.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-144-precomposed.png">
+                                 <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body  class="theme-custom-blue">
+
+    <div class="sidebar">
+  <div class="container">
+
+    <div class="sidebar-about">
+      <h1>Jace Browning</h1>
+      <p class="lead">I build tools that empower developers to ship quality code as fast as possible.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/about/">About</a>
+      <a class="sidebar-nav-item" href="/">Blog</a>
+      <a class="sidebar-nav-item" href="https://nocomment.jacebrowning.info/comics/" target="_blank">Comic</a>
+      <a class="sidebar-nav-item" href="/music/">Music</a>
+      <a class="sidebar-nav-item" href="/software/">Software</a>
+    </nav>
+
+    <p>
+    
+      <a class="sidebar-button" href="/downloads/Jace Browning's Resume.pdf" download>
+        Download Resume
+      </a>
+    
+    </p>
+
+    <p>&copy; 2025. All rights reserved.</p>
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Tracking Direct Image Requests with Google Analytics</h1>
+  <span class="post-date">24 Jan 2016</span>
+  <p><a href="https://memegen.link/">Memegen.link</a> is an open source meme generator. It renders meme images based on the requested URL.</p>
+
+<p>For example, <code class="language-plaintext highlighter-rouge">memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg</code> produces this image:</p>
+
+<p><img src="https://memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg" alt="oprah" /></p>
+
+<p>The site also provides an <a href="https://api.memegen.link">API</a> to generate memes. This article is about the <a href="https://github.com/jacebrowning/memegen-flask">legacy implementation</a> written using <a href="https://flask.palletsprojects.com/">Flask</a> and <a href="https://flask-api.github.io/flask-api/">Flask API</a>.</p>
+
+<h2 id="client-side-analytics">Client-side Analytics</h2>
+
+<p>I have added <a href="https://www.google.com/analytics/">Google Analytics</a> to the index and API documentation pages using the standard approach of <a href="https://developers.google.com/analytics/devguides/collection/analyticsjs/">embedding</a> JavaScript on the page:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+<span class="nt">&lt;body&gt;</span>
+
+  <span class="nt">&lt;script&gt;</span>
+    <span class="p">...</span> <span class="dl">'</span><span class="s1">//www.google-analytics.com/analytics.js</span><span class="dl">'</span><span class="p">,</span><span class="dl">'</span><span class="s1">ga</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">create</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">&lt;Google Analytics ID&gt;</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">auto</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nf">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">send</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">pageview</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+...
+</code></pre></div></div>
+
+<p>And while this works great for HTML rendered in the browser, direct images requests (like the meme image above) go untracked.</p>
+
+<h2 id="server-side-analytics">Server-side Analytics</h2>
+
+<p>One solution is to track file downloads on the backend by posting to the Google Analytics API directly using an HTTP library like <a href="https://requests.readthedocs.io/">requests</a>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">logging</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sh">"</span><span class="s">Sending image: %s</span><span class="sh">"</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="nf">dict</span><span class="p">(</span>
+    <span class="n">v</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">tid</span><span class="o">=</span><span class="sh">'</span><span class="s">&lt;Google Analytics ID&gt;</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">cid</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">remote_addr</span><span class="p">,</span>
+
+    <span class="n">t</span><span class="o">=</span><span class="sh">'</span><span class="s">pageview</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">dh</span><span class="o">=</span><span class="sh">'</span><span class="s">memegen.link</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">dp</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">path</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+
+    <span class="n">uip</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">remote_addr</span><span class="p">,</span>
+    <span class="n">ua</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">user_agent</span><span class="p">.</span><span class="n">string</span><span class="p">,</span>
+    <span class="n">dr</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">referrer</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">requests</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="sh">"</span><span class="s">https://www.google-analytics.com/collect</span><span class="sh">"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+<span class="k">return</span> <span class="nf">send_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>While this will track page views for an image, much of the client’s information is still unavailable using this method:</p>
+
+<ul>
+  <li>geographic location</li>
+  <li>language setting</li>
+  <li>device properties</li>
+</ul>
+
+<h2 id="tricking-clients">Tricking Clients</h2>
+
+<p>My complete solution involves a bit of hack to return HTML instead of an image for clients that can handle it and the normal image for those that can’t.</p>
+
+<p>Visit <a href="https://memegen.link/fry/not-sure-if-image/or-webpage.jpg">memegen.link/fry/not-sure-if-image/or-webpage.jpg</a> in your browser:</p>
+
+<p><img src="/assets/memegen-in-browser.png" alt="browser" /></p>
+
+<p>It appears to be an image that can be downloaded:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget https://memegen.link/fry/not-sure-if-image/or-webpage.jpg
+Length: 27809 <span class="o">(</span>27K<span class="o">)</span> <span class="o">[</span>image/jpeg]
+Saving to: <span class="s1">'or-webpage.jpg'</span>
+or-webpage.jpg 100%[<span class="o">============================&gt;]</span>  27.16K  70.7KB/s
+2016-01-24 20:51:46 <span class="o">(</span>70.7 KB/s<span class="o">)</span> - <span class="s1">'or-webpage.jpg'</span> saved <span class="o">[</span>27809/27809]
+</code></pre></div></div>
+
+<p>But if you view the network tab in <a href="https://developer.chrome.com/devtools">Chrome’s developer tools</a>, you’ll see that it actually loaded a small webpage to run the same client-side Google Analytics JavaScript as above:</p>
+
+<p><img src="/assets/memegen-network.png" alt="network" /></p>
+
+<p>This was accomplished by detecting what content types the client can accept:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mimetypes</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">headers</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">Accept</span><span class="sh">'</span><span class="p">,</span> <span class="sh">""</span><span class="p">).</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">,</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="sh">'</span><span class="s">text/html</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">mimetypes</span><span class="p">:</span>
+    <span class="nf">send_html</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nf">send_image</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>If the client can handle HTML, the following is returned:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+
+  <span class="nt">&lt;title&gt;</span>NOT SURE IF IMAGE / OR WEBPAGE<span class="nt">&lt;/title&gt;</span>
+
+  <span class="nt">&lt;style&gt;</span>
+    <span class="nt">body</span> <span class="p">{</span>
+      <span class="nl">background-image</span><span class="p">:</span> <span class="sx">url("/fry/not-sure-if-image/or-webpage.jpg")</span><span class="p">;</span>
+      <span class="nl">background-repeat</span><span class="p">:</span> <span class="nb">no-repeat</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="nt">&lt;/style&gt;</span>
+
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+  <span class="nt">&lt;script&gt;</span>
+    <span class="p">...</span>
+    <span class="nx">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">create</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">&lt;Google Analytics ID&gt;</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">auto</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nf">ga</span><span class="p">(</span><span class="dl">'</span><span class="s1">send</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">pageview</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>This causes the browser to render the image as expected, but also run a bit of JavaScript to recored additional information about the client.</p>
+
+<hr />
+
+<p>See a typo? Help me <a href="https://github.com/jacebrowning/jacebrowning.info/edit/main/_posts/2016-01-24-google-analytics-on-image-requests.md">edit</a> this post.</p>
+
+<p>Interested in seeing the full implementation? Check out the <a href="https://github.com/jacebrowning/memegen">code</a> on GitHub.</p>
+
+</div>
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2024/05/04/managing-slack-with-stream-deck/">
+            Managing Slack with Stream Deck
+            <small>04 May 2024</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/03/22/static-sites-with-heroku/">
+            Using Heroku to Review Static Websites
+            <small>22 Mar 2017</small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/10/21/itemizing-career-goals/">
+            Itemizing Your Career Goals
+            <small>21 Oct 2016</small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-6468614-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  </body>
+</html>
