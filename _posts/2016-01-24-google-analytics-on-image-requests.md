@@ -9,7 +9,7 @@ tags:
 - flask
 ---
 
-[memegen.link](https://memegen.link/) is an open source meme generator. It renders meme images based on the requested URL.
+[Memegen.link](https://memegen.link/) is an open source meme generator. It renders meme images based on the requested URL.
 
 For example, `memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg` produces this image:
 
