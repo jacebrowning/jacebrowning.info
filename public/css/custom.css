@@ -51,6 +51,7 @@ html {
     bottom: 0;
     width: 18rem;
     text-align: left;
+    z-index: 2;
   }
 }
 
@@ -286,4 +287,52 @@ a.sidebar-nav-item:focus {
   padding-bottom: 5px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+
+/*
+ * Comics embed
+ */
+
+body:has(.comics-embed) .content {
+  padding: 0;
+  max-width: none;
+  margin-right: 0;
+}
+
+body:has(.comics-embed) .page-comics {
+  margin-bottom: 0;
+}
+
+.comics-embed {
+  display: flex;
+  justify-content: center;
+}
+
+.comics-embed iframe {
+  display: block;
+  width: 100%;
+  max-width: 87.5rem;
+  height: 100vh;
+  border: none;
+}
+
+@media (min-width: 48em) {
+  body:has(.comics-embed) .content {
+    margin-left: 18rem;
+    min-height: 100vh;
+  }
+
+  body:has(.comics-embed) .comics-embed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 18rem;
+    z-index: 1;
+  }
+
+  body:has(.comics-embed) .comics-embed iframe {
+    height: 100%;
+  }
 }
