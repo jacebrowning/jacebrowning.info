@@ -134,12 +134,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  base64
+  csv
   html-proofer
   jekyll
   jekyll-paginate
   jekyll-redirect-from
+  logger
   redcarpet
   rouge
 
 BUNDLED WITH
-   4.0.15
+  4.0.15
