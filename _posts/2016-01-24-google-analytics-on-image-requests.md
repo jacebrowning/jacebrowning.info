@@ -13,7 +13,7 @@ tags:
 
 For example, `memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg` produces this image:
 
-![oprah](https://api.memegen.link/oprah/you-get-a-meme/and-you-get-a-meme.jpg)
+![oprah](https://api.memegen.link/images/oprah/you_get_a_meme/and_you_get_a_meme.jpg)
 
 The site also provides an [API](https://api.memegen.link) to generate memes. This article is about the [legacy implementation](https://github.com/jacebrowning/memegen-flask) written using [Flask](https://flask.palletsprojects.com/) and [Flask API](https://flask-api.github.io/flask-api/).
 
@@ -73,7 +73,7 @@ While this will track page views for an image, much of the client's information 
 
 My complete solution involves a bit of hack to return HTML instead of an image for clients that can handle it and the normal image for those that can't.
 
-Visit [memegen.link/fry/not-sure-if-image/or-webpage.jpg](https://api.memegen.link/fry/not-sure-if-image/or-webpage.jpg) in your browser:
+Visit [memegen.link/fry/not-sure-if-image/or-webpage.jpg](https://api.memegen.link/images/fry/not_sure_if_image/or_webpage.jpg) in your browser:
 
 ![browser]({{ site.assets }}/memegen-in-browser.png)
 
@@ -131,7 +131,7 @@ If the client can handle HTML, the following is returned:
 </html>
 ```
 
-This causes the browser to render the image as expected, but also run a bit of JavaScript to record additional information about the client.
+This causes the browser to render the image as expected, but also run a bit of JavaScript to recored additional information about the client.
 
 -----
 
