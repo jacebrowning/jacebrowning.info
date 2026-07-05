@@ -1,6 +1,8 @@
 ---
 layout: comics
 title: Comic
+redirect_from:
+  - /comics/
 ---
 
 <div class="comics-embed">
